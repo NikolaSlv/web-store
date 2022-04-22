@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
     const [username, password] = Buffer.from(authorization.replace('Basic ', ''), 'base64').toString().split(':')
 
-    if (!(username === 'nikola' && password === '1234')) {
+    if (!(username === 'nikola' && password === 'difpass6y7')) {
         return reject()
     }
 
