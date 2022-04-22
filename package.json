@@ -7,11 +7,11 @@
   },
   "main": "server.js",
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "nodemon start",
 "start": "serve -s build",
-"build": "react-scripts build",
-"test": "react-scripts test --env=jsdom",
-"eject": "react-scripts eject",
+"build": "nodemon build",
+"test": "nodemon test --env=jsdom",
+"eject": "nodemon eject",
 "heroku-postbuild": "npm run build"
   },
   "repository": {
