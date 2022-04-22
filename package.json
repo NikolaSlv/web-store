@@ -7,12 +7,12 @@
   },
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon start",
-"start": "serve -s build",
-"build": "nodemon build",
-"test": "nodemon test --env=jsdom",
-"eject": "nodemon eject",
-"heroku-postbuild": "npm run build"
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,8 @@
     "ejs": "^3.1.7",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
-    "mongoose": "^6.3.1"
+    "mongoose": "^6.3.1",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
