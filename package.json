@@ -2,17 +2,10 @@
   "name": "web-store",
   "version": "1.0.0",
   "description": "",
-  "engines": {
-    "node": "12.x"
-  },
   "main": "server.js",
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "serve -s build",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build"
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -29,9 +22,7 @@
     "ejs": "^3.1.7",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
-    "mongoose": "^6.3.1",
-    "react-scripts": "^5.0.1",
-    "serve": "^13.0.2"
+    "mongoose": "^6.3.1"
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
