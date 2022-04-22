@@ -1,0 +1,13 @@
+<a href="/admin/new">Добави продукт</a>
+<br><br>
+<span style="font-weight: bold">Търсене на продукти</span>
+<br><br>
+<form action="/admin" method="GET">
+    <label>Наименование</label>
+    <input type="text" name="name" value="<%= searchOptions.name %>">
+    <button type="submit">Търси</button>
+</form>
+<br>
+<% products.forEach(product => { %>
+    <div><%= product.name %></div>
+<% }) %>
