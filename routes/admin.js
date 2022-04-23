@@ -13,13 +13,13 @@ const upload = multer({
     }
 })
 
-async function authorize(req, res) {
+function authorize(req, res) {
     const reject = () => {
         res.setHeader('www-authenticate', 'Basic')
         res.sendStatus(401)
     }
 
-    const authorization = await req.headers.authorization
+    const authorization = req.headers.authorization
 
     if (!authorization) {
         return reject()
