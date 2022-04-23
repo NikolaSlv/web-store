@@ -1,6 +1,17 @@
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
 const router = express.Router()
 const Product = require('../models/product')
+const uploadPath = path.join('public', Product.productImageBasePath)
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
+const upload = multer({
+    dest: uploadPath,
+    fileFilter: (req, file, callback) => {
+        callback(null, imageMimeTypes.includes(file.mimetype))
+    }
+})
 
 function authorize(req, res) {
     const reject = () => {
@@ -21,17 +32,51 @@ function authorize(req, res) {
     }
 }
 
+function renderNewPage(res, product, hasError = false) {
+    try {
+        const params = { 
+            product: product 
+        }
+        if (hasError) {
+            params.errorMessage = 'Грешка при добавянето на продукт'
+        }
+        res.render('admin/new-product', params)
+    } catch {
+        res.redirect('/admin')
+    }
+}
+
+function removeProductImage(fileName) {
+    fs.unlink(path.join(uploadPath, fileName), err => {
+        if (err) {
+            console.error(err)
+        }
+    })
+}
+
 // All Products Route
 router.get('/', async (req, res) => {
     authorize(req, res)
 
-    let searchOptions = {}
-    if (req.query.name != null && req.query.name !== '') {
-        searchOptions.name = new RegExp(req.query.name, 'i')
+    let query = Product.find()
+    if (req.query.title != null && req.query.title != '') {
+        query = query.regex('title', new RegExp(req.query.title, 'i'))
+    }
+    if (req.query.minPricePerPiece != null && req.query.minPricePerPiece != '') {
+        query = query.gte('pricePerPiece', req.query.minPricePerPiece)
+    }
+    if (req.query.maxPricePerPiece != null && req.query.maxPricePerPiece != '') {
+        query = query.lte('pricePerPiece', req.query.maxPricePerPiece)
+    }
+    if (req.query.minPricePerUnit != null && req.query.minPricePerUnit != '') {
+        query = query.gte('pricePerUnit', req.query.minPricePerUnit)
+    }
+    if (req.query.maxPricePerUnit != null && req.query.maxPricePerUnit != '') {
+        query = query.lte('pricePerUnit', req.query.maxPricePerUnit)
     }
 
     try {
-        const products = await Product.find(searchOptions)
+        const products = await query.exec()
         res.render('admin/index', { 
             products: products, 
             searchOptions: req.query 
@@ -45,24 +90,31 @@ router.get('/', async (req, res) => {
 router.get('/new', (req, res) => {
     authorize(req, res)
 
-    res.render('admin/new-product', { product: new Product() })
+    renderNewPage(res, new Product())
 })
 
 // Create Product Route
-router.post('/', async (req, res) => {
+router.post('/', upload.single('productImage'), async (req, res) => {
     authorize(req, res)
 
+    const fileName = req.file != null ? req.file.filename : null
     const product = new Product({
-        name: req.body.name
+        title: req.body.title,
+        description: req.body.description,
+        pricePerPiece: req.body.pricePerPiece,
+        weightPerPiece: req.body.weightPerPiece,
+        piecesPerUnit: req.body.piecesPerUnit,
+        pricePerUnit: req.body.pricePerUnit,
+        productImageName: fileName
     })
     try {
         const newProduct = await product.save()
-        res.redirect(`admin`)
+        res.redirect('/admin')
     } catch {
-        res.render('admin/new-product', {
-            product: product,
-            errorMessage: '___Грешка при добавянето на продукт___'
-        })
+        if (product.productImageName != null) {
+            removeProductImage(product.productImageName)
+        }
+        renderNewPage(res, product, true)
     }
 })
 

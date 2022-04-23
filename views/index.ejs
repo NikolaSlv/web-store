@@ -1,1 +1,7 @@
-Начало
+<h2>Последно добавени</h2>
+<div>
+    <% products.forEach(product => { %>
+        <div><%= product.title %></div>
+        <img height="150" width="100" src="<%= product.productImagePath %>">
+    <% }) %>
+</div>
