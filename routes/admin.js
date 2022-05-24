@@ -17,6 +17,7 @@ function authorize(req, res) {
     const reject = () => {
         res.setHeader('www-authenticate', 'Basic')
         res.sendStatus(401)
+        return false
     }
 
     const authorization = req.headers.authorization
@@ -27,9 +28,11 @@ function authorize(req, res) {
 
     const [username, password] = Buffer.from(authorization.replace('Basic ', ''), 'base64').toString().split(':')
 
-    if (!(username === 'nikola' && password === 'difpass6y7')) {
+    if (!(username === process.env.ADMIN_NAME && password === process.env.ADMIN_PASS)) {
         return reject()
     }
+
+    return true
 }
 
 function renderNewPage(res, product, hasError = false) {
@@ -56,7 +59,9 @@ function removeProductImage(fileName) {
 
 // All Products Route
 router.get('/', async (req, res) => {
-    authorize(req, res)
+    if (!authorize(req, res)) {
+        return
+    }
 
     let query = Product.find()
     if (req.query.title != null && req.query.title != '') {
@@ -88,14 +93,18 @@ router.get('/', async (req, res) => {
 
 // New Product Route
 router.get('/new', (req, res) => {
-    authorize(req, res)
+    if (!authorize(req, res)) {
+        return
+    }
 
     renderNewPage(res, new Product())
 })
 
 // Create Product Route
 router.post('/', upload.single('productImage'), async (req, res) => {
-    authorize(req, res)
+    if (!authorize(req, res)) {
+        return
+    }
 
     const fileName = req.file != null ? req.file.filename : null
     const product = new Product({
