@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const path = require('path')
-const productImageBasePath = 'uploads/productImages'
 
 const productSchema = new mongoose.Schema ({
     title: {
@@ -25,7 +23,11 @@ const productSchema = new mongoose.Schema ({
     pricePerUnit: {
         type: Number
     },
-    productImageName: {
+    productImage: {
+        type: Buffer,
+        required: true
+    },
+    productImageType: {
         type: String,
         required: true
     },
@@ -37,10 +39,10 @@ const productSchema = new mongoose.Schema ({
 })
 
 productSchema.virtual('productImagePath').get(function() {
-    if (this.productImageName != null) {
-        return path.join('/', productImageBasePath, this.productImageName)
+    if (this.productImage != null && this.productImageType != null) {
+        return `data:${this.productImageType};charset=utf-8;base64,
+        ${this.productImage.toString('base64')}`
     }
 })
 
 module.exports = mongoose.model('Products', productSchema)
-module.exports.productImageBasePath = productImageBasePath

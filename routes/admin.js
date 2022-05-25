@@ -3,19 +3,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express')
-const multer = require('multer')
-const path = require('path')
-const fs = require('fs')
 const router = express.Router()
 const Product = require('../models/product')
-const uploadPath = path.join('public', Product.productImageBasePath)
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
-const upload = multer({
-    dest: uploadPath,
-    fileFilter: (req, file, callback) => {
-        callback(null, imageMimeTypes.includes(file.mimetype))
-    }
-})
 
 function authorize(req, res) {
     const reject = () => {
@@ -51,14 +41,6 @@ function renderNewPage(res, product, hasError = false) {
     } catch {
         res.redirect('/admin')
     }
-}
-
-function removeProductImage(fileName) {
-    fs.unlink(path.join(uploadPath, fileName), err => {
-        if (err) {
-            console.error(err)
-        }
-    })
 }
 
 // All Products Route
@@ -105,30 +87,38 @@ router.get('/new', (req, res) => {
 })
 
 // Create Product Route
-router.post('/', upload.single('productImage'), async (req, res) => {
+router.post('/', async (req, res) => {
     if (!authorize(req, res)) {
         return
     }
 
-    const fileName = req.file != null ? req.file.filename : null
     const product = new Product({
         title: req.body.title,
         description: req.body.description,
         pricePerPiece: req.body.pricePerPiece,
         weightPerPiece: req.body.weightPerPiece,
         piecesPerUnit: req.body.piecesPerUnit,
-        pricePerUnit: req.body.pricePerUnit,
-        productImageName: fileName
+        pricePerUnit: req.body.pricePerUnit
     })
+
+    saveProduct(product, req.body.productImage)
+
     try {
         const newProduct = await product.save()
+        // TODO - redirect to the product with current id
         res.redirect('/admin')
     } catch {
-        if (product.productImageName != null) {
-            removeProductImage(product.productImageName)
-        }
         renderNewPage(res, product, true)
     }
 })
+
+function saveProduct(product, productImageEncoded) {
+    if (productImageEncoded == null) return
+    const productImage = JSON.parse(productImageEncoded)
+    if (productImage != null && imageMimeTypes.includes(productImage.type)) {
+        product.productImage = new Buffer.from(productImage.data, 'base64')
+        product.productImageType = productImage.type
+    }
+}
 
 module.exports = router
