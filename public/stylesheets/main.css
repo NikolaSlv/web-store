@@ -1,10 +1,9 @@
 @import 'shared/variables.css';
-@import 'shared/fonts.css';
 @import 'shared/header.css';
 @import 'shared/buttons.css';
 
 :root {
-    font-family: 'Bitter';
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     color: var(--color-text-light);
 }
 
