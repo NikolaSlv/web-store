@@ -30,14 +30,26 @@ function authorize(req, res) {
 }
 
 function renderNewPage(res, product, hasError = false) {
+    renderFormPage(res, product, 'new-product', hasError)
+}
+
+function renderEditPage(res, product, hasError = false) {
+    renderFormPage(res, product, 'edit-product', hasError)
+}
+
+function renderFormPage(res, product, form, hasError = false) {
     try {
         const params = { 
             product: product 
         }
         if (hasError) {
-            params.errorMessage = 'Грешка при добавянето на продукт'
+            if (form === 'edit-product') {
+                params.errorMessage = 'Грешка при редактирането на продукт'
+            } else {
+                params.errorMessage = 'Грешка при добавянето на продукт'
+            }
         }
-        res.render('admin/new-product', params)
+        res.render(`admin/${form}`, params)
     } catch {
         res.redirect('/admin')
     }
@@ -45,8 +57,12 @@ function renderNewPage(res, product, hasError = false) {
 
 // All Products Route
 router.get('/', async (req, res) => {
-    if (!authorize(req, res)) {
-        return
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
     }
 
     let query = Product.find()
@@ -79,8 +95,12 @@ router.get('/', async (req, res) => {
 
 // New Product Route
 router.get('/new', (req, res) => {
-    if (!authorize(req, res)) {
-        return
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
     }
 
     renderNewPage(res, new Product())
@@ -88,8 +108,12 @@ router.get('/new', (req, res) => {
 
 // Create Product Route
 router.post('/', async (req, res) => {
-    if (!authorize(req, res)) {
-        return
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
     }
 
     const product = new Product({
@@ -101,24 +125,122 @@ router.post('/', async (req, res) => {
         pricePerUnit: req.body.pricePerUnit
     })
 
-    saveProduct(product, req.body.productImage)
-
     try {
+        saveProduct(product, req.body.productImage)
         const newProduct = await product.save()
-        // TODO - redirect to the product with current id
-        res.redirect('/admin')
+        res.redirect(`/admin/${product.id}`)
     } catch {
         renderNewPage(res, product, true)
     }
 })
 
 function saveProduct(product, productImageEncoded) {
-    if (productImageEncoded == null) return
+    if (productImageEncoded == '') {
+        return
+    }
     const productImage = JSON.parse(productImageEncoded)
     if (productImage != null && imageMimeTypes.includes(productImage.type)) {
         product.productImage = new Buffer.from(productImage.data, 'base64')
         product.productImageType = productImage.type
     }
 }
+
+// View Single Product Route
+router.get('/:id', async (req, res) => {
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
+    try {
+        const product = await Product.findById(req.params.id)
+        res.render('admin/show', {product: product})
+    } catch {
+        res.redirect('/')
+    }
+})
+
+// Edit Product Route
+router.get('/:id/edit', async (req, res) => {
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
+    try {
+        const product = await Product.findById(req.params.id)
+        renderEditPage(res, product)
+    } catch {
+        res.redirect('/admin')
+    }
+})
+
+// Update Product Route
+router.put('/:id', async (req, res) => {
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
+    let product
+    try {
+        product = await Product.findById(req.params.id)
+
+        product.title = req.body.title
+        product.description = req.body.description
+        product.pricePerPiece = req.body.pricePerPiece
+        product.weightPerPiece = req.body.weightPerPiece
+        product.piecesPerUnit = req.body.piecesPerUnit
+        product.pricePerUnit = req.body.pricePerUnit
+        if (req.body.productImage != null && req.body.productImage !== ''){
+            saveProduct(product, req.body.productImage)
+        }
+
+        await product.save()
+        res.redirect(`/admin/${product.id}`)
+    } catch {
+        if (product == null) {
+            res.redirect('/')
+        } else {
+            renderEditPage(res, product, true)
+        }
+    }
+})
+
+// Delete Product Route
+router.delete('/:id', async (req, res) => {
+    try {
+        if (!authorize(req, res)) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
+    let product
+    try {
+        product = await Product.findById(req.params.id)
+        await product.remove()
+        res.redirect('/admin')
+    } catch {
+        if (product == null) {
+            res.redirect('/')
+        } else {
+            res.render('admin/show', {
+                product: product,
+                errorMessage: "Грешка при изтриването на продукт"
+            })
+        }
+    }
+})
 
 module.exports = router

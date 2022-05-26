@@ -2,6 +2,8 @@
 <div>
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
-        <img height="150" width="150" src="<%= product.productImagePath %>">
+        <a href="/products/<%= product.id %>">
+            <img height="150" width="150" src="<%= product.productImagePath %>">
+        </a>
     <% }) %>
 </div>
