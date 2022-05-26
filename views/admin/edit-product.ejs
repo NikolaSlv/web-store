@@ -1,9 +1,6 @@
-<br><br>
-<span style="font-weight: bold">Промяна на продукт</span>
-<br><br>
+<h2 class="page-header">Промяна на продукта</h2>
 <form action="/admin/<%= product.id %>?_method=PUT" method="POST">
     <%- include('_form-fields') %>
-    <br><br>
     <a href="/admin/<%= product.id %>">Върни се</a>
     <button type="submit">Потвърди</button>
 </form>

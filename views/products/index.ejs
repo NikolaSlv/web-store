@@ -1,5 +1,4 @@
-<span style="font-weight: bold">Търсене на продукти</span>
-<br>
+<h2 class="page-header">Търсене на продукти</h2>
 <form action="/products" method="GET">
     <div>
         <label>Наименование</label>
@@ -23,7 +22,6 @@
     </div>
     <button type="submit">Търси</button>
 </form>
-<br>
 <div>
     <% products.forEach(product => { %>
         <div><%= product.title %></div>

@@ -1,7 +1,5 @@
 <a href="/admin/new" style="border: 1px solid black; border-radius: 3px;">Добави продукт</a>
-<br><br>
-<span style="font-weight: bold">Търсене на продукти</span>
-<br>
+<h2 class="page-header">Търсене на продукти</h2>
 <form action="/admin" method="GET">
     <div>
         <label>Наименование</label>
@@ -25,14 +23,15 @@
     </div>
     <button type="submit">Търси</button>
 </form>
-<br>
 <div>
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/admin/<%= product.id %>">
             <img height="150" width="150" src="<%= product.productImagePath %>">
         </a>
-        <a href="/admin/<%= product.id %>/edit">Редактирай</a>
-        <%- include('../partials/deleteForm', { url: `/admin/${product.id}` }) %>
+        <div class="btn-row">
+            <a class="btn btn-primary" href="/admin/<%= product.id %>/edit">Редактирай</a>
+            <%- include('../partials/deleteForm', { url: `/admin/${product.id}` }) %>
+        </div>
     <% }) %>
 </div>

@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Bitter';
+    src: url('/fonts/Bitter-Italic.woff2') format('woff2'),
+        url('/fonts/Bitter-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bitter';
+    src: url('/fonts/Bitter-BoldItalic.woff2') format('woff2'),
+        url('/fonts/Bitter-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bitter';
+    src: url('/fonts/Bitter-Regular.woff2') format('woff2'),
+        url('/fonts/Bitter-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bitter';
+    src: url('/fonts/Bitter-Bold.woff2') format('woff2'),
+        url('/fonts/Bitter-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
