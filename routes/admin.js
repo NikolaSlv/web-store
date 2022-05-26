@@ -44,9 +44,9 @@ function renderFormPage(res, product, form, hasError = false) {
         }
         if (hasError) {
             if (form === 'edit-product') {
-                params.errorMessage = 'Грешка при редактирането на продукт'
+                params.errorMessage = 'Грешка при редактирането на продукт!'
             } else {
-                params.errorMessage = 'Грешка при добавянето на продукт'
+                params.errorMessage = 'Грешка при добавянето на продукт!'
             }
         }
         res.render(`admin/${form}`, params)
@@ -237,7 +237,7 @@ router.delete('/:id', async (req, res) => {
         } else {
             res.render('admin/show', {
                 product: product,
-                errorMessage: "Грешка при изтриването на продукт"
+                errorMessage: "Грешка при изтриването на продукт!"
             })
         }
     }

@@ -3,7 +3,7 @@
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/products/<%= product.id %>">
-            <img height="150" width="150" src="<%= product.productImagePath %>">
+            <img height="150" width="150" style="border-radius: .45rem;" src="<%= product.productImagePath %>">
         </a>
     <% }) %>
 </div>

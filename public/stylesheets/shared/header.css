@@ -1,12 +1,12 @@
 :root {
     --nav-title-font-size: 2rem;
     --nav-title-font-weight: bold;
-    --nav-link-font-size: 1.05rem;
+    --nav-link-font-size: 1.1rem;
     --nav-link-font-weight: 300;
 }
 
 .header-title {
-    color: var(--color-text-light);
+    color: var(--color-text-header);
     text-decoration: none;
     font-size: var(--nav-title-font-size);
     font-weight: var(--nav-title-font-weight);
@@ -32,7 +32,7 @@
 
 .header-nav li a {
     text-decoration: none;
-    color: var(--color-text-light);
+    color: var(--color-text-header);
     font-size: var(--nav-link-font-size);
     font-weight: var(--nav-link-font-weight);
     padding: 1rem;

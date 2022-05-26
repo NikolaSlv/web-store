@@ -5,28 +5,30 @@
         <input type="text" name="title" value="<%= searchOptions.title %>">
     </div>
     <div>
-        <label>Минимална цена на бройка</label>
+        <label>Минимална цена на бройка (в лв.)</label>
         <input type="text" name="minPricePerPiece" value="<%= searchOptions.minPricePerPiece %>">
     </div>
     <div>
-        <label>Максимална цена на бройка</label>
+        <label>Максимална цена на бройка (в лв.)</label>
         <input type="text" name="maxPricePerPiece" value="<%= searchOptions.maxPricePerPiece %>">
     </div>
     <div>
-        <label>Минимална цена на кашон/опаковка</label>
+        <label>Минимална цена на кашон/опаковка (в лв.)</label>
         <input type="text" name="minPricePerUnit" value="<%= searchOptions.minPricePerUnit %>">
     </div>
     <div>
-        <label>Максимална цена на кашон/опаковка</label>
+        <label>Максимална цена на кашон/опаковка (в лв.)</label>
         <input type="text" name="maxPricePerUnit" value="<%= searchOptions.maxPricePerUnit %>">
     </div>
-    <button type="submit">Търси</button>
+    <br>
+    <button class="btn btn-primary" type="submit">Търси</button>
 </form>
+<br>
 <div>
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/products/<%= product.id %>">
-            <img height="150" width="150" src="<%= product.productImagePath %>">
+            <img height="150" width="150" style="border-radius: .45rem;" src="<%= product.productImagePath %>">
         </a>
     <% }) %>
 </div>
