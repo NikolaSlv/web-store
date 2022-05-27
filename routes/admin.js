@@ -6,6 +6,7 @@ const express = require('express')
 const router = express.Router()
 const Product = require('../models/product')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
+const algs = require("../public/javascripts/algorithms")
 
 function authorize(req, res) {
     const reject = () => {
@@ -67,7 +68,10 @@ router.get('/', async (req, res) => {
 
     let query = Product.find()
     if (req.query.title != null && req.query.title != '') {
-        query = query.regex('title', new RegExp(req.query.title, 'i'))
+        query = query.regex('title', new RegExp(algs.searchAlg(req.query.title), 'i'))
+    }
+    if (req.query.description != null && req.query.description != '') {
+        query = query.regex('description', new RegExp(algs.searchAlg(req.query.description), 'i'))
     }
     if (req.query.minPricePerPiece != null && req.query.minPricePerPiece != '') {
         query = query.gte('pricePerPiece', req.query.minPricePerPiece)

@@ -30,3 +30,8 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
 }
+
+textarea {
+    width: 14rem;
+    height: 3.5rem;
+}

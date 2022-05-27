@@ -9,7 +9,7 @@
 
 .btn {
     border: 1px solid var(--color-btn-border);
-    border-radius: .5rem;
+    border-radius: .15rem;
     padding: .2rem .4rem;
     font-size: .97rem;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
