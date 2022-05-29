@@ -57,7 +57,7 @@
 
 .form-item textarea {
     height: 100%;
-    resize: none;
+    resize: vertical;
 }
 
 .form-item input:focus, .form-item textarea:focus {

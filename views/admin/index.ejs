@@ -1,4 +1,7 @@
-<a class="btn btn-primary" href="/admin/new">Добави продукт</a>
+<div style="text-align: center;">
+    <a class="btn btn-primary" href="/admin/new">Добави</a>
+</div>
+<br>
 <h2 class="page-header page-header-centered">Търсене на продукти</h2>
 <form action="/admin" method="GET">
     <%- include('../partials/searchForm.ejs') %>
@@ -9,7 +12,7 @@
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/admin/<%= product.id %>">
-            <img height="150" width="150" style="border-radius: var(--basic-border-radius);" src="<%= product.productImagePath %>">
+            <img class="product-image" src="<%= product.productImagePath %>">
         </a>
         <div class="btn-row">
             <a class="btn btn-primary" href="/admin/<%= product.id %>/edit">Редактирай</a>

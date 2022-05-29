@@ -12,7 +12,7 @@
 
 .product-image {
     width: var(--product-image-width);
-    height: calc(var(--product-image-width) * var(--product-image-aspect-ratio));
+    height: calc(var(--product-image-width) / var(--product-image-aspect-ratio));
     border-radius: var(--basic-border-radius);
 }
 
