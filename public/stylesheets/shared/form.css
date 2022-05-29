@@ -12,6 +12,18 @@
     width: 60%;
 }
 
+@media only screen and (max-width: 800px) {
+    .form-row {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .form-row {
+        width: 100%;
+    }
+}
+
 .form-row-end {
     justify-content: flex-end;
 }
