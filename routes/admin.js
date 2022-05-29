@@ -31,11 +31,11 @@ function authorize(req, res) {
 }
 
 function renderNewPage(res, product, hasError = false) {
-    renderFormPage(res, product, 'new-product', hasError)
+    renderFormPage(res, product, 'newProduct', hasError)
 }
 
 function renderEditPage(res, product, hasError = false) {
-    renderFormPage(res, product, 'edit-product', hasError)
+    renderFormPage(res, product, 'editProduct', hasError)
 }
 
 function renderFormPage(res, product, form, hasError = false) {
@@ -44,7 +44,7 @@ function renderFormPage(res, product, form, hasError = false) {
             product: product 
         }
         if (hasError) {
-            if (form === 'edit-product') {
+            if (form === 'editProduct') {
                 params.errorMessage = 'Грешка при редактирането на продукт!'
             } else {
                 params.errorMessage = 'Грешка при добавянето на продукт!'

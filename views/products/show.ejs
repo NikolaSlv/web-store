@@ -1,26 +1,3 @@
 <h2 class="page-header">Информация за продукта</h2>
-<div>
-    <%= product.title %>
-</div>
-<div>
-    <label>Описание: </label><%= product.description %>
-</div>
-<br>
-<div>
-    <label>Цена на бройка: </label><%= product.pricePerPiece + ' лв.' %>
-</div>
-<div>
-    <label>Грамаж на бройка: </label><%= product.weightPerPiece + ' гр.' %>
-</div>
-<div>
-    <label>Бройки в кашон/опаковка: </label><%= product.piecesPerUnit %>
-</div>
-<div>
-    <label>Цена на кашон/опаковка: </label><%= product.pricePerUnit + ' лв.' %>
-</div>
-<br>
-<div>
-    <img height="150" width="150" style="border-radius: .45rem;" src="<%= product.productImagePath %>">
-</div>
-<br>
+<%- include('../partials/showProduct.ejs') %>
 <button class="btn btn-primary" onclick="history.back()">Върни се</a>

@@ -1,0 +1,80 @@
+:root {
+    --form-label-font-size: var(--basic-text-size);
+    --form-input-background-color: hsl(var(--color-base-hue), 64%, 98%);
+    --form-input-border-color: hsl(57, 13%, 65%);
+    --form-input-border-color-light: black;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: .5rem;
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+
+.form-row-end {
+    justify-content: flex-end;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.form-item:first-child {
+    margin-left: 0;
+}
+
+.form-item-hidden {
+    visibility: hidden;
+}
+
+.form-item-no-grow {
+    flex-grow: 0;
+}
+
+.form-item > label {
+    font-size: var(--form-label-font-size);
+    margin-bottom: .25rem;
+    margin-left: .25rem;
+}
+
+.form-item input, .form-item textarea {
+    height: 2rem;
+    padding: .25rem, .5rem;
+    border-radius: var(--basic-border-radius);
+    border: 1px solid var(--form-input-border-color);
+    background-color: var(--form-input-background-color);
+    color: black;
+    font-size: var(--basic-text-size);
+    font-weight: normal;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    outline: none;
+}
+
+.form-item textarea {
+    height: 100%;
+    resize: none;
+}
+
+.form-item input:focus, .form-item textarea:focus {
+    border-color: var(--form-input-border-color-light);
+}
+
+.filepond--root {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-bottom: 0;
+}
+
+.filepond--panel-root {
+    border: 1px solid var(--form-input-border-color);
+    background-color: var(--form-input-background-color);
+}
+
+.filepond--drop-label {
+    color: black;
+    font-size: inherit;
+}

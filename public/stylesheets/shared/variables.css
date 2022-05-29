@@ -3,4 +3,6 @@
     --color-background-dark: hsl(0, 0%, 96%);
     --color-background-light: hsl(0, 0%, 99%);
     --color-text-header: hsl(var(--color-base-hue), 64%, 50%);
+    --basic-text-size: .97rem;
+    --basic-border-radius: .15rem;
 }

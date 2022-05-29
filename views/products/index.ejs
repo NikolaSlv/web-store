@@ -1,40 +1,14 @@
-<h2 class="page-header">Търсене на продукти</h2>
+<h2 class="page-header page-header-centered">Търсене на продукти</h2>
 <form action="/products" method="GET">
-    <div>
-        <label>Наименование</label>
-        <input type="text" name="title" value="<%= searchOptions.title %>">
-    </div>
-    <div>
-        <label>Описание на продукта</label>
-        <br>
-        <textarea name="description"><%= searchOptions.description %></textarea>
-    </div>
     <br>
-    <div>
-        <label>Минимална цена на бройка (в лв.)</label>
-        <input type="text" name="minPricePerPiece" value="<%= searchOptions.minPricePerPiece %>">
-    </div>
-    <div>
-        <label>Максимална цена на бройка (в лв.)</label>
-        <input type="text" name="maxPricePerPiece" value="<%= searchOptions.maxPricePerPiece %>">
-    </div>
-    <div>
-        <label>Минимална цена на кашон/опаковка (в лв.)</label>
-        <input type="text" name="minPricePerUnit" value="<%= searchOptions.minPricePerUnit %>">
-    </div>
-    <div>
-        <label>Максимална цена на кашон/опаковка (в лв.)</label>
-        <input type="text" name="maxPricePerUnit" value="<%= searchOptions.maxPricePerUnit %>">
-    </div>
-    <br>
-    <button class="btn btn-primary" type="submit">Търси</button>
+    <%- include('../partials/searchForm.ejs') %>
 </form>
 <br>
 <div>
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/products/<%= product.id %>">
-            <img height="150" width="150" style="border-radius: .45rem;" src="<%= product.productImagePath %>">
+            <img height="150" width="150" style="border-radius: var(--basic-border-radius);" src="<%= product.productImagePath %>">
         </a>
     <% }) %>
 </div>

@@ -1,10 +1,11 @@
 @import 'shared/variables.css';
 @import 'shared/header.css';
 @import 'shared/buttons.css';
+@import 'shared/form.css';
 
 :root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: .97rem;
+    font-size: var(--basic-text-size);
     color: black;
 }
 
@@ -31,7 +32,6 @@ body {
     font-weight: 600;
 }
 
-textarea {
-    width: 14rem;
-    height: 3.5rem;
+.page-header-centered {
+    text-align: center;
 }

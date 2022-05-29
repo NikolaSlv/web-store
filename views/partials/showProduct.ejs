@@ -1,0 +1,24 @@
+<div>
+    <%= product.title %>
+</div>
+<div>
+    <label>Описание: </label><%= product.description %>
+</div>
+<br>
+<div>
+    <label>Цена на бройка: </label><%= product.pricePerPiece + ' лв.' %>
+</div>
+<div>
+    <label>Грамаж на бройка: </label><%= product.weightPerPiece + ' гр.' %>
+</div>
+<div>
+    <label>Бройки в кашон/опаковка: </label><%= product.piecesPerUnit %>
+</div>
+<div>
+    <label>Цена на кашон/опаковка: </label><%= product.pricePerUnit + ' лв.' %>
+</div>
+<br>
+<div>
+    <img height="150" width="150" style="border-radius: var(--basic-border-radius);" src="<%= product.productImagePath %>">
+</div>
+<br>

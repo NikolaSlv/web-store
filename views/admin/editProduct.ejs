@@ -1,0 +1,8 @@
+<h2 class="page-header page-header-centered">Промяна на продукта</h2>
+<form action="/admin/<%= product.id %>?_method=PUT" method="POST">
+    <%- include('_inputForm') %>
+    <div class="form-row form-row-end btn-row">
+        <a class="btn btn-danger" href="/admin/<%= product.id %>">Откажи</a>
+        <button class="btn btn-primary" type="submit">Потвърди</button>
+    </div>
+</form>
