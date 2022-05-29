@@ -1,9 +1,11 @@
-<h2 class="page-header">Последно добавени</h2>
+<h2 class="page-header">Най-нови продукти</h2>
+<br>
 <div>
-    <% products.forEach(product => { %>
-        <div><%= product.title %></div>
-        <a href="/products/<%= product.id %>">
-            <img height="150" width="150" style="border-radius: var(--basic-border-radius);" src="<%= product.productImagePath %>">
-        </a>
-    <% }) %>
+    <div class="product-grid">
+        <% products.forEach(product => { %>
+            <a href="/products/<%= product.id %>">
+                <img class="product-image" src="<%= product.productImagePath %>">
+            </a>
+        <% }) %>
+    </div>
 </div>

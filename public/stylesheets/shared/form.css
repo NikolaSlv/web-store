@@ -7,9 +7,9 @@
 
 .form-row {
     display: flex;
+    margin: auto;
     margin-bottom: .5rem;
-    margin-left: 10rem;
-    margin-right: 10rem;
+    width: 60%;
 }
 
 .form-row-end {

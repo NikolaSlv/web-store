@@ -1,24 +1,17 @@
-<div>
-    <%= product.title %>
-</div>
-<div>
-    <label>Описание: </label><%= product.description %>
-</div>
-<br>
-<div>
-    <label>Цена на бройка: </label><%= product.pricePerPiece + ' лв.' %>
-</div>
-<div>
-    <label>Грамаж на бройка: </label><%= product.weightPerPiece + ' гр.' %>
-</div>
-<div>
-    <label>Бройки в кашон/опаковка: </label><%= product.piecesPerUnit %>
-</div>
-<div>
-    <label>Цена на кашон/опаковка: </label><%= product.pricePerUnit + ' лв.' %>
-</div>
-<br>
-<div>
-    <img height="150" width="150" style="border-radius: var(--basic-border-radius);" src="<%= product.productImagePath %>">
+<h2 class="page-header"> <%= product.title %> </h2>
+<div class="product-details">
+    <div><img class="product-image" src="<%= product.productImagePath %>"></div>
+    <div class="product-details-grid">
+        <div class="product-details-label">Цена на бройка: </div>
+        <div><%= product.pricePerPiece + ' лв.' %></div>
+        <div class="product-details-label">Бройки в кашон/опаковка: </div>
+        <div><%= product.piecesPerUnit %></div>
+        <div class="product-details-label">Цена на кашон/опаковка: </div>
+        <div><%= product.pricePerUnit + ' лв.' %></div>
+        <div class="product-details-label">Грамаж на бройка: </div>
+        <div><%= product.weightPerPiece + ' гр.' %></div>
+        <div class="product-details-label">Описание: </div>
+        <div><%= product.description %></div>
+    </div>
 </div>
 <br>

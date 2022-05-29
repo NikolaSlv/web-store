@@ -1,0 +1,36 @@
+:root {
+    --product-image-width: 170px;
+    --product-image-aspect-ratio: 1;
+}
+
+.product-grid {
+    display: grid;
+    justify-content: center;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, var(--product-image-width));
+}
+
+.product-image {
+    width: var(--product-image-width);
+    height: calc(var(--product-image-width) * var(--product-image-aspect-ratio));
+    border-radius: var(--basic-border-radius);
+}
+
+.product-details {
+    display: flex;
+}
+
+.product-details-label {
+    font-size: var(--basic-text-size);
+    font-weight: normal;
+    align-self: flex-start;
+}
+
+.product-details-grid {
+    display: grid;
+    align-content: flex-start;
+    align-items: center;
+    grid-gap: .7rem;
+    grid-template-columns: auto auto;
+    margin-left: .7rem;
+}

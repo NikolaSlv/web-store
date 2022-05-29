@@ -5,6 +5,7 @@
 </form>
 <br>
 <div>
+    <% if (products != null) { %>
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/admin/<%= product.id %>">
@@ -15,4 +16,5 @@
             <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
         </div>
     <% }) %>
+    <% } %>
 </div>

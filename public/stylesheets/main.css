@@ -2,11 +2,16 @@
 @import 'shared/header.css';
 @import 'shared/buttons.css';
 @import 'shared/form.css';
+@import 'shared/product.css';
 
 :root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: var(--basic-text-size);
     color: black;
+}
+
+br {
+    visibility: hidden;
 }
 
 *, *::before, *::after {
@@ -34,4 +39,10 @@ body {
 
 .page-header-centered {
     text-align: center;
+}
+
+.error-message {
+    display: inline-block;
+    color: black;
+    background-color: var(--color-btn-danger-background);
 }
