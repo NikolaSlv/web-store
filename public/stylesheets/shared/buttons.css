@@ -13,7 +13,7 @@
 
 .btn-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .btn-row > * {
