@@ -82,3 +82,10 @@ body {
         font-size: var(--page-header-text-size-576px);
     }
 }
+
+/* Inner Container Dynamics */
+@media only screen and (max-width: 300px) {
+    .inner-container {
+        margin: auto;
+    }
+}

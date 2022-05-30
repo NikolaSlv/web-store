@@ -52,4 +52,9 @@
     --product-image-width-992px: 155px;
     --product-image-width-768px: 140px;
     --product-image-width-576px: 125px;
+
+    --product-description-max-width-1200px: 50%;
+    --product-description-max-width-992px: 65%;
+    --product-description-max-width-768px: 80%;
+    --product-description-max-width-576px: 95%;
 }
