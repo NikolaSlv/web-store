@@ -72,16 +72,27 @@
     font-size: inherit;
 }
 
-/* MEDIA QUERIES */
+/* DYNAMICS */
 
-/* Form Labels Dynamics */
 @media only screen and (max-width: 992px) {
     .form-item > label {
+        font-size: var(--basic-text-size-992px);
+    }
+    .form-row {
+        width: var(--form-input-row-width-992px);
+    }
+    .form-item input, .form-item textarea {
         font-size: var(--basic-text-size-992px);
     }
 }
 @media only screen and (max-width: 768px) {
     .form-item > label {
+        font-size: var(--basic-text-size-768px);
+    }
+    .form-row {
+        width: var(--form-input-row-width-768px);
+    }
+    .form-item input, .form-item textarea {
         font-size: var(--basic-text-size-768px);
     }
 }
@@ -89,37 +100,9 @@
     .form-item > label {
         font-size: var(--basic-text-size-576px);
     }
-}
-
-/* Form Rows Dynamics */
-@media only screen and (max-width: 992px) {
-    .form-row {
-        width: var(--form-input-row-width-992px);
-    }
-}
-@media only screen and (max-width: 768px) {
-    .form-row {
-        width: var(--form-input-row-width-768px);
-    }
-}
-@media only screen and (max-width: 576px) {
     .form-row {
         width: var(--form-input-row-width-576px);
     }
-}
-
-/* Input Text Dynamics */
-@media only screen and (max-width: 992px) {
-    .form-item input, .form-item textarea {
-        font-size: var(--basic-text-size-992px);
-    }
-}
-@media only screen and (max-width: 768px) {
-    .form-item input, .form-item textarea {
-        font-size: var(--basic-text-size-768px);
-    }
-}
-@media only screen and (max-width: 576px) {
     .form-item input, .form-item textarea {
         font-size: var(--basic-text-size-576px);
     }

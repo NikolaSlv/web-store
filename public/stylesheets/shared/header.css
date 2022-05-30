@@ -45,9 +45,24 @@
     cursor: pointer;
 }
 
-/* MEDIA QUERIES */
+/* DYNAMICS */
 
-/* Navigation Dynamics */
+@media only screen and (max-width: 992px) {
+    .header-title {
+        font-size: var(--nav-title-font-size-992px);
+    }
+    .header-nav li a {
+        font-size: var(--nav-link-font-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .header-title {
+        font-size: var(--nav-title-font-size-768px);
+    }
+    .header-nav li a {
+        font-size: var(--nav-link-font-size-768px);
+    }
+}
 @media only screen and (max-width: 700px) {
     .header-nav ul {
         width: 50%;
@@ -78,43 +93,13 @@
         transition: 0.8s;
     }
 }
-
-/* Title Dynamics */
-@media only screen and (max-width: 992px) {
-    .header-title {
-        font-size: var(--nav-title-font-size-992px);
-    }
-}
-@media only screen and (max-width: 768px) {
-    .header-title {
-        font-size: var(--nav-title-font-size-768px);
-    }
-}
 @media only screen and (max-width: 576px) {
     .header-title {
         font-size: var(--nav-title-font-size-576px);
     }
-}
-
-/* Navigation Links Dynamics */
-@media only screen and (max-width: 992px) {
-    .header-nav li a {
-        font-size: var(--nav-link-font-size-992px);
-    }
-}
-@media only screen and (max-width: 768px) {
-    .header-nav li a {
-        font-size: var(--nav-link-font-size-768px);
-    }
-}
-@media only screen and (max-width: 576px) {
     .header-nav li a {
         font-size: var(--nav-link-font-size-576px);
     }
-}
-
-/* Menu Image Dynamics */
-@media only screen and (max-width: 576px) {
     .header-menu-image {
         width: var(--nav-menu-image-width-576px);
         height: var(--nav-menu-image-height-576px);

@@ -40,9 +40,8 @@
     background-color: var(--color-btn-danger-background-dark);
 }
 
-/* MEDIA QUERIES */
+/* DYNAMICS */
 
-/* Buttons Dynamics */
 @media only screen and (max-width: 992px) {
     .btn {
         font-size: var(--basic-text-size-992px);
