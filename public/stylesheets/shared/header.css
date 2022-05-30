@@ -1,16 +1,8 @@
-:root {
-    --nav-title-font-size: 2rem;
-    --nav-title-font-weight: bold;
-
-    --nav-link-font-size: 1.1rem;
-    --nav-link-font-weight: 300;
-}
-
 .header-title {
     color: var(--color-text-header);
     text-decoration: none;
-    font-size: var(--nav-title-font-size);
-    font-weight: var(--nav-title-font-weight);
+    font-size: var(--nav-title-font-size-1200px);
+    font-weight: bold;
 }
 
 .header-nav {
@@ -36,8 +28,8 @@
 .header-nav li a {
     text-decoration: none;
     color: var(--color-text-header);
-    font-size: var(--nav-link-font-size);
-    font-weight: var(--nav-link-font-weight);
+    font-size: var(--nav-link-font-size-1200px);
+    font-weight: 300;
     padding: 1rem;
 }
 
@@ -46,18 +38,21 @@
 }
 
 .header-menu-image {
-    width: 2.1rem;
-    height: 1.8rem;
+    width: var(--nav-menu-image-width-def);
+    height: var(--nav-menu-image-height-def);
     display: none;
     justify-content: flex-end;
     cursor: pointer;
 }
 
+/* MEDIA QUERIES */
+
+/* Navigation Dynamics */
 @media only screen and (max-width: 700px) {
     .header-nav ul {
         width: 50%;
         height: auto;
-        background-color: rgba(0, 0, 0, 0.801);
+        background-color: hsla(0, 0%, 0%, 0.801);
         border-radius: var(--basic-border-radius);
         position: absolute;
         top: 5.5rem;
@@ -72,11 +67,56 @@
     .header-nav li a {
         color: white;
     }
+    .header-nav li a:hover {
+        color: hsl(36, 100%, 48%);
+    }
     .header-menu-image {  
         display: block;
     }
     #menu-list {
         overflow: hidden;
         transition: 0.8s;
+    }
+}
+
+/* Title Dynamics */
+@media only screen and (max-width: 992px) {
+    .header-title {
+        font-size: var(--nav-title-font-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .header-title {
+        font-size: var(--nav-title-font-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .header-title {
+        font-size: var(--nav-title-font-size-576px);
+    }
+}
+
+/* Navigation Links Dynamics */
+@media only screen and (max-width: 992px) {
+    .header-nav li a {
+        font-size: var(--nav-link-font-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .header-nav li a {
+        font-size: var(--nav-link-font-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .header-nav li a {
+        font-size: var(--nav-link-font-size-576px);
+    }
+}
+
+/* Menu Image Dynamics */
+@media only screen and (max-width: 576px) {
+    .header-menu-image {
+        width: var(--nav-menu-image-width-576px);
+        height: var(--nav-menu-image-height-576px);
     }
 }

@@ -1,14 +1,14 @@
 const rootStyles = window.getComputedStyle(document.documentElement)
 
-if (rootStyles.getPropertyValue('--product-image-width') != null
-&& rootStyles.getPropertyValue('--product-image-width') !== '') {
+if (rootStyles.getPropertyValue('--product-image-width-1200px') != null
+&& rootStyles.getPropertyValue('--product-image-width-1200px') !== '') {
     ready()
 } else {
     document.getElementById('main-css').addEventListener('load', ready)
 }
 
 function ready() {
-    const imageWidth = parseFloat(rootStyles.getPropertyValue('--product-image-width'))
+    const imageWidth = parseFloat(rootStyles.getPropertyValue('--product-image-width-1200px'))
     const aspectRatio = parseFloat(rootStyles.getPropertyValue('--product-image-aspect-ratio'))
     const imageHeight = imageWidth / aspectRatio
     

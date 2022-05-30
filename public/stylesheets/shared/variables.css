@@ -1,8 +1,55 @@
 :root {
     --color-base-hue: 2;
+
     --color-background-dark: hsl(0, 0%, 96%);
     --color-background-light: hsl(0, 0%, 99%);
+
     --color-text-header: hsl(var(--color-base-hue), 64%, 50%);
-    --basic-text-size: .97rem;
+
     --basic-border-radius: .15rem;
+
+    --nav-title-font-size-1200px: 1.9rem;
+    --nav-title-font-size-992px: 1.85rem;
+    --nav-title-font-size-768px: 1.80rem;
+    --nav-title-font-size-576px: 1.75rem;
+
+    --nav-link-font-size-1200px: 1.1rem;
+    --nav-link-font-size-992px: 1.05rem;
+    --nav-link-font-size-768px: 1rem;
+    --nav-link-font-size-576px: .95rem;
+
+    --nav-menu-image-width-def: 2.1rem;
+    --nav-menu-image-height-def: 1.9rem;
+    --nav-menu-image-width-576px: 2rem;
+    --nav-menu-image-height-576px: 1.8rem;
+
+    --page-header-text-size-1200px: 1.2rem;
+    --page-header-text-size-992px: 1.15rem;
+    --page-header-text-size-768px: 1.1rem;
+    --page-header-text-size-576px: 1.05rem;
+
+    --basic-text-size-1200px: .97rem;
+    --basic-text-size-992px: .92rem;
+    --basic-text-size-768px: .87rem;
+    --basic-text-size-576px: .82rem;
+
+    --form-input-background-color: hsl(var(--color-base-hue), 64%, 98%);
+    --form-input-border-color: hsl(57, 13%, 65%);
+    --form-input-border-color-change: black;
+
+    --form-input-row-width-1200px: 61%;
+    --form-input-row-width-992px: 74%;
+    --form-input-row-width-768px: 87%;
+    --form-input-row-width-576px: 100%;
+    
+    --color-btn-primary-background: hsl(0, 0%, 100%);
+    --color-btn-primary-background-dark: hsl(0, 0%, 90%);
+    --color-btn-danger-background: hsl(var(--color-base-hue), 100%, 85%);
+    --color-btn-danger-background-dark: hsl(var(--color-base-hue), 100%, 75%);
+
+    --product-image-aspect-ratio: 1;
+    --product-image-width-1200px: 170px;
+    --product-image-width-992px: 155px;
+    --product-image-width-768px: 140px;
+    --product-image-width-576px: 125px;
 }

@@ -3,11 +3,10 @@
 @import 'shared/buttons.css';
 @import 'shared/form.css';
 @import 'shared/product.css';
-@import 'shared/fluidGrid.css';
 
 :root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: var(--basic-text-size);
+    font-size: var(--basic-text-size-1200px);
     color: black;
 }
 
@@ -34,7 +33,7 @@ body {
 }
 
 .page-header {
-    font-size: 1.2rem;
+    font-size: var(--page-header-text-size-1200px);
     font-weight: 600;
 }
 
@@ -48,13 +47,38 @@ body {
     background-color: var(--color-btn-danger-background);
 }
 
-@media screen and (max-width: 900px) {
-    .page-header {
-        font-size: 1.1rem;
+/* MEDIA QUERIES */
+
+/* Root Font Size Dynamics */
+@media only screen and (max-width: 992px) {
+    :root {
+        font-size: var(--basic-text-size-992px);
     }
 }
-@media screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+    :root {
+        font-size: var(--basic-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    :root {
+        font-size: var(--basic-text-size-576px);
+    }
+}
+
+/* Page Header Dynamics */
+@media only screen and (max-width: 992px) {
     .page-header {
-        font-size: 1rem;
+        font-size: var(--page-header-text-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .page-header {
+        font-size: var(--page-header-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .page-header {
+        font-size: var(--page-header-text-size-576px);
     }
 }

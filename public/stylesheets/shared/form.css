@@ -1,15 +1,8 @@
-:root {
-    --form-label-font-size: var(--basic-text-size);
-    --form-input-background-color: hsl(var(--color-base-hue), 64%, 98%);
-    --form-input-border-color: hsl(57, 13%, 65%);
-    --form-input-border-color-light: black;
-}
-
 .form-row {
     display: flex;
     margin: auto;
     margin-bottom: .5rem;
-    width: 60%;
+    width: var(--form-input-row-width-1200px);
 }
 
 .form-row-end {
@@ -37,7 +30,7 @@
 }
 
 .form-item > label {
-    font-size: var(--form-label-font-size);
+    font-size: var(--basic-text-size-1200px);
     margin-bottom: .25rem;
     margin-left: .25rem;
 }
@@ -49,7 +42,7 @@
     border: 1px solid var(--form-input-border-color);
     background-color: var(--form-input-background-color);
     color: black;
-    font-size: var(--basic-text-size);
+    font-size: var(--basic-text-size-1200px);
     font-weight: normal;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     outline: none;
@@ -61,7 +54,7 @@
 }
 
 .form-item input:focus, .form-item textarea:focus {
-    border-color: var(--form-input-border-color-light);
+    border-color: var(--form-input-border-color-change);
 }
 
 .filepond--root {
@@ -77,4 +70,57 @@
 .filepond--drop-label {
     color: black;
     font-size: inherit;
+}
+
+/* MEDIA QUERIES */
+
+/* Form Labels Dynamics */
+@media only screen and (max-width: 992px) {
+    .form-item > label {
+        font-size: var(--basic-text-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .form-item > label {
+        font-size: var(--basic-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .form-item > label {
+        font-size: var(--basic-text-size-576px);
+    }
+}
+
+/* Form Rows Dynamics */
+@media only screen and (max-width: 992px) {
+    .form-row {
+        width: var(--form-input-row-width-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .form-row {
+        width: var(--form-input-row-width-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .form-row {
+        width: var(--form-input-row-width-576px);
+    }
+}
+
+/* Input Text Dynamics */
+@media only screen and (max-width: 992px) {
+    .form-item input, .form-item textarea {
+        font-size: var(--basic-text-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .form-item input, .form-item textarea {
+        font-size: var(--basic-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .form-item input, .form-item textarea {
+        font-size: var(--basic-text-size-576px);
+    }
 }
