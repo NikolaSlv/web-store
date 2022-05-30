@@ -36,6 +36,11 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
 }
+@media only screen and (max-width: 600px) {
+.page-header-centered {
+    font-size: 1rem;
+}
+}
 
 .page-header-centered {
     text-align: center;

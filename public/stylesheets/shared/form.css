@@ -67,6 +67,24 @@
     outline: none;
 }
 
+@media only screen and (max-width: 800px) {
+    .form-item input, .form-item textarea {
+        width: 70%;
+    }
+    .form-item > label {
+        font-size: .9rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .form-item input, .form-item textarea {
+        width: 50%;
+    }
+    .form-item > label {
+        font-size: .85rem;
+    }
+}
+
 .form-item textarea {
     height: 100%;
     resize: vertical;
