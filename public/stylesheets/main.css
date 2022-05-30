@@ -3,6 +3,7 @@
 @import 'shared/buttons.css';
 @import 'shared/form.css';
 @import 'shared/product.css';
+@import 'shared/fluidGrid.css';
 
 :root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -36,11 +37,6 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
 }
-@media only screen and (max-width: 600px) {
-.page-header-centered {
-    font-size: 1rem;
-}
-}
 
 .page-header-centered {
     text-align: center;
@@ -50,4 +46,15 @@ body {
     display: inline-block;
     color: black;
     background-color: var(--color-btn-danger-background);
+}
+
+@media screen and (max-width: 900px) {
+    .page-header {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (max-width: 600px) {
+    .page-header {
+        font-size: 1rem;
+    }
 }

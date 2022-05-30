@@ -12,18 +12,6 @@
     width: 60%;
 }
 
-@media only screen and (max-width: 800px) {
-    .form-row {
-        width: 80%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .form-row {
-        width: 100%;
-    }
-}
-
 .form-row-end {
     justify-content: flex-end;
 }
@@ -65,24 +53,6 @@
     font-weight: normal;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     outline: none;
-}
-
-@media only screen and (max-width: 800px) {
-    .form-item input, .form-item textarea {
-        width: 70%;
-    }
-    .form-item > label {
-        font-size: .9rem;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .form-item input, .form-item textarea {
-        width: 50%;
-    }
-    .form-item > label {
-        font-size: .85rem;
-    }
 }
 
 .form-item textarea {
