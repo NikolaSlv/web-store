@@ -3,7 +3,14 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express')
+const compression = require('compression')
+
 const app = express()
+
+app.use(compression({
+    level: 6
+}))
+
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
