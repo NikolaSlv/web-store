@@ -26,7 +26,7 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
-app.use(express.static('public', { maxAge: '30d' }))
+app.use(express.static('public', { maxAge: '1d' }))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
 const mongoose = require('mongoose')
