@@ -12,7 +12,7 @@
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/admin/<%= product.id %>">
-            <img class="product-image" src="<%= product.productImagePath %>">
+            <img class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
         </a>
         <div class="btn-row">
             <a class="btn btn-primary" href="/admin/<%= product.id %>/edit">Редактирай</a>

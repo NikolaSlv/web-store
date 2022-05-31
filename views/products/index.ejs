@@ -9,7 +9,7 @@
     <% products.forEach(product => { %>
         <div><%= product.title %></div>
         <a href="/products/<%= product.id %>">
-            <img class="product-image" src="<%= product.productImagePath %>">
+            <img class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
         </a>
     <% }) %>
     <% } %>
