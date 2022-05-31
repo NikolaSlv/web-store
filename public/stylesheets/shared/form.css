@@ -57,21 +57,6 @@
     border-color: var(--form-input-border-color-change);
 }
 
-.filepond--root {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-bottom: 0;
-}
-
-.filepond--panel-root {
-    border: 1px solid var(--form-input-border-color);
-    background-color: var(--form-input-background-color);
-}
-
-.filepond--drop-label {
-    color: black;
-    font-size: inherit;
-}
-
 /* DYNAMICS */
 
 @media only screen and (max-width: 992px) {
