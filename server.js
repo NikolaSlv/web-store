@@ -4,12 +4,14 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express')
 const compression = require('compression')
+const favicon = require('serve-favicon');
 
 const app = express()
 
 app.use(compression({
     level: 6
 }))
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
@@ -24,7 +26,7 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
-app.use(express.static('public'))
+app.use(express.static('public', { maxAge: '30d' }))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
 const mongoose = require('mongoose')
