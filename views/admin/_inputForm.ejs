@@ -9,17 +9,32 @@
 <style>
 .filepond--root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: var(--basic-text-size-1200px);
     margin-bottom: 0;
 }
-
 .filepond--panel-root {
     border: 1px solid var(--form-input-border-color);
     background-color: var(--form-input-background-color);
 }
-
 .filepond--drop-label {
     color: black;
     font-size: inherit;
+}
+
+@media only screen and (max-width: 992px) {
+    .filepond--root {
+        font-size: var(--basic-text-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    .filepond--root {
+        font-size: var(--basic-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    .filepond--root {
+        font-size: var(--basic-text-size-576px);
+    }
 }
 </style>
 
