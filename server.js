@@ -35,6 +35,7 @@ const blackList = ['$','{','&&','||']
 const options = {
 	urlBlackList: blackList,
 	bodyBlackList: blackList,
+    methodList:['GET', 'DELETE'],
     urlMessage: 'A forbidden expression has been found in the URL',
     bodyMessage: 'A forbidden expression has been found in the form data'
 }
