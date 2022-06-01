@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express')
 const router = express.Router()
 const Product = require('../models/product')
-const imageMimeTypes = ['image/jpeg', 'image/png']
+const imageMimeTypes = ['image/webp', 'image/jpeg', 'image/png']
 const algs = require("../public/javascripts/algorithms")
 
 function authorize(req, res) {
