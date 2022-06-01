@@ -9,7 +9,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
     margin-bottom: 1.8rem;
     flex: 1;
     text-align: right;
@@ -38,6 +38,8 @@
 }
 
 .header-menu-image {
+    margin-top: auto;
+    margin-bottom: auto;
     width: var(--nav-menu-image-width-def);
     height: var(--nav-menu-image-height-def);
     display: none;
@@ -89,6 +91,7 @@
         display: block;
     }
     #menu-list {
+        max-height: 0px;
         overflow: hidden;
         transition: 0.8s;
     }

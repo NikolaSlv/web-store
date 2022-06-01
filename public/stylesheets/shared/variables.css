@@ -8,10 +8,10 @@
 
     --basic-border-radius: .15rem;
 
-    --nav-title-font-size-1200px: 1.1rem;
-    --nav-title-font-size-992px: 1.05rem;
-    --nav-title-font-size-768px: 1rem;
-    --nav-title-font-size-576px: .95rem;
+    --nav-title-font-size-1200px: 1.05rem;
+    --nav-title-font-size-992px: 1rem;
+    --nav-title-font-size-768px: .95rem;
+    --nav-title-font-size-576px: .9rem;
 
     --nav-link-font-size-1200px: 1.1rem;
     --nav-link-font-size-992px: 1.05rem;
@@ -23,10 +23,10 @@
     --nav-menu-image-width-576px: 2rem;
     --nav-menu-image-height-576px: 1.8rem;
 
-    --page-header-text-size-1200px: 1.2rem;
-    --page-header-text-size-992px: 1.15rem;
-    --page-header-text-size-768px: 1.1rem;
-    --page-header-text-size-576px: 1.05rem;
+    --page-header-text-size-1200px: 1.15rem;
+    --page-header-text-size-992px: 1.1rem;
+    --page-header-text-size-768px: 1.05rem;
+    --page-header-text-size-576px: 1rem;
 
     --basic-text-size-1200px: .97rem;
     --basic-text-size-992px: .92rem;
