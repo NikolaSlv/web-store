@@ -3,14 +3,40 @@
     <br>
     <%- include('../partials/searchForm.ejs') %>
 </form>
+<% if (products != null) { %>
 <br>
-<div>
-    <% if (products != null) { %>
-    <% products.forEach(product => { %>
-        <div><%= product.title %></div>
-        <a href="/products/<%= product.id %>">
-            <img class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
-        </a>
-    <% }) %>
-    <% } %>
+<div class="table">
+    <div class="table-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>&numero;</th>
+                    <th>Продукт</th>
+                    <th>Наименование</th>
+                    <th>Цена на бройка</th>
+                    <th>Бройки в кашон/опаковка</th>
+                    <th>Цена на кашон/опаковка</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr onclick="window.location='/products/<%= product.id %>';">
+                        <td class="counter-cell"></td>
+                        <td><img src="<%= product.productImagePath %>" alt="Изображение"></td>
+                        <td><%= product.title %></td>
+                        <td><%= product.pricePerPiece %> лв.</td>
+                        <td><%= product.piecesPerUnit %></td>
+                        <td><%= product.pricePerUnit %> лв.</td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-nav">
+        <div><<</div>
+        <div><</div>
+        <div>></div>
+        <div>>></div>
+    </div>
 </div>
+<% } %>

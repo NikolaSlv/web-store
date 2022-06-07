@@ -31,6 +31,8 @@
     font-size: var(--nav-link-font-size-1200px);
     font-weight: 300;
     padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 0rem;
 }
 
 .header-nav li a:hover, .header-title:hover {
@@ -74,6 +76,7 @@
         position: absolute;
         top: 4.1rem;
         right: 0;
+        padding-right: 1rem;
         z-index: 2;
     }
     .header-nav li {
