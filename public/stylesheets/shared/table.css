@@ -43,10 +43,10 @@ tr:last-child td {
 }
 
 td img {
-    height: 70px;
-    width: 70px;
+    width: var(--table-product-image-width-1200px);
+    height: calc(var(--table-product-image-width-1200px) / var(--table-product-image-aspect-ratio));
     object-fit: cover;
-    border-radius: 15px;
+    border-radius: 10px;
     border: 1px solid black;
 }
 
@@ -60,29 +60,29 @@ tr:hover td {
     counter-increment: tableCount;
 }
 
-.table-nav {
+.pagination {
     display: flex;
     justify-content: center;
     width: 100%;
     padding: 1rem;
 }
 
-.table-nav div {
+.pagination div {
     padding: .6rem;
     border-bottom: 1px solid black;
-    height: 0.6rem;
-    width: 1.2rem;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgb(128, 193, 250);
     color: black;
-    box-shadow: 0px 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
     margin: 0.5rem;
     cursor: pointer;
-    font-size: var(--basic-text-size-1200px);
     font-family: Impact;
+    max-height: 1rem;
+    height: auto;
+    width: auto;
+    font-size: var(--basic-text-size-1200px);
 }
 
 ::-webkit-scrollbar {
@@ -96,4 +96,52 @@ tr:hover td {
 
 ::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* DYNAMICS */
+
+@media only screen and (max-width: 992px) {
+    thead th {
+        font-size: var(--basic-text-size-992px);
+    }
+    th, td {
+        font-size: var(--basic-text-size-992px);
+    }
+    td img {
+        width: var(--table-product-image-width-992px);
+        height: calc(var(--table-product-image-width-992px) / var(--table-product-image-aspect-ratio));
+    }
+    .pagination div {
+        font-size: var(--basic-text-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    thead th {
+        font-size: var(--basic-text-size-768px);
+    }
+    th, td {
+        font-size: var(--basic-text-size-768px);
+    }
+    td img {
+        width: var(--table-product-image-width-768px);
+        height: calc(var(--table-product-image-width-768px) / var(--table-product-image-aspect-ratio));
+    }
+    .pagination div {
+        font-size: var(--basic-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    thead th {
+        font-size: var(--basic-text-size-576px);
+    }
+    th, td {
+        font-size: var(--basic-text-size-576px);
+    }
+    td img {
+        width: var(--table-product-image-width-576px);
+        height: calc(var(--table-product-image-width-576px) / var(--table-product-image-aspect-ratio));
+    }
+    .pagination div {
+        font-size: var(--basic-text-size-576px);
+    }
 }
