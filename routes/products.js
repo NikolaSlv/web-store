@@ -62,8 +62,7 @@ router.get('/', async (req, res) => {
                 maxPage: maxPage
             })
         }
-    } catch (err) {
-        console.log(err)
+    } catch {
         res.redirect('/')
     }
 })
