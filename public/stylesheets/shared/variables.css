@@ -59,13 +59,18 @@
     --product-description-max-width-576px: 95%;
 
     --table-product-image-aspect-ratio: 1;
-    --table-product-image-width-1200px: 100px;
-    --table-product-image-width-992px: 85px;
-    --table-product-image-width-768px: 70px;
-    --table-product-image-width-576px: 55px;
+    --table-product-image-width-1200px: 110px;
+    --table-product-image-width-992px: 95px;
+    --table-product-image-width-768px: 80px;
+    --table-product-image-width-576px: 65px;
 
     --table-pagi-text-size-1200px: .9rem;
     --table-pagi-text-size-992px: .85rem;
     --table-pagi-text-size-768px: .8rem;
     --table-pagi-text-size-576px: .75rem;
+
+    --table-pagi-counter-size-1200px: .8rem;
+    --table-pagi-counter-size-992px: .75rem;
+    --table-pagi-counter-size-768px: .7rem;
+    --table-pagi-counter-size-576px: .65rem;
 }

@@ -8,22 +8,34 @@
         <table>
             <thead>
                 <tr>
-                    <th>&numero;</th>
+                    <th class="adjustNum">&numero;</th>
                     <th>Продукт</th>
                     <th>Име</th>
-                    <th>Цена<br>на бр.</th>
-                    <th>Бр. в кашон<br>/опаковка</th>
-                    <th class="adjust">Цена на кашон<br>/опаковка</th>
+                    <th>
+                        <span>Цена<br>(бр.)</span>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <a onclick="sort('pricePerPiece', 1)" style="margin-top: .3rem; margin-right: .1rem;">&uarr;</a>
+                            <a onclick="sort('pricePerPiece', -1)" style="margin-top: .3rem; margin-left: .1rem;">&darr;</a>
+                        </div>
+                    </th>
+                    <th class="adjustTiny">Бр. в кашон<br>/опаковка</th>
+                    <th class="adjust">
+                        <span>Цена на кашон<br>/опаковка</span>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <a onclick="sort('pricePerUnit', 1)" style="margin-top: .3rem; margin-right: .1rem;">&uarr;</a>
+                            <a onclick="sort('pricePerUnit', -1)" style="margin-top: .3rem; margin-left: .1rem;">&darr;</a>
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <% products.forEach(product => { %>
                     <tr onclick="window.location='/products/<%= product.id %>'">
-                        <td><%= pos + 1 %></td>
+                        <td class="adjustNum"><%= pos + 1 %></td>
                         <td><img src="<%= product.productImagePath %>" alt="Изображение"></td>
                         <td><%= product.title %></td>
                         <td><%= product.pricePerPiece %> лв.</td>
-                        <td><%= product.piecesPerUnit %></td>
+                        <td class="adjustTiny"><%= product.piecesPerUnit %></td>
                         <td class="adjust"><%= product.pricePerUnit %> лв.</td>
                     </tr>
                     <% pos++ %>
@@ -38,6 +50,9 @@
         <a onclick="tablePagination(-1, '<%= maxPage %>')">
             <div><</div>
         </a>
+        <span class="pag-counter">
+            <%= page %> / <%= maxPage %>
+        </span>
         <a onclick="tablePagination(1, '<%= maxPage %>')">
             <div>></div>
         </a>

@@ -92,3 +92,21 @@
         font-size: var(--basic-text-size-576px);
     }
 }
+@media only screen and (max-width: 400px) {
+    .form-item input, .form-item textarea {
+        width: 10rem;
+        margin: auto;
+    }
+}
+@media only screen and (max-width: 350px) {
+    .form-item input, .form-item textarea {
+        width: 8rem;
+        margin: auto;
+    }
+}
+@media only screen and (max-width: 250px) {
+    .form-item input, .form-item textarea {
+        width: 6rem;
+        margin: auto;
+    }
+}

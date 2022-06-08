@@ -34,3 +34,27 @@ function tablePagination(state, maxPage) {
 
     location.reload()
 }
+
+function sort(sortParamVal, sortTypeVal) {
+    var searchParams = new URLSearchParams(window.location.search)
+    var sortParam = 'sortParam'
+    var sortType = 'sortType'
+    var page = 'page'
+
+    if (searchParams.has(sortParam) && searchParams.has(sortType)) {
+        searchParams.set(sortParam, sortParamVal)
+        searchParams.set(sortType, sortTypeVal)
+        history.replaceState(null, null, "?" + searchParams.toString())
+    } else if (!(searchParams.has(sortParam) || searchParams.has(sortType))) {
+        searchParams += "&sortParam=" + sortParamVal
+        searchParams += "&sortType=" + sortTypeVal
+        history.replaceState(null, null, "?" + searchParams.toString())
+    }
+
+    if (searchParams.has(page)) {
+        searchParams.set(page, 1)
+        history.replaceState(null, null, "?" + searchParams.toString())
+    }
+
+    location.reload()
+}

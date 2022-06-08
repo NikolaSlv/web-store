@@ -43,6 +43,45 @@ router.get('/', async (req, res) => {
         startIndex = (page - 1) * limit
     }
 
+    let sortConfig
+    let sortParam = ''
+    let sortType = 1
+    if (req.query.sortParam != null && req.query.sortParam !== '') {
+        sortParam = req.query.sortParam;
+    }
+    if (req.query.sortType != null && req.query.sortType !== '') {
+        sortType = req.query.sortType;
+    }
+    if (sortParam == 'pricePerPiece') {
+        if (sortType == 1) {
+            sortConfig = { 
+                pricePerPiece: 1,
+                title: 1
+            }
+        } else {
+            sortConfig = { 
+                pricePerPiece: -1,
+                title: 1
+            }
+        }
+    } else if (sortParam == 'pricePerUnit') {
+        if (sortType == 1) {
+            sortConfig = { 
+                pricePerUnit: 1,
+                title: 1
+            }
+        } else {
+            sortConfig = { 
+                pricePerUnit: -1,
+                title: 1
+            }
+        }
+    } else {
+        sortConfig = { 
+            title: 1
+        }
+    }
+
     try {
         let count = (await query.clone().exec()).length
         let maxPage = Math.ceil(count / limit)
@@ -54,12 +93,13 @@ router.get('/', async (req, res) => {
                 searchOptions: req.query
             })
         } else {
-            const products = await query.limit(limit).skip(startIndex).exec()
+            const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
             res.render('products/index', { 
                 products: products, 
                 searchOptions: req.query,
                 pos: startIndex,
-                maxPage: maxPage
+                maxPage: maxPage,
+                page: page
             })
         }
     } catch {
