@@ -2,13 +2,13 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 100%;
     margin: auto;
-    table-layout: fixed;
 }
 
 table {
     border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
 }
 
 .table-section {
