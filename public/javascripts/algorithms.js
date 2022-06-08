@@ -1,15 +1,15 @@
-function searchAlg(arr) {
-    let searchArrDirty = (arr.replace(/[\r\n' ']/gm, '| ')).split(' ')
-    let searchArr = searchArrDirty.filter(element => {
+function setSearchStr(str) {
+    var searchArrDirty = (str.replace(/[\r\n' ']/gm, '| ')).split(' ')
+    var searchArr = searchArrDirty.filter(element => {
         return element !== '' && element !== '|'
     })
-    searchArr = searchArr.join("")
-    if (searchArr[searchArr.length - 1] === '|') {
-        searchArr = searchArr.slice(0, searchArr.length - 1)
-    } else if (searchArr[0] === '|') {
-        searchArr = searchArr.slice(1)
+    searchStr = searchArr.join("")
+    if (searchStr[searchStr.length - 1] === '|') {
+        searchStr = searchStr.slice(0, searchStr.length - 1)
+    } else if (searchStr[0] === '|') {
+        searchStr = searchStr.slice(1)
     }
-    return searchArr
+    return searchStr
 }
 
-module.exports.searchAlg = searchAlg
+module.exports.setSearchStr = setSearchStr

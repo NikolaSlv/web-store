@@ -1,3 +1,4 @@
+<h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Търсене на продукти</h2>
 <div class="form-row">
     <div class="form-item">
         <label>Наименование</label>
@@ -10,26 +11,33 @@
 </div>
 <div class="form-row">
     <div class="form-item">
-        <label>Минимална цена на бройка (в лв.)</label>
-        <input type="text" name="minPricePerPiece" value="<%= searchOptions.minPricePerPiece %>">
+        <label><span style="text-decoration: underline;">Минимална</span> цена на бройка (в лв.)</label>
+        <input type="text" name="minPricePerPiece" 
+        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+        value="<%= searchOptions.minPricePerPiece %>">
     </div>
     <div class="form-item">
-        <label>Максимална цена на бройка (в лв.)</label>
-        <input type="text" name="maxPricePerPiece" value="<%= searchOptions.maxPricePerPiece %>">
+        <label><span style="text-decoration: underline;">Максимална</span> цена на бройка (в лв.)</label>
+        <input type="text" name="maxPricePerPiece" 
+        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+        value="<%= searchOptions.maxPricePerPiece %>">
     </div>
 </div>
 <div class="form-row">
     <div class="form-item">
-        <label>Минимална цена на кашон/опаковка (в лв.)</label>
-        <input type="text" name="minPricePerUnit" value="<%= searchOptions.minPricePerUnit %>">
+        <label><span style="text-decoration: underline;">Минимална</span> цена на кашон/опаковка (в лв.)</label>
+        <input type="text" name="minPricePerUnit" 
+        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+        value="<%= searchOptions.minPricePerUnit %>">
     </div>
     <div class="form-item">
-        <label>Максимална цена на кашон/опаковка (в лв.)</label>
-            <input type="text" name="maxPricePerUnit" value="<%= searchOptions.maxPricePerUnit %>">
+        <label><span style="text-decoration: underline;">Максимална</span> цена на кашон/опаковка (в лв.)</label>
+            <input type="text" name="maxPricePerUnit" 
+            pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+            value="<%= searchOptions.maxPricePerUnit %>">
     </div>
 </div>
-<br>
 <input style="display: none;" type="text" name="allProducts" value="<%= searchOptions.allProducts %>">
-<div class="form-row form-row-end">
+<div class="form-row form-row-end" style="margin-top: 1rem;">
     <button class="btn btn-primary" type="submit">Търси</button>
 </div>

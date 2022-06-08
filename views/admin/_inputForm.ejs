@@ -51,17 +51,23 @@
 <div class="form-row">
     <div class="form-item">
         <label>Цена на бройка (в лв.):</label>
-        <input type="text" name="pricePerPiece" value="<%= product.pricePerPiece %>">
+        <input type="text" name="pricePerPiece" 
+        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+        value="<%= product.pricePerPiece %>">
     </div>
     <div class="form-item">
         <label>Грамаж на бройка (в гр.):</label>
-        <input type="text" name="weightPerPiece" value="<%= product.weightPerPiece %>">
+        <input type="text" name="weightPerPiece"
+        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак." 
+        value="<%= product.weightPerPiece %>">
     </div>
 </div>
 <div class="form-row">
     <div class="form-item">
         <label>Цена на кашон/опаковка (в лв.):</label>
-        <input type="text" name="pricePerUnit" value="<%= product.pricePerUnit %>">
+        <input type="text" name="pricePerUnit" 
+        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+        value="<%= product.pricePerUnit %>">
     </div>
     <div class="form-item">
         <label>Бройки в кашон/опаковка:</label>

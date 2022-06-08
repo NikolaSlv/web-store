@@ -2,22 +2,68 @@
     <a class="btn btn-primary" href="/admin/new">Добави</a>
 </div>
 <br>
-<h2 class="page-header page-header-centered">Търсене на продукти</h2>
 <form action="/admin" method="GET">
     <%- include('../partials/searchForm.ejs') %>
 </form>
+<% if (products != null && maxPage != 0) { %>
 <br>
-<div>
-    <% if (products != null) { %>
-    <% products.forEach(product => { %>
-        <div><%= product.title %></div>
-        <a href="/admin/<%= product.id %>">
-            <img class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
+<div class="table">
+    <div class="table-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>&numero;</th>
+                    <th>Продукт</th>
+                    <th>Име</th>
+                    <th>Цена<br>на бр.</th>
+                    <th>Бр. в кашон<br>/опаковка</th>
+                    <th class="adjust">Цена на кашон<br>/опаковка</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr onclick="window.location='/admin/<%= product.id %>'">
+                        <td><%= pos + 1 %></td>
+                        <td><img src="<%= product.productImagePath %>" alt="Изображение"></td>
+                        <td><%= product.title %></td>
+                        <td><%= product.pricePerPiece %> лв.</td>
+                        <td><%= product.piecesPerUnit %></td>
+                        <td class="adjust"><%= product.pricePerUnit %> лв.</td>
+                        <td>
+                            <div class="btn-row" style="justify-content: center">
+                                <a class="btn btn-primary" href="/admin/<%= product.id %>/edit">Редактирай</a>
+                            </div>
+                            <div class="btn-row" style="justify-content: center; margin-top: .5rem;">
+                                <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
+                            </div>
+                        </td>
+                    </tr>
+                    <% pos++ %>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <a onclick="tablePagination(-5, '<%= maxPage %>')">
+            <div><<</div>
         </a>
-        <div class="btn-row">
-            <a class="btn btn-primary" href="/admin/<%= product.id %>/edit">Редактирай</a>
-            <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
-        </div>
-    <% }) %>
-    <% } %>
+        <a onclick="tablePagination(-1, '<%= maxPage %>')">
+            <div><</div>
+        </a>
+        <a onclick="tablePagination(1, '<%= maxPage %>')">
+            <div>></div>
+        </a>
+        <a onclick="tablePagination(5, '<%= maxPage %>')">
+            <div>>></div>
+        </a>
+    </div>
 </div>
+<% } else if (products != null) { %>
+    <div style="text-align: center;">
+        <br>
+        <div class="error-message">
+            Не са намерени продукти по зададения критерий!
+        </div>
+    </div>
+<% } %>

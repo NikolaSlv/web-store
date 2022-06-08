@@ -1,9 +1,7 @@
-<h2 class="page-header page-header-centered">Търсене на продукти</h2>
 <form action="/products" method="GET">
-    <br>
     <%- include('../partials/searchForm.ejs') %>
 </form>
-<% if (products != null) { %>
+<% if (products != null && maxPage != 0) { %>
 <br>
 <div class="table">
     <div class="table-section">
@@ -12,31 +10,47 @@
                 <tr>
                     <th>&numero;</th>
                     <th>Продукт</th>
-                    <th>Наименование</th>
-                    <th>Цена на бройка</th>
-                    <th>Бройки в кашон/опаковка</th>
-                    <th>Цена на кашон/опаковка</th>
+                    <th>Име</th>
+                    <th>Цена<br>на бр.</th>
+                    <th>Бр. в кашон<br>/опаковка</th>
+                    <th class="adjust">Цена на кашон<br>/опаковка</th>
                 </tr>
             </thead>
             <tbody>
                 <% products.forEach(product => { %>
-                    <tr onclick="window.location='/products/<%= product.id %>';">
-                        <td class="counter-cell"></td>
+                    <tr onclick="window.location='/products/<%= product.id %>'">
+                        <td><%= pos + 1 %></td>
                         <td><img src="<%= product.productImagePath %>" alt="Изображение"></td>
                         <td><%= product.title %></td>
                         <td><%= product.pricePerPiece %> лв.</td>
                         <td><%= product.piecesPerUnit %></td>
-                        <td><%= product.pricePerUnit %> лв.</td>
+                        <td class="adjust"><%= product.pricePerUnit %> лв.</td>
                     </tr>
+                    <% pos++ %>
                 <% }) %>
             </tbody>
         </table>
     </div>
     <div class="pagination">
-        <div><<</div>
-        <div><</div>
-        <div>></div>
-        <div>>></div>
+        <a onclick="tablePagination(-5, '<%= maxPage %>')">
+            <div><<</div>
+        </a>
+        <a onclick="tablePagination(-1, '<%= maxPage %>')">
+            <div><</div>
+        </a>
+        <a onclick="tablePagination(1, '<%= maxPage %>')">
+            <div>></div>
+        </a>
+        <a onclick="tablePagination(5, '<%= maxPage %>')">
+            <div>>></div>
+        </a>
     </div>
 </div>
+<% } else if (products != null) { %>
+    <div style="text-align: center;">
+        <br>
+        <div class="error-message">
+            Не са намерени продукти по зададения критерий!
+        </div>
+    </div>
 <% } %>

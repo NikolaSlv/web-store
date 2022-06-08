@@ -69,11 +69,11 @@ router.get('/', async (req, res) => {
     let query = Product.find()
     let emptyQuery = true
     if (req.query.title != null && req.query.title !== '') {
-        query = query.regex('title', new RegExp(algs.searchAlg(req.query.title), 'i'))
+        query = query.regex('title', new RegExp(algs.setSearchStr(req.query.title), 'i'))
         emptyQuery = false
     }
     if (req.query.description != null && req.query.description !== '') {
-        query = query.regex('description', new RegExp(algs.searchAlg(req.query.description), 'i'))
+        query = query.regex('description', new RegExp(algs.setSearchStr(req.query.description), 'i'))
         emptyQuery = false
     }
     if (req.query.minPricePerPiece != null && req.query.minPricePerPiece !== '') {
@@ -96,7 +96,18 @@ router.get('/', async (req, res) => {
         emptyQuery = false
     }
 
+    let page = 1
+    let limit = 2
+    let startIndex = 0
+    if (req.query.page != null && req.query.page !== '') {
+        page = parseInt(req.query.page)
+        startIndex = (page - 1) * limit
+    }
+
     try {
+        let count = (await query.clone().exec()).length
+        let maxPage = Math.ceil(count / limit)
+
         if (emptyQuery) {
             req.query.allProducts = 'yes'
             res.render('admin/index', { 
@@ -104,10 +115,12 @@ router.get('/', async (req, res) => {
                 searchOptions: req.query 
             })
         } else {
-            const products = await query.exec()
+            const products = await query.limit(limit).skip(startIndex).exec()
             res.render('admin/index', { 
                 products: products, 
-                searchOptions: req.query 
+                searchOptions: req.query,
+                pos: startIndex,
+                maxPage: maxPage
             })
         }
     } catch {

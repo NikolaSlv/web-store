@@ -23,10 +23,10 @@
     --nav-menu-image-width-576px: 2rem;
     --nav-menu-image-height-576px: 1.8rem;
 
-    --page-header-text-size-1200px: 1.15rem;
-    --page-header-text-size-992px: 1.1rem;
-    --page-header-text-size-768px: 1.05rem;
-    --page-header-text-size-576px: 1rem;
+    --page-header-text-size-1200px: 1.1rem;
+    --page-header-text-size-992px: 1.05rem;
+    --page-header-text-size-768px: 1rem;
+    --page-header-text-size-576px: .95rem;
 
     --basic-text-size-1200px: .97rem;
     --basic-text-size-992px: .92rem;
@@ -63,4 +63,9 @@
     --table-product-image-width-992px: 85px;
     --table-product-image-width-768px: 70px;
     --table-product-image-width-576px: 55px;
+
+    --table-pagi-text-size-1200px: .9rem;
+    --table-pagi-text-size-992px: .85rem;
+    --table-pagi-text-size-768px: .8rem;
+    --table-pagi-text-size-576px: .75rem;
 }

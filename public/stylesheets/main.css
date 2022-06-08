@@ -39,6 +39,7 @@ body {
     display: inline-block;
     color: black;
     background-color: var(--color-btn-danger-background);
+    font-size: var(--basic-text-size-1200px);
 }
 
 /* DYNAMICS */
@@ -50,6 +51,9 @@ body {
     .page-header {
         font-size: var(--page-header-text-size-992px);
     }
+    .error-message {
+        font-size: var(--basic-text-size-992px);
+    }
 }
 @media only screen and (max-width: 768px) {
     :root {
@@ -58,6 +62,9 @@ body {
     .page-header {
         font-size: var(--page-header-text-size-768px);
     }
+    .error-message {
+        font-size: var(--basic-text-size-768px);
+    }
 }
 @media only screen and (max-width: 576px) {
     :root {
@@ -65,6 +72,9 @@ body {
     }
     .page-header {
         font-size: var(--page-header-text-size-576px);
+    }
+    .error-message {
+        font-size: var(--basic-text-size-576px);
     }
 }
 @media only screen and (max-width: 300px) {
