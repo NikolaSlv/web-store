@@ -20,6 +20,7 @@ const filter = require('content-filter')
 const indexRouter = require('./routes/index')
 const adminRouter = require('./routes/admin')
 const productsRouter = require('./routes/products')
+const requestRouter = require('./routes/request')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -50,6 +51,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/', indexRouter)
 app.use('/admin', adminRouter)
 app.use('/products', productsRouter)
+app.use('/request', requestRouter)
 
 app.use(function (req, res, next) {
     res.status(404).send()

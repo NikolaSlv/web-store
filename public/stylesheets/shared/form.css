@@ -37,6 +37,7 @@
 
 .form-item input, .form-item textarea, .form-item select {
     height: 2rem;
+    width: 100%;
     padding: .25rem, .5rem;
     border-radius: var(--basic-border-radius);
     border: 1px solid var(--form-input-border-color);
@@ -90,23 +91,5 @@
     }
     .form-item input, .form-item textarea, .form-item select {
         font-size: var(--basic-text-size-576px);
-    }
-}
-@media only screen and (max-width: 400px) {
-    .form-item input, .form-item textarea {
-        width: 10rem;
-        margin: auto;
-    }
-}
-@media only screen and (max-width: 350px) {
-    .form-item input, .form-item textarea {
-        width: 8rem;
-        margin: auto;
-    }
-}
-@media only screen and (max-width: 250px) {
-    .form-item input, .form-item textarea {
-        width: 6rem;
-        margin: auto;
     }
 }

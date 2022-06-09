@@ -1,0 +1,46 @@
+<h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Създаване на заявка</h2>
+<form action="/request/send" method="GET">
+    <div class="form-row">
+        <div class="form-item">
+            <label>Име:<span style="color: red"> *</span></label>
+            <input required type="text" name="name" value="<%= request.name %>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Фамилия:<span style="color: red"> *</span></label>
+            <input required type="text" name="surname" value="<%= request.surname %>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Наименование на магазина:</label>
+            <input type="text" name="storeName" value="<%= request.storeName %>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Адрес на магазина:<span style="color: red"> *</span></label>
+            <input required type="text" name="address" value="<%= request.address %>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Телефон:<span style="color: red"> *</span></label>
+            <input required type="tel" name="phone" 
+            pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
+            title="Моля, въведете валиден телефонен номер."
+            value="<%= request.phone %>">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-item">
+            <label>Описание на заявката:<span style="color: red"> *</span></label>
+            <textarea required name="info" style="min-height: 15rem;"><%= request.info %></textarea>
+        </div>
+    </div>
+    <div class="form-row form-row-end btn-row" style="margin-top: 1rem;">
+        <a class="btn btn-danger" href="/">Откажи</a>
+        <button class="btn btn-primary" type="submit">Потвърди</button>
+    </div>
+</form>

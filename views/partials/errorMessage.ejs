@@ -4,4 +4,10 @@
             <%= errorMessage %>
         </div>
     </div>
+<% } else if (locals.successMessage != null) { %>
+    <div style="text-align: center;">
+        <div class="error-message" style="background-color: rgb(148 255 148);">
+            <%= successMessage %>
+        </div>
+    </div>
 <% } %>
