@@ -49,7 +49,7 @@ router.get('/send', (req, res) => {
   var email = req.body.email;
   var uri = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + token;
   var options = {
-    method: 'GET',
+    method: 'POST',
     uri: uri,
     json: true
   };

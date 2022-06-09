@@ -47,7 +47,7 @@
     
     $(document).ready(function(){
      $("button").click(function(){
-      $.get("/send",{
+      $.post("/send",{
        email: $("#uEmail").val(),
        token: myToken
       },function(res){
