@@ -28,9 +28,9 @@ let emptyReq = {
 }
 
 // View Form
-router.get('/', recaptcha.middleware.render, (req, res) => {
+router.get('/', (req, res) => {
     try {
-        res.render(`request/index`, { request: emptyReq, captcha: res.recaptcha })
+        res.render(`request/index`, { request: emptyReq })
     } catch {
         res.redirect('/')
     }
