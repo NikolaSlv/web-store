@@ -16,19 +16,19 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+let emptyReq = {
+    name: '',
+    surname: '',
+    storeName: '',
+    address: '',
+    phone: '',
+    info: ''
+}
+
 // View Form
 router.get('/', (req, res) => {
-    let request = {
-        name: '',
-        surname: '',
-        storeName: '',
-        address: '',
-        phone: '',
-        info: ''
-    }
-
     try {
-        res.render(`request/index`, {request: request})
+        res.render(`request/index`, {request: emptyReq})
     } catch {
         res.redirect('/')
     }
@@ -57,7 +57,7 @@ router.get('/send', (req, res) => {
             renderResultPage(res, request, true)
         } else {
             console.log('Email sent: ' + info.response)
-            renderResultPage(res, request)
+            renderResultPage(res, emptyReq)
         }
     })
 })
