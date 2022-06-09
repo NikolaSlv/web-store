@@ -3,25 +3,19 @@
     <div class="form-row">
         <div class="form-item">
             <label>Име:<span style="color: red"> *</span></label>
-            <input required type="text" name="name" value="<%= request.name %>">
+            <input required type="text" name="name" value="<%= requestData.name %>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-item">
-            <label>Фамилия:<span style="color: red"> *</span></label>
-            <input required type="text" name="surname" value="<%= request.surname %>">
+            <label>Наименование на магазина/фирмата:<span style="color: red"> *</span></label>
+            <input required type="text" name="storeName" value="<%= requestData.storeName %>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-item">
-            <label>Наименование на магазина:</label>
-            <input type="text" name="storeName" value="<%= request.storeName %>">
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-item">
-            <label>Адрес на магазина:<span style="color: red"> *</span></label>
-            <input required type="text" name="address" value="<%= request.address %>">
+            <label>Адрес за доставка:<span style="color: red"> *</span></label>
+            <input required type="text" name="address" value="<%= requestData.address %>">
         </div>
     </div>
     <div class="form-row">
@@ -30,17 +24,31 @@
             <input required type="tel" name="phone" 
             pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
             title="Моля, въведете валиден телефонен номер."
-            value="<%= request.phone %>">
+            value="<%= requestData.phone %>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-item">
             <label>Описание на заявката:<span style="color: red"> *</span></label>
-            <textarea required name="info" style="min-height: 15rem;"><%= request.info %></textarea>
+            <textarea required name="info" style="min-height: 15rem;"><%= requestData.info %></textarea>
         </div>
     </div>
+    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+    <input type="hidden" name="action" value="validate_captcha">
     <div class="form-row form-row-end btn-row" style="margin-top: 1rem;">
         <a class="btn btn-danger" href="/">Откажи</a>
         <button class="btn btn-primary" type="submit">Потвърди</button>
     </div>
 </form>
+<script src="https://www.google.com/recaptcha/api.js?render=6LcSfFogAAAAABk0dAwkCua5sgExTHTsWJZUmKq0"></script>
+<script>
+    grecaptcha.ready(function() {
+    // do request for recaptcha token
+    // response is promise with passed token
+        grecaptcha.execute('6LcSfFogAAAAABk0dAwkCua5sgExTHTsWJZUmKq0', {action:'validate_captcha'})
+                  .then(function(token) {
+            // add token value to form
+            document.getElementById('g-recaptcha-response').value = token;
+        });
+    });
+</script>

@@ -41,7 +41,7 @@
 <div class="form-row">
     <div class="form-item">
         <label>Наименование:</label>
-        <input type="text" name="title" value="<%= product.title %>">
+        <input required type="text" name="title" value="<%= product.title %>">
     </div>
     <div class="form-item form-item-hidden">
         <label>null</label>
@@ -51,13 +51,13 @@
 <div class="form-row">
     <div class="form-item">
         <label>Цена на бройка (в лв.):</label>
-        <input type="text" name="pricePerPiece" 
+        <input required type="text" name="pricePerPiece" 
         pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
         value="<%= product.pricePerPiece %>">
     </div>
     <div class="form-item">
         <label>Грамаж на бройка (в гр.):</label>
-        <input type="text" name="weightPerPiece"
+        <input required type="text" name="weightPerPiece"
         pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак." 
         value="<%= product.weightPerPiece %>">
     </div>
@@ -65,13 +65,13 @@
 <div class="form-row">
     <div class="form-item">
         <label>Цена на кашон/опаковка (в лв.):</label>
-        <input type="text" name="pricePerUnit" 
+        <input required type="text" name="pricePerUnit" 
         pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
         value="<%= product.pricePerUnit %>">
     </div>
     <div class="form-item">
         <label>Бройки в кашон/опаковка:</label>
-        <input type="number" name="piecesPerUnit" min="1" value="<%= product.piecesPerUnit %>">
+        <input required type="number" name="piecesPerUnit" min="1" value="<%= product.piecesPerUnit %>">
     </div>
 </div>
 <div class="form-row">
@@ -81,6 +81,6 @@
     </div>
     <div class="form-item">
         <label>Описание:</label>
-        <textarea name="description" placeholder="Категория, производител..."><%= product.description %></textarea>
+        <textarea required name="description" placeholder="Категория, производител..."><%= product.description %></textarea>
     </div>
 </div>

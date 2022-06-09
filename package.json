@@ -28,6 +28,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.3.1",
     "nodemailer": "^6.7.5",
+    "request": "^2.88.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {

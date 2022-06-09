@@ -87,20 +87,12 @@ router.get('/', async (req, res) => {
         query = query.lte('pricePerPiece', req.query.maxPricePerPiece)
         emptyQuery = false
     }
-    if (req.query.minPricePerUnit != null && req.query.minPricePerUnit !== '') {
-        query = query.gte('pricePerUnit', req.query.minPricePerUnit)
-        emptyQuery = false
-    }
-    if (req.query.maxPricePerUnit != null && req.query.maxPricePerUnit !== '') {
-        query = query.lte('pricePerUnit', req.query.maxPricePerUnit)
-        emptyQuery = false
-    }
     if (req.query.allProducts != null && req.query.allProducts !== '') {
         emptyQuery = false
     }
 
     let page = 1
-    let limit = 2
+    let limit = 15
     let startIndex = 0
     if (req.query.page != null && req.query.page !== '') {
         page = parseInt(req.query.page)

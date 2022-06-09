@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
+const request = require('request');
 
 const transporter = nodemailer.createTransport({
     pool: true,
@@ -18,7 +19,6 @@ const transporter = nodemailer.createTransport({
 
 let emptyReq = {
     name: '',
-    surname: '',
     storeName: '',
     address: '',
     phone: '',
@@ -28,7 +28,7 @@ let emptyReq = {
 // View Form
 router.get('/', (req, res) => {
     try {
-        res.render(`request/index`, {request: emptyReq})
+        res.render(`request/index`, {requestData: emptyReq})
     } catch {
         res.redirect('/')
     }
@@ -36,25 +36,58 @@ router.get('/', (req, res) => {
 
 // Send Email
 router.get('/send', (req, res) => {
-    let request = {
+    let requestData = {
         name: req.query.name,
-        surname: req.query.surname,
         storeName: req.query.storeName,
         address: req.query.address,
         phone: req.query.phone,
         info: req.query.info
     }
 
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
+    {
+        return res.json({"responseError" : "something goes to wrong"});
+    }
+    const secretKey = "6LcSfFogAAAAAGoUdgheXtPEVE-yQRIU-eiWG_1p";
+    
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+    
+    request(verificationURL,function(error,response,body) {
+        body = JSON.parse(body);
+    
+        if(body.success !== undefined && !body.success) {
+        return res.json({"responseError" : "Failed captcha verification"});
+        }
+        res.json({"responseSuccess" : "Sucess"});
+    });
+
+    /*const resKey = req.body['g-recaptcha-response']
+    const secretKey = '6LfYaFogAAAAAIUsXwrY8RgUWEhKfhsmU7YyNyS0'
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${resKey}`
+
+    fetch(url, {
+        method: 'post',
+    })
+    .then((response) => response.json())
+    .then((google_response) => {
+        if (google_response.success != true) {
+            renderResultPage(res, request, true)
+        }
+    })
+    .catch((error) => {
+        res.redirect('/')
+    })*/
+
     let mailOptions = {
         from: process.env.EMAIL_NAME,
         to: process.env.EMAIL_NAME,
-        subject: `Заявка от ${request.name} ${request.surname}, ${request.storeName}`,
-        text: `Адрес: ${request.address}\nТелефон: ${request.phone}\nПоръчка:\n${request.info}`
+        subject: `Заявка от ${requestData.name}, ${requestData.storeName}`,
+        text: `Адрес: ${requestData.address}\nТелефон: ${requestData.phone}\n\nПоръчка:\n${requestData.info}`
     }
 
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
-            renderResultPage(res, request, true)
+            renderResultPage(res, requestData, true)
         } else {
             console.log('Email sent: ' + info.response)
             renderResultPage(res, emptyReq)
@@ -62,10 +95,10 @@ router.get('/send', (req, res) => {
     })
 })
 
-function renderResultPage(res, request, hasError = false) {
+function renderResultPage(res, requestData, hasError = false) {
     try {
         const params = {
-            request: request
+            requestData: requestData
         }
         if (hasError) {
             params.errorMessage = "Грешка при създаването на заявка!"
