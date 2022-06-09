@@ -40,12 +40,12 @@
         <button class="btn btn-primary" type="submit">Потвърди</button>
     </div>
 </form>
-<script src="https://www.google.com/recaptcha/api.js?render=6LcSfFogAAAAABk0dAwkCua5sgExTHTsWJZUmKq0"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59"></script>
 <script>
     grecaptcha.ready(function() {
     // do request for recaptcha token
     // response is promise with passed token
-        grecaptcha.execute('6LcSfFogAAAAABk0dAwkCua5sgExTHTsWJZUmKq0', {action:'validate_captcha'})
+        grecaptcha.execute('6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59', {action:'validate_captcha'})
                   .then(function(token) {
             // add token value to form
             document.getElementById('g-recaptcha-response').value = token;

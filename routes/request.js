@@ -48,7 +48,7 @@ router.get('/send', (req, res) => {
     {
         return res.json({"responseError" : "something goes to wrong"});
     }
-    const secretKey = "6LcSfFogAAAAAGoUdgheXtPEVE-yQRIU-eiWG_1p";
+    const secretKey = "6LfYkFogAAAAAPmr7XJqDFH9T1e__X162hXfiaci";
     
     const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
     
