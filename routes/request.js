@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
-const Recaptcha = require('express-recaptcha').RecaptchaV3
-
-const recaptcha = new Recaptcha('6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59', '6LfYkFogAAAAAPmr7XJqDFH9T1e__X162hXfiaci')
 
 const transporter = nodemailer.createTransport({
     pool: true,
@@ -37,13 +34,7 @@ router.get('/', (req, res) => {
 })
 
 // Send Email
-router.get('/send', recaptcha.middleware.verify, (req, res) => {
-    if (!req.recaptcha.error) {
-        res.send('Success')
-    } else {
-        res.send('Failed')
-    }
-
+router.get('/send', (req, res) => {
     let request = {
         name: req.query.name,
         storeName: req.query.storeName,

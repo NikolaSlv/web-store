@@ -1,5 +1,6 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Създаване на заявка</h2>
-<form action="/request/send" method="GET">
+<form id="reqForm" name="reqForm" action="/request/send" method="GET">
     <div class="form-row">
         <div class="form-item">
             <label>Име:<span style="color: red"> *</span></label>
@@ -35,6 +36,25 @@
     </div>
     <div class="form-row form-row-end btn-row" style="margin-top: 1rem;">
         <a class="btn btn-danger" href="/">Откажи</a>
-        <button class="btn btn-primary" type="submit">Потвърди</button>
+        <button class="btn btn-primary g-recaptcha" 
+        data-sitekey="6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59" 
+        data-callback='onSubmit' 
+        data-action='submit'>Потвърди</button>
     </div>
 </form>
+<script>
+    function onSubmit(token) {
+        var name = document.forms["reqForm"]["name"].value
+        var storeName = document.forms["reqForm"]["storeName"].value
+        var address = document.forms["reqForm"]["address"].value
+        var phone = document.forms["reqForm"]["phone"].value
+        var info = document.forms["reqForm"]["info"].value
+
+        if (name != "" && storeName != "" && address != "" && phone != "" && info != "") {
+            document.getElementById("reqForm").submit()
+        } else {
+            alert('Моля, попълнете всички полета.')
+            location.reload()
+        }
+    }
+</script>
