@@ -51,11 +51,11 @@
         var info = document.forms["reqForm"]["info"].value
 
         if (name != "" && storeName != "" && address != "" && phone != "" && info != "") {
-            document.getElementById("reqForm").submit()
+            
+        console.log(token)
         } else {
             alert('Моля, попълнете всички полета.')
             location.reload()
         }
-        console.log(token)
     }
 </script>
