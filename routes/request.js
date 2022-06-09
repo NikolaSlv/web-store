@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
-const request = require('request');
+var rp = require("request-promise");
 
 const transporter = nodemailer.createTransport({
     pool: true,
@@ -44,22 +44,31 @@ router.get('/send', (req, res) => {
         info: req.query.info
     }
 
-    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
-    {
-        return res.json({"responseError" : "something goes to wrong"});
-    }
     const secretKey = "6LfYkFogAAAAAPmr7XJqDFH9T1e__X162hXfiaci";
-    
-    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-    
-    request(verificationURL,function(error,response,body) {
-        body = JSON.parse(body);
-    
-        if(body.success !== undefined && !body.success) {
-        return res.json({"responseError" : "Failed captcha verification"});
+  var token = req.body.token
+  var email = req.body.email;
+  var uri = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + token;
+  var options = {
+    method: 'GET',
+    uri: uri,
+    json: true
+  };
+
+  if (token) {
+    rp(options)
+      .then(function(parsedBody) {
+        if (parsedBody.success && parsedBody.score > 0.1) {
+  // Save user email address to your database
+          res.send("Success - You are human");
+        } else {
+          res.send("Failed - You are bot");
         }
-        res.json({"responseSuccess" : "Sucess"});
+      })
+    .catch(function(err) {
+      res.send("Error - request Failed");
     });
+  } else
+    res.send("Error - Token Failed");
 
     /*const resKey = req.body['g-recaptcha-response']
     const secretKey = '6LfYaFogAAAAAIUsXwrY8RgUWEhKfhsmU7YyNyS0'

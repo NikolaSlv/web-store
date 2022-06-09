@@ -1,9 +1,11 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://www.google.com/recaptcha/api.js?render=YOUR-SITE-KEY"></script>
 <h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Създаване на заявка</h2>
 <form action="/request/send" method="GET">
     <div class="form-row">
         <div class="form-item">
             <label>Име:<span style="color: red"> *</span></label>
-            <input required type="text" name="name" value="<%= requestData.name %>">
+            <input id="uEmail" required type="text" name="name" value="<%= requestData.name %>">
         </div>
     </div>
     <div class="form-row">
@@ -40,15 +42,27 @@
         <button class="btn btn-primary" type="submit">Потвърди</button>
     </div>
 </form>
-<script src="https://www.google.com/recaptcha/api.js?render=6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59"></script>
 <script>
-    grecaptcha.ready(function() {
-    // do request for recaptcha token
-    // response is promise with passed token
-        grecaptcha.execute('6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59', {action:'validate_captcha'})
-                  .then(function(token) {
-            // add token value to form
-            document.getElementById('g-recaptcha-response').value = token;
-        });
+    var myToken;
+    
+    $(document).ready(function(){
+     $("button").click(function(){
+      $.get("/send",{
+       email: $("#uEmail").val(),
+       token: myToken
+      },function(res){
+        alert(res);
+      });
+     });
+     
+     grecaptcha.ready(function() {
+      // do request for recaptcha token
+      // response is promise with passed token
+      grecaptcha.execute('YOUR-SITE-KEY')
+      .then(function(token) {
+        // add token value to form
+        myToken = token;
+      });
+     });  
     });
-</script>
+    </script>
