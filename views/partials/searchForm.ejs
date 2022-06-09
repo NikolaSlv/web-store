@@ -4,6 +4,22 @@
         <label>Наименование</label>
         <input type="text" name="title" value="<%= searchOptions.title %>">
     </div>
+    <div class="form-item form-item-hidden">
+        <label>null</label>
+        <input>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-item">
+        <label>Категория</label>
+        <select id="category" name="category">
+            <option value="" disabled selected>Изберете...</option>
+            <option value="Бонбони">Бонбони</option>
+            <option value="Вафли">Вафли</option>
+            <option value="Кроасани">Кроасани</option>
+            <option value="Солети">Солети</option>
+        </select>
+    </div>
     <div class="form-item">
         <label>Описание на продукта</label>
         <textarea name="description"><%= searchOptions.description %></textarea>
@@ -41,3 +57,6 @@
 <div class="form-row form-row-end" style="margin-top: 1rem;">
     <button class="btn btn-primary" type="submit">Търси</button>
 </div>
+<script>
+    updateSelectBox('category', '<%= searchOptions.category %>')
+</script>

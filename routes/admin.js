@@ -72,9 +72,16 @@ router.get('/', async (req, res) => {
         query = query.regex('title', new RegExp(algs.setSearchStr(req.query.title), 'i'))
         emptyQuery = false
     }
+    if (req.query.category != null && req.query.category !== '') {
+        req.query.description += ' ' + req.query.category
+        emptyQuery = false
+    }
     if (req.query.description != null && req.query.description !== '') {
         query = query.regex('description', new RegExp(algs.setSearchStr(req.query.description), 'i'))
         emptyQuery = false
+    }
+    if (req.query.category != null && req.query.category !== '') {
+        req.query.description = algs.cropLastWord(req.query.description)
     }
     if (req.query.minPricePerPiece != null && req.query.minPricePerPiece !== '') {
         query = query.gte('pricePerPiece', req.query.minPricePerPiece)
@@ -108,10 +115,10 @@ router.get('/', async (req, res) => {
     let sortParam = ''
     let sortType = 1
     if (req.query.sortParam != null && req.query.sortParam !== '') {
-        sortParam = req.query.sortParam;
+        sortParam = req.query.sortParam
     }
     if (req.query.sortType != null && req.query.sortType !== '') {
-        sortType = req.query.sortType;
+        sortType = req.query.sortType
     }
     if (sortParam == 'pricePerPiece') {
         if (sortType == 1) {
