@@ -95,7 +95,6 @@
     .header-nav li a:hover {
         color: hsl(36, 100%, 48%);
         border: none;
-        background-color: inherit;
     }
     .header-menu-image {  
         display: block;
