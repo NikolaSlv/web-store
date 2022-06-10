@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const nodemailer = require('nodemailer')
+const request = require('request')
+
+const secretKey = process.env.SECRET_KEY
 
 const transporter = nodemailer.createTransport({
     pool: true,
@@ -27,15 +30,36 @@ let emptyReq = {
 // View Form
 router.get('/', (req, res) => {
     try {
-        res.render(`request/index`, { request: emptyReq })
+        res.render(`request/index`, { requestData: emptyReq })
     } catch {
         res.redirect('/')
     }
 })
 
+// Verify With Google reCaptcha v3
+router.post('/verify', (req, res) => {
+    if (!req.body.captcha) {
+        res.json({'status': '-1'})
+    }
+
+    const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`
+
+    request(verifyURL, (err, response, body) => {
+        if (err) {
+            console.log(err)
+        }
+        body = JSON.parse(body)
+
+        if (!body.success || body.score < 0.4) {
+            return res.json({'status': '0'})
+        }
+        return res.json({'status': '1'})
+    })
+})
+
 // Send Email
 router.get('/send', (req, res) => {
-    let request = {
+    let requestData = {
         name: req.query.name,
         storeName: req.query.storeName,
         address: req.query.address,
@@ -46,13 +70,13 @@ router.get('/send', (req, res) => {
     let mailOptions = {
         from: process.env.EMAIL_NAME,
         to: process.env.EMAIL_NAME,
-        subject: `Заявка от ${request.name}, ${request.storeName}`,
-        text: `Адрес: ${request.address}\nТелефон: ${request.phone}\n\nПоръчка:\n${request.info}`
+        subject: `Заявка от ${requestData.name}, ${requestData.storeName}`,
+        text: `Адрес: ${requestData.address}\nТелефон: ${requestData.phone}\n\nПоръчка:\n${requestData.info}`
     }
 
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
-            renderResultPage(res, request, true)
+            renderResultPage(res, requestData, true)
         } else {
             console.log('Email sent: ' + info.response)
             renderResultPage(res, emptyReq)
@@ -60,10 +84,10 @@ router.get('/send', (req, res) => {
     })
 })
 
-function renderResultPage(res, request, hasError = false) {
+function renderResultPage(res, requestData, hasError = false) {
     try {
         const params = {
-            request: request
+            requestData: requestData
         }
         if (hasError) {
             params.errorMessage = "Грешка при създаването на заявка!"

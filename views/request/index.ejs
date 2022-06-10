@@ -1,22 +1,22 @@
-<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY"></script>
 <h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Създаване на заявка</h2>
-<form id="reqForm" name="reqForm" action="/request/send" method="GET">
+<form id="reqForm" action="/request/send" method="GET">
     <div class="form-row">
         <div class="form-item">
             <label>Име:<span style="color: red"> *</span></label>
-            <input required type="text" name="name" value="<%= request.name %>">
+            <input required type="text" name="name" value="<%= requestData.name %>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-item">
             <label>Наименование на магазина/фирмата:<span style="color: red"> *</span></label>
-            <input required type="text" name="storeName" value="<%= request.storeName %>">
+            <input required type="text" name="storeName" value="<%= requestData.storeName %>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-item">
             <label>Адрес за доставка:<span style="color: red"> *</span></label>
-            <input required type="text" name="address" value="<%= request.address %>">
+            <input required type="text" name="address" value="<%= requestData.address %>">
         </div>
     </div>
     <div class="form-row">
@@ -25,37 +25,56 @@
             <input required type="tel" name="phone" 
             pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
             title="Моля, въведете валиден телефонен номер."
-            value="<%= request.phone %>">
+            value="<%= requestData.phone %>">
         </div>
     </div>
     <div class="form-row">
         <div class="form-item">
             <label>Описание на заявката:<span style="color: red"> *</span></label>
-            <textarea required name="info" style="min-height: 15rem;"><%= request.info %></textarea>
+            <textarea required name="info" style="min-height: 15rem;"><%= requestData.info %></textarea>
         </div>
     </div>
     <div class="form-row form-row-end btn-row" style="margin-top: 1rem;">
         <a class="btn btn-danger" href="/">Откажи</a>
-        <button class="btn btn-primary g-recaptcha" 
-        data-sitekey="6LfYkFogAAAAAF7gcuF-tL3h8-LGut2eNzXLkA59" 
-        data-callback='onSubmit' 
-        data-action='submit'>Потвърди</button>
+        <button class="btn btn-primary" type="submit">Потвърди</button>
     </div>
 </form>
 <script>
-    function onSubmit(token) {
-        var name = document.forms["reqForm"]["name"].value
-        var storeName = document.forms["reqForm"]["storeName"].value
-        var address = document.forms["reqForm"]["address"].value
-        var phone = document.forms["reqForm"]["phone"].value
-        var info = document.forms["reqForm"]["info"].value
+    var reqStatus = '-1'
+    document.getElementById('reqForm').addEventListener('submit', runVerify)
 
-        if (name != "" && storeName != "" && address != "" && phone != "" && info != "") {
-            
-            console.info(parsedData)
+    function runVerify(e) {
+        e.preventDefault()
+        runCaptcha()
+    }
+
+    function runCaptcha() {
+        grecaptcha.execute('6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY', {action: 'submit'})
+        .then(function(token) {
+            sendData(token)
+        })
+    }
+
+    async function sendData(captcha) {
+        const bodyData = JSON.stringify({ captcha: captcha })
+
+        await fetch('/request/verify', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-type': 'application/json'
+            },
+            body: bodyData
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            reqStatus = data.status
+        })
+
+        if (reqStatus == '1') {
+            document.getElementById('reqForm').submit()
         } else {
-            alert('Моля, попълнете всички полета.')
-            location.reload()
+            alert('Моля, изкачайте!')
         }
     }
 </script>
