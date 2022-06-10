@@ -30,13 +30,18 @@
     color: var(--color-text-header);
     font-size: var(--nav-link-font-size-1200px);
     font-weight: 300;
-    padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 0rem;
+    padding: .9rem;
+    padding-top: .7rem;
+    padding-bottom: .7rem;
 }
 
-.header-nav li a:hover, .header-title:hover {
+.header-title:hover {
     color: hsl(var(--color-base-hue), 50%, 30%);
+}
+
+.header-nav li a:hover {
+    border: 3px groove #c4c4c4;
+    border-radius: 45%;
 }
 
 .header-menu-image {
@@ -76,7 +81,7 @@
         position: absolute;
         top: 4.1rem;
         right: 0;
-        padding-right: 1rem;
+        padding-right: 0;
         z-index: 2;
     }
     .header-nav li {
@@ -89,6 +94,8 @@
     }
     .header-nav li a:hover {
         color: hsl(36, 100%, 48%);
+        border: none;
+        background-color: inherit;
     }
     .header-menu-image {  
         display: block;
