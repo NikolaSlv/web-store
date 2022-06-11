@@ -41,7 +41,6 @@
 
 .header-nav li a:hover {
     border: 3px groove #c4c4c4;
-    border-radius: 45%;
     margin-left: -6px;
 }
 
