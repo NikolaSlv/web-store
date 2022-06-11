@@ -2,7 +2,7 @@
 <div class="product-grid">
     <% products.forEach(product => { %>
         <a href="/products/<%= product.id %>">
-            <img loading='lazy' class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
+            <img class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
         </a>
     <% }) %>
 </div>
