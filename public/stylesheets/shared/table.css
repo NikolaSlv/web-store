@@ -61,8 +61,6 @@ td img {
     width: var(--table-product-image-width-1200px);
     height: calc(var(--table-product-image-width-1200px) / var(--table-product-image-aspect-ratio));
     object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid black;
 }
 
 tr:hover td {

@@ -1,6 +1,6 @@
 <h2 class="page-header"> <%= product.title %> </h2>
 <div class="product-details">
-    <div><img class="product-image" src="<%= product.productImagePath %>" alt="Изображение"></div>
+    <div><img loading='lazy' class="product-image" src="<%= product.productImagePath %>" alt="Изображение"></div>
     <div class="product-details-grid">
         <div class="product-details-label">Цена на бройка: </div>
         <div class="product-details-item"><%= product.pricePerPiece + ' лв.' %></div>

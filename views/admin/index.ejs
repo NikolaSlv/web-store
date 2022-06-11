@@ -37,7 +37,7 @@
                 <% products.forEach(product => { %>
                     <tr onclick="window.location='/admin/<%= product.id %>'">
                         <td class="adjustNum"><%= pos + 1 %></td>
-                        <td><img src="<%= product.productImagePath %>" alt="Изображение"></td>
+                        <td><img loading='lazy' src="<%= product.productImagePath %>" alt="Изображение"></td>
                         <td><%= product.title %></td>
                         <td><%= product.pricePerPiece %> лв.</td>
                         <td class="adjustTiny"><%= product.piecesPerUnit %></td>
