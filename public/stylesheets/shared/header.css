@@ -40,8 +40,8 @@
 }
 
 .header-nav li a:hover {
-    border: 3px groove #c4c4c4;
-    margin-left: -6px;
+    background-color:  indianred;
+    color: white;
 }
 
 .header-menu-image {
@@ -94,8 +94,7 @@
     }
     .header-nav li a:hover {
         color: hsl(36, 100%, 48%);
-        border: none;
-        margin-left: 0;
+        background: none;
     }
     .header-menu-image {  
         display: block;

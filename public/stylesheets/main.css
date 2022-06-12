@@ -14,6 +14,7 @@ br {
 
 body {
     background: linear-gradient(to right, var(--color-background-dark), var(--color-background-light));
+    -webkit-text-size-adjust: none;
 }
 
 .container {
