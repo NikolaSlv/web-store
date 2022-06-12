@@ -1,0 +1,34 @@
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: var(--footer-text-size-1200px);
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+    padding: .3rem;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* DYNAMICS */
+
+@media only screen and (max-width: 992px) {
+    footer {
+        font-size: var(--footer-text-size-992px);
+    }
+}
+@media only screen and (max-width: 768px) {
+    footer {
+        font-size: var(--footer-text-size-768px);
+    }
+}
+@media only screen and (max-width: 576px) {
+    footer {
+        font-size: var(--footer-text-size-576px);
+    }
+}

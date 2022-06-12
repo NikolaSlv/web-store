@@ -42,6 +42,7 @@
 .header-nav li a:hover {
     background-color:  indianred;
     color: white;
+    border-radius: .5rem;
 }
 
 .header-menu-image {
