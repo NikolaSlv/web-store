@@ -58,6 +58,16 @@
     border-color: var(--form-input-border-color-change);
 }
 
+.add-desc {
+    font-size: inherit;
+    text-decoration: underline;
+    margin-left: .6rem;
+}
+
+.add-desc:hover {
+    cursor: pointer;
+}
+
 /* DYNAMICS */
 
 @media only screen and (max-width: 992px) {

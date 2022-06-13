@@ -78,4 +78,24 @@
     --footer-text-size-992px: .9rem;
     --footer-text-size-768px: .85rem;
     --footer-text-size-576px: .8rem;
+
+    --search-image-size-1200px: 1.3rem;
+    --search-image-size-992px: 1.2rem;
+    --search-image-size-768px: 1.1rem;
+    --search-image-size-576px: 1rem;
+
+    --modal-close-button-size-1200px: 30px;
+    --modal-close-button-size-992px: 28px;
+    --modal-close-button-size-768px: 26px;
+    --modal-close-button-size-576px: 24px;
+
+    --modal-content-width-1200px: 50%;
+    --modal-content-width-992px: 60%;
+    --modal-content-width-768px: 70%;
+    --modal-content-width-576px: 80%;
+
+    --modal-user-input-1200px: 50%;
+    --modal-user-input-992px: 57%;
+    --modal-user-input-768px: 64%;
+    --modal-user-input-576px: 71%;
 }

@@ -30,8 +30,8 @@
     </div>
     <div class="form-row">
         <div class="form-item">
-            <label>Описание на заявката:<span style="color: red"> *</span></label>
-            <textarea required name="info" style="min-height: 15rem;"><%= requestData.info %></textarea>
+            <label>Описание на заявката:<span style="color: red"> *</span><span onclick="showSearchModal()" class="add-desc">Добави продукт</span></label>
+            <textarea required id="info" name="info" style="min-height: 15rem;"><%= requestData.info %></textarea>
         </div>
     </div>
     <div class="form-row form-row-end btn-row" style="margin-top: 1rem;">
@@ -39,6 +39,23 @@
         <button class="btn btn-primary" type="submit">Потвърди</button>
     </div>
 </form>
+<div id="search-modal" class="modal">
+    <div class="search-modal-content animate">
+        <div class="close-modal" onclick=hideSearchModal() title="Затвори">&times;</div>
+        <input type="hidden" id="selected" name="selected">
+        <input type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
+        <ul id="prodUL">
+            <% let pos = 1 %>
+            <% products.forEach(product => { %>
+                <li onclick=saveSelection()>
+                    <a href="#" data-name='<%= product.title %>'><%= pos %>. <%= product.title %></a>
+                </li>
+                <% pos++ %>
+            <% }) %>
+        </ul>
+        <button class="btn btn-primary modal-end" onclick="append()">Добавяне</button>
+    </div>
+</div>
 <script>
     var reqStatus = '-1'
     document.getElementById('reqForm').addEventListener('submit', runVerify)

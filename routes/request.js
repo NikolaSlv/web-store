@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Product = require('../models/product')
 const nodemailer = require('nodemailer')
 const request = require('request')
 
@@ -28,9 +29,14 @@ let emptyReq = {
 }
 
 // View Form
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        res.render(`request/index`, { requestData: emptyReq })
+        const products = await Product.find().sort({ title: 1 }).limit(50).exec()
+        const params = {
+            requestData: emptyReq,
+            products: products
+        }
+        res.render(`request/index`, params)
     } catch {
         res.redirect('/')
     }
@@ -58,7 +64,9 @@ router.post('/verify', (req, res) => {
 })
 
 // Send Email
-router.get('/send', (req, res) => {
+router.get('/send', async (req, res) => {
+    const products = await Product.find().sort({ title: 1 }).limit(50).exec()
+
     let requestData = {
         name: req.query.name,
         storeName: req.query.storeName,
@@ -76,18 +84,19 @@ router.get('/send', (req, res) => {
 
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
-            renderResultPage(res, requestData, true)
+            renderResultPage(res, requestData, products, true)
         } else {
             console.log('Email sent: ' + info.response)
-            renderResultPage(res, emptyReq)
+            renderResultPage(res, emptyReq, products)
         }
     })
 })
 
-function renderResultPage(res, requestData, hasError = false) {
+function renderResultPage(res, requestData, products, hasError = false) {
     try {
         const params = {
-            requestData: requestData
+            requestData: requestData,
+            products: products
         }
         if (hasError) {
             params.errorMessage = "Грешка при създаването на заявка!"

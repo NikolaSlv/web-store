@@ -4,7 +4,7 @@ const Product = require('../models/product')
 const imageMimeTypes = ['image/webp', 'image/jpeg', 'image/png']
 const algs = require("../public/javascripts/algorithms")
 
-function authorize(req, res) {
+async function authorize(req, res) {
     const reject = () => {
         res.setHeader('www-authenticate', 'Basic')
         res.sendStatus(401)
@@ -55,7 +55,7 @@ function renderFormPage(res, product, form, hasError = false) {
 // All Products Route
 router.get('/', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {
@@ -164,9 +164,9 @@ router.get('/', async (req, res) => {
 })
 
 // New Product Route
-router.get('/new', (req, res) => {
+router.get('/new', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {
@@ -179,7 +179,7 @@ router.get('/new', (req, res) => {
 // Create Product Route
 router.post('/', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {
@@ -218,7 +218,7 @@ function saveProduct(product, productImageEncoded) {
 // View Single Product Route
 router.get('/:id', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {
@@ -236,7 +236,7 @@ router.get('/:id', async (req, res) => {
 // Edit Product Route
 router.get('/:id/edit', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {
@@ -254,7 +254,7 @@ router.get('/:id/edit', async (req, res) => {
 // Update Product Route
 router.put('/:id', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {
@@ -289,7 +289,7 @@ router.put('/:id', async (req, res) => {
 // Delete Product Route
 router.delete('/:id', async (req, res) => {
     try {
-        if (!authorize(req, res)) {
+        if (!(await authorize(req, res))) {
             return
         }
     } catch {

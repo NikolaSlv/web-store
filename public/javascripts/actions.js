@@ -58,3 +58,40 @@ function sort(sortParamVal, sortTypeVal) {
 
     location.reload()
 }
+
+function showSearchModal() {
+    document.getElementById("search-modal").style.display = "block"
+}
+
+function hideSearchModal() {
+    document.getElementById("search-modal").style.display = "none"
+}
+
+function searchFilter() {
+    var input, filter, ul, li, a, i, txtValue
+
+    input = document.getElementById("userQuery")
+    filter = input.value.toUpperCase()
+    ul = document.getElementById("prodUL")
+    li = ul.getElementsByTagName("li")
+
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0]
+        txtValue = a.textContent || a.innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = ""
+        } else {
+            li[i].style.display = "none"
+        }
+    }
+}
+
+function saveSelection() {
+    document.getElementById("selected").value = document.activeElement.getAttribute('data-name')
+}
+
+function append() {
+    var text = (document.getElementById("selected").value) + '\n' + 'Бройки: \n' + 'Кашони/Опаковки: \n\n'
+    document.getElementById("info").value += text
+    hideSearchModal()
+}
