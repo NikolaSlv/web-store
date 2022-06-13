@@ -47,8 +47,10 @@
         <ul id="prodUL">
             <% let pos = 1 %>
             <% products.forEach(product => { %>
-                <li onmouseup="saveSelection()">
-                    <a href="#" onclick="return false;" data-name='<%= product.title %>'><%= pos %>. <%= product.title %></a>
+                <li onclick="saveSelection()">
+                    <a href="#" onclick="return false;" 
+                    data-name='<%= product.title %>' 
+                    tabindex="<%= pos %>"><%= pos %>. <%= product.title %></a>
                 </li>
                 <% pos++ %>
             <% }) %>
