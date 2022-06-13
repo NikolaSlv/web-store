@@ -31,7 +31,7 @@ let emptyReq = {
 // View Form
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find().sort({ title: 1 }).limit(50).exec()
+        const products = await Product.find().sort({ title: 1 }).exec()
         const params = {
             requestData: emptyReq,
             products: products
@@ -65,7 +65,7 @@ router.post('/verify', (req, res) => {
 
 // Send Email
 router.get('/send', async (req, res) => {
-    const products = await Product.find().sort({ title: 1 }).limit(50).exec()
+    const products = await Product.find().sort({ title: 1 }).exec()
 
     let requestData = {
         name: req.query.name,
