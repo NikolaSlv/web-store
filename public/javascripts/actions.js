@@ -103,7 +103,7 @@ function append() {
     var total
     var separator = '\n----------------\n'
     
-    var units = prompt("Колко кашона/опаковки?", "(пропуснете, ако искате само бройки)")
+    var units = prompt("Колко кашона/опаковки?")
     if (units === null) {
         document.getElementById("piecesPerUnit").value = ''
         return
