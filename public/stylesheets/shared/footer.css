@@ -1,7 +1,10 @@
 footer {
     text-align: center;
-    margin-top: 4rem;
     font-size: var(--footer-text-size-1200px);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid rgb(172, 172, 172);
 }
 
 footer a {

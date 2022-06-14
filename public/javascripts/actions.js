@@ -60,6 +60,7 @@ function sort(sortParamVal, sortTypeVal) {
 }
 
 function showSearchModal() {
+    document.getElementById("piecesPerUnit").value = ''
     document.getElementById("search-modal").style.display = "block"
 }
 
@@ -88,10 +89,60 @@ function searchFilter() {
 
 function saveSelection() {
     document.getElementById("selected").value = document.activeElement.getAttribute('data-name')
+    document.getElementById("piecesPerUnit").value = document.activeElement.getAttribute('data-count')
 }
 
 function append() {
-    var text = (document.getElementById("selected").value) + '\n' + 'Бройки: \n' + 'Кашони/Опаковки: \n\n'
+    if (document.getElementById("piecesPerUnit").value === '') {
+        alert('Моля, изберете продукт.')
+        return
+    }
+
+    var piecesPerUnit = parseInt(document.getElementById("piecesPerUnit").value)
+    var text
+    var total
+    var separator = '\n----------------\n'
+    
+    var units = prompt("Колко кашона/опаковки?", "(пропуснете, ако искате само бройки)")
+    if (units === null) {
+        document.getElementById("piecesPerUnit").value = ''
+        return
+    }
+    units = Number(units)
+
+    if (!(Number.isInteger(units) && units >= 0 && units != null && units != '')) {
+        var pieces = prompt("Колко бройки?")
+        if (pieces === null) {
+            document.getElementById("piecesPerUnit").value = ''
+            return
+        }
+        pieces = Number(pieces)
+        units = null
+    } else {
+        var pieces = prompt("Колко допълнителни бройки?")
+        if (pieces === null) {
+            document.getElementById("piecesPerUnit").value = ''
+            return
+        }
+        pieces = Number(pieces)
+    }
+
+    if (!(Number.isInteger(pieces) && pieces > 0)) {
+        pieces = null
+    }
+
+    if (units == null && pieces == null) {
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + '[въведи]' + separator
+    } else if (units != null && pieces == null) {
+        total = units * piecesPerUnit
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + total + separator
+    } else if (units == null && pieces != null) {
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + pieces + separator
+    } else {
+        total = units * piecesPerUnit + pieces
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + total + separator
+    }
+
     document.getElementById("info").value += text
     hideSearchModal()
 }

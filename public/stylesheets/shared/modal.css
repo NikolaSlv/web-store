@@ -64,7 +64,8 @@
     padding: .7rem;
     text-decoration: none;
     color: black;
-    display: block;
+    display: flex;
+    justify-content: space-between;
 }
 
 #prodUL li a:hover:not(:focus) {

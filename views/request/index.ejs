@@ -43,6 +43,7 @@
     <div class="search-modal-content animate">
         <div class="close-modal" onclick=hideSearchModal() title="Затвори">&times;</div>
         <input type="hidden" id="selected" name="selected">
+        <input type="hidden" id="piecesPerUnit" name="piecesPerUnit">
         <input type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
         <ul id="prodUL">
             <% let pos = 1 %>
@@ -50,7 +51,11 @@
                 <li onclick="saveSelection()">
                     <a href="#" onclick="return false;" 
                     data-name='<%= product.title %>' 
-                    tabindex="<%= pos %>"><%= pos %>. <%= product.title %></a>
+                    data-count='<%= product.piecesPerUnit %>'
+                    tabindex="<%= pos %>">
+                        <%= pos %>. <%= product.title %> <%= product.weightPerPiece %> гр.
+                        <span><%= product.piecesPerUnit %> бр./к.</span>
+                    </a>
                 </li>
                 <% pos++ %>
             <% }) %>
