@@ -101,7 +101,7 @@ function append() {
     var piecesPerUnit = parseInt(document.getElementById("piecesPerUnit").value)
     var text
     var total
-    var separator = '\n----------------\n'
+    var separator = '\n\n'
     
     var units = prompt("Колко кашона/опаковки?")
     if (units === null) {
