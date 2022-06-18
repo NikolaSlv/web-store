@@ -1,49 +1,77 @@
-<h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Търсене на продукти</h2>
-<div class="form-row">
-    <div class="form-item">
-        <label>Наименование</label>
-        <input type="text" name="title" value="<%= searchOptions.title %>">
-    </div>
-    <div class="form-item form-item-hidden">
-        <label>null</label>
-        <input>
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-item">
-        <label>Категория</label>
-        <select id="category" name="category">
-            <option value="" selected>Изберете...</option>
-            <option value="Бонбони">Бонбони</option>
-            <option value="Вафли">Вафли</option>
-            <option value="Кроасани">Кроасани</option>
-            <option value="Солети">Солети</option>
-            <option value="Други">*Други</option>
-        </select>
-    </div>
-    <div class="form-item">
-        <label>Описание на продукта</label>
-        <textarea name="description"><%= searchOptions.description %></textarea>
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-item">
-        <label>Минимална цена на бройка (в лв.)</label>
-        <input type="text" name="minPricePerPiece" 
-        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
-        value="<%= searchOptions.minPricePerPiece %>">
-    </div>
-    <div class="form-item">
-        <label>Максимална цена на бройка (в лв.)</label>
-        <input type="text" name="maxPricePerPiece" 
-        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
-        value="<%= searchOptions.maxPricePerPiece %>">
-    </div>
-</div>
-<input style="display: none;" type="text" name="allProducts" value="<%= searchOptions.allProducts %>">
-<div class="form-row form-row-end" style="margin-top: 1rem;">
-    <button class="btn btn-primary" type="submit">Търси</button>
-</div>
+<h5 id="search-header" class="text-center mb-3">Търсене на продукти</h5>
 <script>
-    updateSelectBox('category', '<%= searchOptions.category %>')
+    const searchParams = new URLSearchParams(window.location.search)
+    if (searchParams.has('category') && searchParams.get('category') !== ''
+        && searchParams.get('category') !== null) {
+        document.getElementById('search-header').textContent = "Категория '" + searchParams.get('category') + "'"
+    } else {
+        document.getElementById('search-header').textContent = 'Търсене на продукти'
+    }
 </script>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasLabel">Категории</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-group">
+            <a href="#" onclick="setCategory('Всички')">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Всички
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                        </svg>
+                    </span>
+                </li>
+            </a>
+            <a href="#" onclick="setCategory('Солети')">
+                <li class="list-group-item">
+                    Солети
+                </li>
+            </a>
+            <a href="#" onclick="setCategory('Кроасани')">
+                <li class="list-group-item">
+                    Кроасани
+                </li>
+            </a>
+        </ul>
+    </div>
+</div>
+<div style="display: flex; justify-content: center;">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Въведи
+        </button>
+        <div class="dropdown-menu dropdown-menu-search text-center bg-light" aria-labelledby="dropdownMenuButton">
+            <form class="dropdown-menu dropdown-menu-search p-4">
+                <div class="form-group">
+                    <label for="dropdownName">Наименование</label>
+                    <input type="text" name="title" value="<%= searchOptions.title %>">
+                </div>
+                <div class="form-group">
+                    <label for="dropdownDesc">Описание на продукта</label>
+                    <textarea name="description"><%= searchOptions.description %></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dropdownMin">Минимална цена на бройка (в лв.)</label>
+                    <input type="text" name="minPricePerPiece" 
+                        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+                        value="<%= searchOptions.minPricePerPiece %>">
+                </div>
+                <div class="form-group">
+                    <label for="dropdownMax">Максимална цена на бройка (в лв.)</label>
+                    <input type="text" name="maxPricePerPiece" 
+                        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+                        value="<%= searchOptions.maxPricePerPiece %>">
+                </div>
+                <input style="display: none;" type="text" name="category" value="<%= searchOptions.category %>">
+                <input style="display: none;" type="text" name="allProducts" value="<%= searchOptions.allProducts %>">
+                <button class="btn btn-primary mt-2" type="submit">Търси</button>
+            </form>
+        </div>
+    </div>
+    <a class="btn btn-secondary ms-3" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas">
+        Избери категория
+    </a>
+</div>

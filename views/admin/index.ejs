@@ -1,79 +1,23 @@
 <div style="text-align: center;">
-    <a class="btn btn-primary" href="/admin/new">Добави</a>
+    <a class="btn btn-success mb-3" href="/admin/new">Добави</a>
 </div>
-<br>
 <form action="/admin" method="GET">
     <%- include('../partials/searchForm.ejs') %>
 </form>
 <% if (products != null && maxPage != 0) { %>
-<br>
-<div class="table">
-    <div class="table-section">
-        <table>
-            <thead>
-                <tr>
-                    <th class="adjustNum">&numero;</th>
-                    <th>Продукт</th>
-                    <th>Име</th>
-                    <th>
-                        <span>Цена<br>(бр.)</span>
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <a onclick="sort('pricePerPiece', 1)" style="margin-top: .3rem; margin-right: .1rem;">&uarr;</a>
-                            <a onclick="sort('pricePerPiece', -1)" style="margin-top: .3rem; margin-left: .1rem;">&darr;</a>
-                        </div>
-                    </th>
-                    <th class="adjustTiny">Бр. в кашон<br>/опаковка</th>
-                    <th class="adjust">
-                        <span>Цена на кашон<br>/опаковка</span>
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <a onclick="sort('pricePerUnit', 1)" style="margin-top: .3rem; margin-right: .1rem;">&uarr;</a>
-                            <a onclick="sort('pricePerUnit', -1)" style="margin-top: .3rem; margin-left: .1rem;">&darr;</a>
-                        </div>
-                    </th>
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% products.forEach(product => { %>
-                    <tr onclick="window.location='/admin/<%= product.id %>'">
-                        <td class="adjustNum"><%= pos + 1 %></td>
-                        <td><img loading='lazy' src="<%= product.productImagePath %>" alt="Изображение"></td>
-                        <td><%= product.title %></td>
-                        <td><%= product.pricePerPiece %> лв.</td>
-                        <td class="adjustTiny"><%= product.piecesPerUnit %></td>
-                        <td class="adjust"><%= product.pricePerUnit %> лв.</td>
-                        <td>
-                            <div class="btn-row" style="justify-content: center">
-                                <a class="btn btn-primary" href="/admin/<%= product.id %>/edit">Редактирай</a>
-                            </div>
-                            <div class="btn-row" style="justify-content: center; margin-top: .5rem;">
-                                <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
-                            </div>
-                        </td>
-                    </tr>
-                    <% pos++ %>
-                <% }) %>
-            </tbody>
-        </table>
+    <%- include('../partials/sortForm.ejs') %>
+    <div style="display: flex; flex-wrap: wrap;">
+        <% products.forEach(product => { %>
+            <a href="/admin/<%= product.id %>">
+                <img loading='lazy' class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
+            </a>
+            <div style="display: block;">
+                <a class="btn btn-primary mb-1" href="/admin/<%= product.id %>/edit">Редактирай</a>
+                <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
+            </div>
+        <% }) %>
     </div>
-    <div class="pagination">
-        <a onclick="tablePagination(-5, '<%= maxPage %>')">
-            <div><<</div>
-        </a>
-        <a onclick="tablePagination(-1, '<%= maxPage %>')">
-            <div><</div>
-        </a>
-        <span class="pag-counter">
-            <%= page %> / <%= maxPage %>
-        </span>
-        <a onclick="tablePagination(1, '<%= maxPage %>')">
-            <div>></div>
-        </a>
-        <a onclick="tablePagination(5, '<%= maxPage %>')">
-            <div>>></div>
-        </a>
-    </div>
-</div>
+    <%- include('../partials/pagination.ejs') %>
 <% } else if (products != null) { %>
     <div style="text-align: center;">
         <br>

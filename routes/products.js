@@ -12,15 +12,13 @@ router.get('/', async (req, res) => {
         emptyQuery = false
     }
     if (req.query.category != null && req.query.category !== '') {
-        req.query.description += ' ' + req.query.category
+        if (req.query.category != 'Всички')
+            query = query.regex('category', new RegExp(req.query.category, 'i'))
         emptyQuery = false
     }
     if (req.query.description != null && req.query.description !== '') {
         query = query.regex('description', new RegExp(algs.setSearchStr(req.query.description), 'i'))
         emptyQuery = false
-    }
-    if (req.query.category != null && req.query.category !== '') {
-        req.query.description = algs.cropLastWord(req.query.description)
     }
     if (req.query.minPricePerPiece != null && req.query.minPricePerPiece !== '') {
         query = query.gte('pricePerPiece', req.query.minPricePerPiece)
@@ -35,7 +33,7 @@ router.get('/', async (req, res) => {
     }
 
     let page = 1
-    let limit = 15
+    let limit = 2
     let startIndex = 0
     if (req.query.page != null && req.query.page !== '') {
         page = parseInt(req.query.page)
@@ -96,7 +94,6 @@ router.get('/', async (req, res) => {
             res.render('products/index', { 
                 products: products, 
                 searchOptions: req.query,
-                pos: startIndex,
                 maxPage: maxPage,
                 page: page
             })

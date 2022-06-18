@@ -43,9 +43,9 @@
         <label>Наименование:</label>
         <input required type="text" name="title" value="<%= product.title %>">
     </div>
-    <div class="form-item form-item-hidden">
-        <label>null</label>
-        <input>
+    <div class="form-item">
+        <label>Категория:</label>
+        <input required type="text" name="category" value="<%= product.category%>">
     </div>
 </div>
 <div class="form-row">
@@ -75,12 +75,12 @@
     </div>
 </div>
 <div class="form-row">
-    <div class="form-item form-item-no-grow">
+    <div class="form-item form-item-no-grow" style="height: 200px; width: 200px">
         <label>Снимка:</label>
         <input type="file" name="productImage" class="product-image filepond">
     </div>
     <div class="form-item">
         <label>Описание:</label>
-        <textarea required name="description" placeholder="Категория, производител..."><%= product.description %></textarea>
+        <textarea required name="description" placeholder="Производител, код.."><%= product.description %></textarea>
     </div>
 </div>

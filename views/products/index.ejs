@@ -1,66 +1,17 @@
+<script>
+    document.getElementById("products").classList.add("active");
+</script>
 <form action="/products" method="GET">
     <%- include('../partials/searchForm.ejs') %>
 </form>
 <% if (products != null && maxPage != 0) { %>
-<br>
-<div class="table">
-    <div class="table-section">
-        <table>
-            <thead>
-                <tr>
-                    <th class="adjustNum">&numero;</th>
-                    <th>Продукт</th>
-                    <th>Име</th>
-                    <th>
-                        <span>Цена<br>(бр.)</span>
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <a onclick="sort('pricePerPiece', 1)" style="margin-top: .3rem; margin-right: .1rem;">&uarr;</a>
-                            <a onclick="sort('pricePerPiece', -1)" style="margin-top: .3rem; margin-left: .1rem;">&darr;</a>
-                        </div>
-                    </th>
-                    <th class="adjustTiny">Бр. в кашон<br>/опаковка</th>
-                    <th class="adjust">
-                        <span>Цена на кашон<br>/опаковка</span>
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <a onclick="sort('pricePerUnit', 1)" style="margin-top: .3rem; margin-right: .1rem;">&uarr;</a>
-                            <a onclick="sort('pricePerUnit', -1)" style="margin-top: .3rem; margin-left: .1rem;">&darr;</a>
-                        </div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <% products.forEach(product => { %>
-                    <tr onclick="window.location='/products/<%= product.id %>'">
-                        <td class="adjustNum"><%= pos + 1 %></td>
-                        <td><img loading='lazy' src="<%= product.productImagePath %>" alt="Изображение"></td>
-                        <td><%= product.title %></td>
-                        <td><%= product.pricePerPiece %> лв.</td>
-                        <td class="adjustTiny"><%= product.piecesPerUnit %></td>
-                        <td class="adjust"><%= product.pricePerUnit %> лв.</td>
-                    </tr>
-                    <% pos++ %>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
-    <div class="pagination">
-        <a onclick="tablePagination(-5, '<%= maxPage %>')">
-            <div><<</div>
+    <%- include('../partials/sortForm.ejs') %>
+    <% products.forEach(product => { %>
+        <a href="/products/<%= product.id %>">
+            <img loading='lazy' class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
         </a>
-        <a onclick="tablePagination(-1, '<%= maxPage %>')">
-            <div><</div>
-        </a>
-        <span class="pag-counter">
-            <%= page %> / <%= maxPage %>
-        </span>
-        <a onclick="tablePagination(1, '<%= maxPage %>')">
-            <div>></div>
-        </a>
-        <a onclick="tablePagination(5, '<%= maxPage %>')">
-            <div>>></div>
-        </a>
-    </div>
-</div>
+    <% }) %>
+    <%- include('../partials/pagination.ejs') %>
 <% } else if (products != null) { %>
     <div style="text-align: center;">
         <br>

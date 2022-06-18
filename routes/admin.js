@@ -69,15 +69,13 @@ router.get('/', async (req, res) => {
         emptyQuery = false
     }
     if (req.query.category != null && req.query.category !== '') {
-        req.query.description += ' ' + req.query.category
+        if (req.query.category != 'Всички')
+            query = query.regex('category', new RegExp(req.query.category, 'i'))
         emptyQuery = false
     }
     if (req.query.description != null && req.query.description !== '') {
         query = query.regex('description', new RegExp(algs.setSearchStr(req.query.description), 'i'))
         emptyQuery = false
-    }
-    if (req.query.category != null && req.query.category !== '') {
-        req.query.description = algs.cropLastWord(req.query.description)
     }
     if (req.query.minPricePerPiece != null && req.query.minPricePerPiece !== '') {
         query = query.gte('pricePerPiece', req.query.minPricePerPiece)
@@ -153,7 +151,6 @@ router.get('/', async (req, res) => {
             res.render('admin/index', { 
                 products: products, 
                 searchOptions: req.query,
-                pos: startIndex,
                 maxPage: maxPage,
                 page: page
             })
@@ -188,6 +185,7 @@ router.post('/', async (req, res) => {
 
     const product = new Product({
         title: req.body.title,
+        category: req.body.category,
         description: req.body.description,
         pricePerPiece: req.body.pricePerPiece,
         weightPerPiece: req.body.weightPerPiece,
@@ -266,6 +264,7 @@ router.put('/:id', async (req, res) => {
         product = await Product.findById(req.params.id)
 
         product.title = req.body.title
+        product.category = req.body.category
         product.description = req.body.description
         product.pricePerPiece = req.body.pricePerPiece
         product.weightPerPiece = req.body.weightPerPiece

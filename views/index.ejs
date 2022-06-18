@@ -1,8 +1,9 @@
-<h2 class="page-header">Най-нови продукти</h2>
-<div class="product-grid">
-    <% products.forEach(product => { %>
-        <a href="/products/<%= product.id %>">
-            <img class="product-image" src="<%= product.productImagePath %>" alt="Изображение">
-        </a>
-    <% }) %>
-</div>
+<script>
+    document.getElementById("home").classList.add("active");
+</script>
+<h5 class="text-center mb-3">Най-нови продукти</h5>
+<% products.forEach(product => { %>
+    <a href="/products/<%= product.id %>">
+        <img class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
+    </a>
+<% }) %>
