@@ -30,7 +30,7 @@ app.set('layout', 'layouts/layout')
 app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
-app.use(express.static('public')) // app.use(express.static('public', { maxAge: '7d' }))
+app.use(express.static('public', { maxAge: '7d' }))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 app.use(bodyParser.json())
 
