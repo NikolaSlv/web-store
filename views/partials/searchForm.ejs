@@ -1,9 +1,12 @@
 <h5 id="search-header" class="text-center mb-3">Търсене на продукти</h5>
 <script>
     const searchParams = new URLSearchParams(window.location.search)
-    if (searchParams.has('category') && searchParams.get('category') !== ''
-        && searchParams.get('category') !== null) {
-        document.getElementById('search-header').textContent = "Категория '" + searchParams.get('category') + "'"
+    const cat = searchParams.get('category')
+    if (searchParams.has('category') && cat !== '' && cat !== null) {
+        if (cat == 'Всички')
+            document.getElementById('search-header').textContent = cat
+        else
+            document.getElementById('search-header').textContent = "Категория '" + cat + "'"
     } else {
         document.getElementById('search-header').textContent = 'Търсене на продукти'
     }

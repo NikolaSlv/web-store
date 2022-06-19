@@ -75,21 +75,24 @@ router.get('/send', async (req, res) => {
         info: req.query.info
     }
 
-    let mailOptions = {
-        from: process.env.EMAIL_NAME,
-        to: process.env.EMAIL_NAME,
-        subject: `Заявка от ${requestData.name}, ${requestData.storeName}`,
-        text: `Адрес: ${requestData.address}\nТелефон: ${requestData.phone}\n\nПоръчка:\n${requestData.info}`
-    }
-
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            renderResultPage(res, requestData, products, true)
-        } else {
-            console.log('Email sent: ' + info.response)
-            renderResultPage(res, emptyReq, products)
+    if (requestData.info == null) {
+        renderResultPage(res, requestData, products, true)
+    } else {
+        let mailOptions = {
+            from: process.env.EMAIL_NAME,
+            to: process.env.EMAIL_NAME,
+            subject: `Заявка от ${requestData.name}, ${requestData.storeName}`,
+            text: `Адрес: ${requestData.address}\nТелефон: ${requestData.phone}\n\nПоръчка:\n\n${requestData.info}`
         }
-    })
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                renderResultPage(res, requestData, products, true)
+            } else {
+                console.log('Email sent: ' + info.response)
+                renderResultPage(res, emptyReq, products)
+            }
+        })
+    }
 })
 
 function renderResultPage(res, requestData, products, hasError = false) {

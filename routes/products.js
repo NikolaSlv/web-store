@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
     }
 
     let page = 1
-    let limit = 2
+    let limit = 15
     let startIndex = 0
     if (req.query.page != null && req.query.page !== '') {
         page = parseInt(req.query.page)

@@ -95,3 +95,100 @@ function pagination(state, maxPage, direct) {
     history.replaceState(null, null, "?" + searchParams.toString())
     location.reload()
 }
+
+var lastPos = -1
+function resetSelection() {
+    document.getElementById("piecesPerUnit").value = ''
+    if (lastPos != -1) {
+        id = "sItem-" + lastPos
+        document.getElementById(id).classList.remove("active")
+        lastPos = -1
+    }
+}
+
+function saveSelection(pos) {
+    document.getElementById("selected").value = document.activeElement.getAttribute('data-name')
+    document.getElementById("piecesPerUnit").value = document.activeElement.getAttribute('data-count')
+
+    var id
+    if (lastPos != -1) {
+        id = "sItem-" + lastPos
+        document.getElementById(id).classList.remove("active")
+    }
+    id = "sItem-" + pos
+    document.getElementById(id).classList.add("active")
+    lastPos = pos
+}
+
+function searchFilter() {
+    var input, filter, ul, li, a, i, txtValue
+
+    input = document.getElementById("userQuery")
+    filter = input.value.toUpperCase()
+    ul = document.getElementById("prodUL")
+    li = ul.getElementsByTagName("li")
+
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0]
+        txtValue = a.textContent || a.innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = ""
+        } else {
+            li[i].style.display = "none"
+        }
+    }
+}
+
+function append() {
+    if (document.getElementById("piecesPerUnit").value === '') {
+        alert('Моля, изберете продукт.')
+        return
+    }
+
+    var piecesPerUnit = parseInt(document.getElementById("piecesPerUnit").value)
+    var text
+    var total
+    var separator = '\n\n'
+    
+    var units = prompt("Колко кашона/опаковки?")
+    if (units === null) {
+        document.getElementById("piecesPerUnit").value = ''
+        return
+    }
+    units = Number(units)
+
+    if (!(Number.isInteger(units) && units >= 0 && units != null && units != '')) {
+        var pieces = prompt("Колко бройки?")
+        if (pieces === null) {
+            document.getElementById("piecesPerUnit").value = ''
+            return
+        }
+        pieces = Number(pieces)
+        units = null
+    } else {
+        var pieces = prompt("Колко допълнителни бройки?")
+        if (pieces === null) {
+            document.getElementById("piecesPerUnit").value = ''
+            return
+        }
+        pieces = Number(pieces)
+    }
+
+    if (!(Number.isInteger(pieces) && pieces > 0)) {
+        pieces = null
+    }
+
+    if (units == null && pieces == null) {
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + '[въведи]' + separator
+    } else if (units != null && pieces == null) {
+        total = units * piecesPerUnit
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + total + separator
+    } else if (units == null && pieces != null) {
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + pieces + separator
+    } else {
+        total = units * piecesPerUnit + pieces
+        text = (document.getElementById("selected").value) + '\n' + 'Бройки: ' + total + separator
+    }
+
+    document.getElementById("info").value += text
+}

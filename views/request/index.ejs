@@ -1,70 +1,82 @@
+<script>
+    document.getElementById("request").classList.add("active");
+</script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY"></script>
-<h2 class="page-header page-header-centered" style="margin-bottom: 1rem;">Създаване на заявка</h2>
-<form id="reqForm" action="/request/send" method="GET">
-    <div class="form-row">
-        <div class="form-item">
-            <label>Име:<span style="color: red"> *</span></label>
-            <input required type="text" name="name" value="<%= requestData.name %>">
+<div class="container">
+    <h5 class="mb-3">Създаване на заявка</h5>
+    <form id="reqForm" action="/request/send" method="GET">
+        <div class="mb-2">
+            <label for="name" class="form-label">Име</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= requestData.name %>">
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-item">
-            <label>Наименование на магазина/фирмата:<span style="color: red"> *</span></label>
-            <input required type="text" name="storeName" value="<%= requestData.storeName %>">
+        <div class="mb-2">
+            <label for="storeName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
+            <input required type="text" class="form-control" id="storeName" name="storeName" value="<%= requestData.storeName %>">
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-item">
-            <label>Адрес за доставка:<span style="color: red"> *</span></label>
-            <input required type="text" name="address" value="<%= requestData.address %>">
+        <div class="mb-2">
+            <label for="address" class="form-label">Адрес за доставка<span style="color: red"> *</span></label>
+            <input required type="text" class="form-control" id="address" name="address" value="<%= requestData.address %>">
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-item">
-            <label>Телефон:<span style="color: red"> *</span></label>
-            <input required type="tel" name="phone" 
+        <div class="mb-2">
+            <label for="phone" class="form-label">Телефон<span style="color: red"> *</span></label>
+            <input required type="tel" class="form-control" id="phone" name="phone"
             pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
             title="Моля, въведете валиден телефонен номер."
             value="<%= requestData.phone %>">
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-item">
-            <label>Описание на заявката:<span style="color: red"> *</span><span onclick="showSearchModal()" class="add-desc">Добави продукт</span></label>
-            <textarea required id="info" name="info" style="min-height: 15rem;"><%= requestData.info %></textarea>
+        <div class="mb-2">
+            <label for="info" class="form-label">Описание на заявката<span style="color: red"> *</span>
+                <button onclick="resetSelection()" type="button" class="btn btn-secondary ms-1" data-bs-toggle="modal" data-bs-target="#addModal">
+                    Добави продукт
+                </button>
+            </label>
+            <textarea required type="text" class="form-control" id="info" name="info" rows="6"><%= requestData.info %></textarea>
+        </div>
+        <a class="btn btn-danger" href="/">Откажи</a>
+        <button type="submit" class="btn btn-primary">Изпрати</button>
+    </form>
+</div>
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Изберете продукт</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="selected" name="selected">
+                <input type="hidden" id="piecesPerUnit" name="piecesPerUnit">
+                <input class="mb-3" type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
+                <ul id="prodUL" class="list-group">
+                    <% let pos = 1 %>
+                    <% products.forEach(product => { %>
+                        <a href="#" onclick="saveSelection(`<%= pos %>`)" 
+                        data-name='<%= product.title %>' 
+                        data-count='<%= product.piecesPerUnit %>'
+                        tabindex="<%= pos %>">
+                            <li id="sItem-<%= pos %>" class="list-group-item"
+                            style="display: flex; justify-content: space-between;">
+                                <%= pos %>. <%= product.title %> <%= product.weightPerPiece %> гр.
+                                <span><%= product.piecesPerUnit %> бр./к.</span>
+                            </li>
+                        </a>
+                        <% pos++ %>
+                    <% }) %>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отказ</button>
+                <button id="append" onclick="append()" type="button" class="btn btn-primary">Добави</button>
+            </div>
         </div>
     </div>
-    <div class="form-row form-row-end btn-row" style="margin-top: 1rem;">
-        <a class="btn btn-danger" href="/">Откажи</a>
-        <button class="btn btn-primary" type="submit">Потвърди</button>
-    </div>
-</form>
-<div id="search-modal" class="modal">
-    <div class="search-modal-content animate">
-        <div class="close-modal" onclick=hideSearchModal() title="Затвори">&times;</div>
-        <input type="hidden" id="selected" name="selected">
-        <input type="hidden" id="piecesPerUnit" name="piecesPerUnit">
-        <input type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
-        <ul id="prodUL">
-            <% let pos = 1 %>
-            <% products.forEach(product => { %>
-                <li onclick="saveSelection()">
-                    <a href="#" onclick="return false;" 
-                    data-name='<%= product.title %>' 
-                    data-count='<%= product.piecesPerUnit %>'
-                    tabindex="<%= pos %>">
-                        <%= pos %>. <%= product.title %> <%= product.weightPerPiece %> гр.
-                        <span><%= product.piecesPerUnit %> бр./к.</span>
-                    </a>
-                </li>
-                <% pos++ %>
-            <% }) %>
-        </ul>
-        <button class="btn btn-primary modal-end" onclick="append()">Добавяне</button>
-    </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    document.getElementById("request").classList.add("active");
+    // Hide the modal on button click
+    $("#append").click(function() {
+        $("#addModal").modal("hide");
+    });
 
     var reqStatus = '-1'
     document.getElementById('reqForm').addEventListener('submit', runVerify)
@@ -103,4 +115,12 @@
             alert('Моля, изкачайте!')
         }
     }
+
+    var searchParams = new URLSearchParams(window.location.search)
+    searchParams.delete('name')
+    searchParams.delete('storeName')
+    searchParams.delete('address')
+    searchParams.delete('phone')
+    searchParams.delete('info')
+    history.replaceState(null, null, "?" + searchParams.toString())
 </script>
