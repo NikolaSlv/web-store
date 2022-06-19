@@ -3,12 +3,15 @@
     const searchParams = new URLSearchParams(window.location.search)
     const cat = searchParams.get('category')
     if (searchParams.has('category') && cat !== '' && cat !== null) {
-        if (cat == 'Всички')
+        if (cat === 'Всички')
             document.getElementById('search-header').textContent = cat
         else
             document.getElementById('search-header').textContent = "Категория '" + cat + "'"
     } else {
-        document.getElementById('search-header').textContent = 'Търсене на продукти'
+        if (searchParams.toString() === 'allProducts=yes')
+            document.getElementById('search-header').textContent = 'Всички'
+        else
+            document.getElementById('search-header').textContent = 'Търсене на продукти'
     }
 </script>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">

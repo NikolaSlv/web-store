@@ -6,13 +6,6 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 function setCategory(val) {
     var searchParams = new URLSearchParams(window.location.search)
     var cat = 'category'
-    var page = 'page'
-
-    if (searchParams.has(cat)) {
-        searchParams.set(cat, val)
-    } else {
-        searchParams += "&" + cat + "=" + val
-    }
 
     // Clear other params
     if (window.location.href.indexOf("title") > -1) {
@@ -34,7 +27,13 @@ function setCategory(val) {
         searchParams.set('sortType', '')
     }
     if (window.location.href.indexOf("page") > -1) {
-        searchParams.set(page, '1')
+        searchParams.set('page', '')
+    }
+
+    if (searchParams.has(cat)) {
+        searchParams.set(cat, val)
+    } else {
+        searchParams += "&" + cat + "=" + val
     }
 
     history.replaceState(null, null, "?" + searchParams.toString())
@@ -76,8 +75,12 @@ function pagination(state, maxPage, direct) {
     var next
 
     if (searchParams.has(page)) {
-        if (direct == -1)
-            next = parseInt(searchParams.get(page)) + state
+        if (direct == -1) {
+            var curr = parseInt(searchParams.get(page))
+            if (!curr)
+                curr = 1
+            next = curr + state
+        }
         else 
             next = direct
         if (next < 1)
@@ -203,9 +206,9 @@ function submitSBar() {
 
     if (val == null || val === '') {
         window.history.pushState(null, null, 'products?allProducts=yes')
-        location.reload()
     } else {
         window.history.pushState(null, null, 'products?sbar=' + val)
-        location.reload()
     }
+
+    location.reload()
 }
