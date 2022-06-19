@@ -8,7 +8,11 @@
     <%- include('../partials/sortForm.ejs') %>
     <div style="display: flex; flex-wrap: wrap;">
         <% products.forEach(product => { %>
-            <a href="/admin/<%= product.id %>">
+            <a href="/admin/<%= product.id %>"
+                data-bs-custom-class="custom-popover"
+                data-bs-toggle="popover" data-bs-trigger="hover"
+                title="<%= product.title %> <%= product.weightPerPiece%> гр." 
+                data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
                 <img loading='lazy' class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
             </a>
             <div style="display: block;">

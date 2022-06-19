@@ -7,28 +7,53 @@ const algs = require("../public/javascripts/algorithms")
 router.get('/', async (req, res) => {
     let query = Product.find()
     let emptyQuery = true
+    if (req.query.sbar != null && req.query.sbar !== '') {
+        if (req.query.description != null && req.query.description !== '') {
+            // reset other search params
+            req.query.title = null
+            req.query.category = null
+            req.query.description = null
+            req.query.minPricePerPiece = null
+            req.query.maxPricePerPiece = null
+            req.query.allProducts = null
+        }
+        query = query.regex('description', new RegExp(algs.setSearchStr(req.query.sbar), 'i'))
+        emptyQuery = false
+    }
     if (req.query.title != null && req.query.title !== '') {
+        // reset search bar
+        req.query.sbar = null
         query = query.regex('title', new RegExp(algs.setSearchStr(req.query.title), 'i'))
         emptyQuery = false
     }
     if (req.query.category != null && req.query.category !== '') {
+        // reset search bar
+        req.query.sbar = null
         if (req.query.category != 'Всички')
             query = query.regex('category', new RegExp(req.query.category, 'i'))
         emptyQuery = false
     }
     if (req.query.description != null && req.query.description !== '') {
+        // reset search bar
+        req.query.sbar = null
         query = query.regex('description', new RegExp(algs.setSearchStr(req.query.description), 'i'))
         emptyQuery = false
     }
     if (req.query.minPricePerPiece != null && req.query.minPricePerPiece !== '') {
+        // reset search bar
+        req.query.sbar = null
         query = query.gte('pricePerPiece', req.query.minPricePerPiece)
         emptyQuery = false
     }
     if (req.query.maxPricePerPiece != null && req.query.maxPricePerPiece !== '') {
+        // reset search bar
+        req.query.sbar = null
         query = query.lte('pricePerPiece', req.query.maxPricePerPiece)
         emptyQuery = false
     }
     if (req.query.allProducts != null && req.query.allProducts !== '') {
+        // reset search bar
+        req.query.sbar = null
         emptyQuery = false
     }
 

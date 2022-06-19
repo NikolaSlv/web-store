@@ -3,7 +3,11 @@
 </script>
 <h5 class="text-center mb-3">Най-нови продукти</h5>
 <% products.forEach(product => { %>
-    <a href="/products/<%= product.id %>">
+    <a href="/products/<%= product.id %>"
+        data-bs-custom-class="custom-popover"
+        data-bs-toggle="popover" data-bs-trigger="hover" 
+        title="<%= product.title %> <%= product.weightPerPiece%> гр." 
+        data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
         <img class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
     </a>
 <% }) %>

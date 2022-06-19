@@ -19,7 +19,7 @@
     <div class="offcanvas-body">
         <ul class="list-group">
             <a href="#" onclick="setCategory('Всички')">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li class="list-group-item d-flex justify-content-between align-items-center add-hover">
                     Всички
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -29,12 +29,12 @@
                 </li>
             </a>
             <a href="#" onclick="setCategory('Солети')">
-                <li class="list-group-item">
+                <li class="list-group-item add-hover">
                     Солети
                 </li>
             </a>
             <a href="#" onclick="setCategory('Кроасани')">
-                <li class="list-group-item">
+                <li class="list-group-item add-hover">
                     Кроасани
                 </li>
             </a>
@@ -49,28 +49,28 @@
         <div class="dropdown-menu dropdown-menu-search text-center bg-light" aria-labelledby="dropdownMenuButton">
             <form class="dropdown-menu dropdown-menu-search p-4">
                 <div class="form-group">
-                    <label for="dropdownName">Наименование</label>
-                    <input type="text" name="title" value="<%= searchOptions.title %>">
+                    <label class="form-label" for="dropdownName">Наименование</label>
+                    <input class="form-control" type="text" name="title" value="<%= searchOptions.title %>" id="dropdownName">
                 </div>
                 <div class="form-group">
-                    <label for="dropdownDesc">Описание на продукта</label>
-                    <textarea name="description"><%= searchOptions.description %></textarea>
+                    <label class="form-label" for="dropdownDesc">Описание на продукта</label>
+                    <textarea class="form-control" name="description" id="dropdownDesc"><%= searchOptions.description %></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="dropdownMin">Минимална цена на бройка (в лв.)</label>
-                    <input type="text" name="minPricePerPiece" 
+                    <label class="form-label" for="dropdownMin">Минимална цена на бройка (в лв.)</label>
+                    <input class="form-control" type="text" name="minPricePerPiece" id="dropdownMin"
                         pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
                         value="<%= searchOptions.minPricePerPiece %>">
                 </div>
                 <div class="form-group">
-                    <label for="dropdownMax">Максимална цена на бройка (в лв.)</label>
-                    <input type="text" name="maxPricePerPiece" 
+                    <label class="form-label" for="dropdownMax">Максимална цена на бройка (в лв.)</label>
+                    <input class="form-control" type="text" name="maxPricePerPiece" id="dropdownMax"
                         pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
                         value="<%= searchOptions.maxPricePerPiece %>">
                 </div>
                 <input style="display: none;" type="text" name="category" value="<%= searchOptions.category %>">
                 <input style="display: none;" type="text" name="allProducts" value="<%= searchOptions.allProducts %>">
-                <button class="btn btn-primary mt-2" type="submit">Търси</button>
+                <button class="btn btn-warning mt-2" type="submit">Търси</button>
             </form>
         </div>
     </div>

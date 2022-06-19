@@ -9,78 +9,61 @@
 <style>
 .filepond--root {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: var(--basic-text-size-1200px);
-    margin-bottom: 0;
 }
 .filepond--panel-root {
-    border: 1px solid var(--form-input-border-color);
-    background-color: var(--form-input-background-color);
+    border: 1px solid #ced4da;
+    background-color: white;
 }
 .filepond--drop-label {
     color: black;
-    font-size: inherit;
-}
-
-@media only screen and (max-width: 992px) {
-    .filepond--root {
-        font-size: var(--basic-text-size-992px);
-    }
-}
-@media only screen and (max-width: 768px) {
-    .filepond--root {
-        font-size: var(--basic-text-size-768px);
-    }
-}
-@media only screen and (max-width: 576px) {
-    .filepond--root {
-        font-size: var(--basic-text-size-576px);
-    }
 }
 </style>
 
-<div class="form-row">
-    <div class="form-item">
-        <label>Наименование:</label>
-        <input required type="text" name="title" value="<%= product.title %>">
+<div class="container">
+    <div class="row">
+        <div class="col-md mb-2">
+            <label class="form-label">Наименование:</label><br>
+            <input required class="form-control" type="text" name="title" value="<%= product.title %>">
+        </div>
+        <div class="col-md mb-2">
+            <label class="form-label">Категория:</label><br>
+            <input required class="form-control" type="text" name="category" value="<%= product.category %>">
+        </div>
     </div>
-    <div class="form-item">
-        <label>Категория:</label>
-        <input required type="text" name="category" value="<%= product.category%>">
+    <div class="row">
+        <div class="col-md mb-2">
+            <label class="form-label">Цена на бройка (в лв.):</label><br>
+            <input required class="form-control" type="text" name="pricePerPiece" 
+            pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+            value="<%= product.pricePerPiece %>">
+        </div>
+        <div class="col-md mb-2">
+            <label class="form-label">Грамаж на бройка (в гр.):</label><br>
+            <input required class="form-control" type="text" name="weightPerPiece"
+            pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак." 
+            value="<%= product.weightPerPiece %>">
+        </div>
     </div>
-</div>
-<div class="form-row">
-    <div class="form-item">
-        <label>Цена на бройка (в лв.):</label>
-        <input required type="text" name="pricePerPiece" 
-        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
-        value="<%= product.pricePerPiece %>">
+    <div class="row">
+        <div class="col-md mb-2">
+            <label class="form-label">Цена на кашон/опаковка (в лв.):</label><br>
+            <input required class="form-control" type="text" name="pricePerUnit" 
+            pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
+            value="<%= product.pricePerUnit %>">
+        </div>
+        <div class="col-md mb-2">
+            <label class="form-label">Бройки в кашон/опаковка:</label><br>
+            <input required class="form-control" type="number" name="piecesPerUnit" min="1" value="<%= product.piecesPerUnit %>">
+        </div>
     </div>
-    <div class="form-item">
-        <label>Грамаж на бройка (в гр.):</label>
-        <input required type="text" name="weightPerPiece"
-        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак." 
-        value="<%= product.weightPerPiece %>">
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-item">
-        <label>Цена на кашон/опаковка (в лв.):</label>
-        <input required type="text" name="pricePerUnit" 
-        pattern="^[\.0-9]*$" title="Моля, въведете числова стойност и използвайте точка за десетичния знак."
-        value="<%= product.pricePerUnit %>">
-    </div>
-    <div class="form-item">
-        <label>Бройки в кашон/опаковка:</label>
-        <input required type="number" name="piecesPerUnit" min="1" value="<%= product.piecesPerUnit %>">
-    </div>
-</div>
-<div class="form-row">
-    <div class="form-item form-item-no-grow" style="height: 200px; width: 200px">
-        <label>Снимка:</label>
-        <input type="file" name="productImage" class="product-image filepond">
-    </div>
-    <div class="form-item">
-        <label>Описание:</label>
-        <textarea required name="description" placeholder="Производител, код.."><%= product.description %></textarea>
+    <div class="row">
+        <div class="col-md mb-2">
+            <label class="form-label">Описание:</label><br>
+            <textarea required class="form-control" rows="8" name="description" placeholder="Наименование, производител, код.."><%= product.description %></textarea>
+        </div>
+        <div class="col-md mb-2">
+            <label class="form-label">Снимка:</label><br>
+            <input class="prod-img filepond" type="file" name="productImage">
+        </div>
     </div>
 </div>

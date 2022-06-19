@@ -5,24 +5,28 @@
 <div class="container">
     <h5 class="mb-3">Създаване на заявка</h5>
     <form id="reqForm" action="/request/send" method="GET">
-        <div class="mb-2">
-            <label for="name" class="form-label">Име</label>
-            <input type="text" class="form-control" id="name" name="name" value="<%= requestData.name %>">
+        <div class="row">
+            <div class="col-md mb-2">
+                <label for="name" class="form-label">Име</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= requestData.name %>">
+            </div>
+            <div class="col-md mb-2">
+                <label for="storeName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
+                <input required type="text" class="form-control" id="storeName" name="storeName" value="<%= requestData.storeName %>">
+            </div>
         </div>
-        <div class="mb-2">
-            <label for="storeName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
-            <input required type="text" class="form-control" id="storeName" name="storeName" value="<%= requestData.storeName %>">
-        </div>
-        <div class="mb-2">
-            <label for="address" class="form-label">Адрес за доставка<span style="color: red"> *</span></label>
-            <input required type="text" class="form-control" id="address" name="address" value="<%= requestData.address %>">
-        </div>
-        <div class="mb-2">
-            <label for="phone" class="form-label">Телефон<span style="color: red"> *</span></label>
-            <input required type="tel" class="form-control" id="phone" name="phone"
-            pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
-            title="Моля, въведете валиден телефонен номер."
-            value="<%= requestData.phone %>">
+        <div class="row">
+            <div class="col-md mb-2">
+                <label for="address" class="form-label">Адрес за доставка<span style="color: red"> *</span></label>
+                <input required type="text" class="form-control" id="address" name="address" value="<%= requestData.address %>">
+            </div>
+            <div class="col-md mb-2">
+                <label for="phone" class="form-label">Телефон<span style="color: red"> *</span></label>
+                <input required type="tel" class="form-control" id="phone" name="phone"
+                pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
+                title="Моля, въведете валиден телефонен номер."
+                value="<%= requestData.phone %>">
+            </div>
         </div>
         <div class="mb-2">
             <label for="info" class="form-label">Описание на заявката<span style="color: red"> *</span>
@@ -30,13 +34,15 @@
                     Добави продукт
                 </button>
             </label>
-            <textarea required type="text" class="form-control" id="info" name="info" rows="6"><%= requestData.info %></textarea>
+            <textarea required type="text" class="form-control" id="info" name="info" rows="8"><%= requestData.info %></textarea>
         </div>
         <a class="btn btn-danger" href="/">Откажи</a>
         <button type="submit" class="btn btn-primary">Изпрати</button>
     </form>
 </div>
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" 
+    data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,26 +52,26 @@
             <div class="modal-body">
                 <input type="hidden" id="selected" name="selected">
                 <input type="hidden" id="piecesPerUnit" name="piecesPerUnit">
-                <input class="mb-3" type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
+                <input class="form-control mb-3" type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
                 <ul id="prodUL" class="list-group">
                     <% let pos = 1 %>
                     <% products.forEach(product => { %>
-                        <a href="#" onclick="saveSelection(`<%= pos %>`)" 
-                        data-name='<%= product.title %>' 
-                        data-count='<%= product.piecesPerUnit %>'
-                        tabindex="<%= pos %>">
-                            <li id="sItem-<%= pos %>" class="list-group-item"
-                            style="display: flex; justify-content: space-between;">
+                        <li id="sItem-<%= pos %>" class="list-group-item add-hover" onclick="saveSelection(`<%= pos %>`)">
+                            <a href="#" style="display: flex; 
+                                justify-content: space-between;
+                                color: black;" 
+                                data-name='<%= product.title %>' 
+                                data-count='<%= product.piecesPerUnit %>'
+                                tabindex="<%= pos %>">
                                 <%= pos %>. <%= product.title %> <%= product.weightPerPiece %> гр.
                                 <span><%= product.piecesPerUnit %> бр./к.</span>
-                            </li>
-                        </a>
+                            </a>
+                        </li>
                         <% pos++ %>
                     <% }) %>
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отказ</button>
                 <button id="append" onclick="append()" type="button" class="btn btn-primary">Добави</button>
             </div>
         </div>

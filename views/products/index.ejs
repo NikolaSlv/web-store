@@ -5,9 +5,16 @@
     <%- include('../partials/searchForm.ejs') %>
 </form>
 <% if (products != null && maxPage != 0) { %>
+    <% if (searchOptions.sbar != null && searchOptions.sbar !== '') { %>
+        <h5 class="text-center mt-5">Резултати за: "<%= searchOptions.sbar %>"</h5>
+    <% } %>
     <%- include('../partials/sortForm.ejs') %>
     <% products.forEach(product => { %>
-        <a href="/products/<%= product.id %>">
+        <a href="/products/<%= product.id %>" 
+            data-bs-custom-class="custom-popover"
+            data-bs-toggle="popover" data-bs-trigger="hover"
+            title="<%= product.title %> <%= product.weightPerPiece%> гр." 
+            data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
             <img loading='lazy' class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
         </a>
     <% }) %>

@@ -7,7 +7,7 @@
     <meta name="author" content="Никола Славчев">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script defer src="javascripts/actions.js"></script>
     <title>Пакетирани стоки - Елит-Груп</title>
     <style>
@@ -26,13 +26,22 @@
       br {
         visibility: hidden;
       }
+      .add-hover:hover:not(.active) {
+        background-color: #d9dfe4;
+      }
       .prod-img {
         height: 200px;
         width: 200px;
       }
       .dropdown-menu-search {
+        color: white !important;
+        background-color: rgb(109, 77, 77) !important;
         width: 35vw;
         transform: translate(-10vw, 50px) !important;
+      }
+      .dropdown-menu-search > .form-group > .form-control {
+        max-width: 90%;
+        margin: auto;
       }
       input, textarea {
         width: 90%;
@@ -59,12 +68,20 @@
       }
       .box-item {
         padding: 1rem;
-        background: rgb(253, 247, 247);
+        background: rgb(255, 250, 250);
         box-shadow:
           0 5px 10px rgba(0, 0, 0, 0.1),
           0 20px 20px rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: .2rem;
+      }
+      .custom-popover {
+        --bs-popover-max-width: 250px;
+        --bs-popover-border-color: #6c757d;
+        --bs-popover-header-bg: #dce9f3;
+        --bs-popover-header-color: var(--bs-black);
+        --bs-popover-body-padding-x: 1rem;
+        --bs-popover-body-padding-y: .5rem;
       }
       @media screen and (max-width: 900px) {
         .dropdown-menu-search {

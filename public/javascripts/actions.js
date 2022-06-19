@@ -1,3 +1,8 @@
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+})
+
 function setCategory(val) {
     var searchParams = new URLSearchParams(window.location.search)
     var cat = 'category'
@@ -107,9 +112,6 @@ function resetSelection() {
 }
 
 function saveSelection(pos) {
-    document.getElementById("selected").value = document.activeElement.getAttribute('data-name')
-    document.getElementById("piecesPerUnit").value = document.activeElement.getAttribute('data-count')
-
     var id
     if (lastPos != -1) {
         id = "sItem-" + lastPos
@@ -118,6 +120,9 @@ function saveSelection(pos) {
     id = "sItem-" + pos
     document.getElementById(id).classList.add("active")
     lastPos = pos
+
+    document.getElementById("selected").value = document.activeElement.getAttribute('data-name')
+    document.getElementById("piecesPerUnit").value = document.activeElement.getAttribute('data-count')
 }
 
 function searchFilter() {
@@ -191,4 +196,16 @@ function append() {
     }
 
     document.getElementById("info").value += text
+}
+
+function submitSBar() {
+    const val = document.getElementById('sbar').value
+
+    if (val == null || val === '') {
+        window.history.pushState(null, null, 'products?allProducts=yes')
+        location.reload()
+    } else {
+        window.history.pushState(null, null, 'products?sbar=' + val)
+        location.reload()
+    }
 }

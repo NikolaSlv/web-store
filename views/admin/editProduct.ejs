@@ -1,8 +1,8 @@
-<h2 class="page-header page-header-centered">Промяна на продукта</h2>
+<h5 class="text-center mb-4">Промяна на продукта</h5>
 <form action="/admin/<%= product.id %>?_method=PUT" method="POST">
     <%- include('_inputForm') %>
-    <div class="form-row form-row-end btn-row">
+    <div class="mt-3" style="display: flex; flex-wrap: wrap; justify-content: center;">
         <a class="btn btn-danger" href="/admin/<%= product.id %>">Откажи</a>
-        <button class="btn btn-primary" type="submit">Потвърди</button>
+        <button class="btn btn-primary ms-1" type="submit">Потвърди</button>
     </div>
 </form>
