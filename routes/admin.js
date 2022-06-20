@@ -26,18 +26,24 @@ async function authorize(req, res) {
     return true
 }
 
-function renderNewPage(res, product, hasError = false) {
-    renderFormPage(res, product, 'newProduct', hasError)
+function renderNewPage(req, res, product, hasError = false) {
+    renderFormPage(req, res, product, 'newProduct', hasError)
 }
 
-function renderEditPage(res, product, hasError = false) {
-    renderFormPage(res, product, 'editProduct', hasError)
+function renderEditPage(req, res, product, hasError = false) {
+    renderFormPage(req, res, product, 'editProduct', hasError)
 }
 
-function renderFormPage(res, product, form, hasError = false) {
+function renderFormPage(req, res, product, form, hasError = false) {
     try {
+        let mode = 'light'
+        if (req.query.theme != null && req.query.theme !== '') {
+            mode = req.query.theme
+        }
+
         const params = { 
-            product: product 
+            product: product,
+            mode: mode
         }
         if (hasError) {
             if (form === 'editProduct') {
@@ -136,6 +142,11 @@ router.get('/', async (req, res) => {
         }
     }
 
+    let mode = 'light'
+    if (req.query.theme != null && req.query.theme !== '') {
+        mode = req.query.theme
+    }
+
     try {
         let count = (await query.clone().exec()).length
         let maxPage = Math.ceil(count / limit)
@@ -144,7 +155,8 @@ router.get('/', async (req, res) => {
             req.query.allProducts = 'yes'
             res.render('admin/index', { 
                 products: null, 
-                searchOptions: req.query 
+                searchOptions: req.query,
+                mode: mode
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
@@ -152,7 +164,8 @@ router.get('/', async (req, res) => {
                 products: products, 
                 searchOptions: req.query,
                 maxPage: maxPage,
-                page: page
+                page: page,
+                mode: mode
             })
         }
     } catch {
@@ -170,7 +183,7 @@ router.get('/new', async (req, res) => {
         res.redirect('/')
     }
 
-    renderNewPage(res, new Product())
+    renderNewPage(req, res, new Product())
 })
 
 // Create Product Route
@@ -198,7 +211,7 @@ router.post('/', async (req, res) => {
         const newProduct = await product.save()
         res.redirect(`/admin/${product.id}`)
     } catch {
-        renderNewPage(res, product, true)
+        renderNewPage(req, res, product, true)
     }
 })
 
@@ -223,9 +236,17 @@ router.get('/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let mode = 'light'
+    if (req.query.theme != null && req.query.theme !== '') {
+        mode = req.query.theme
+    }
+
     try {
         const product = await Product.findById(req.params.id)
-        res.render('admin/show', {product: product})
+        res.render('admin/show', {
+            product: product,
+            mode: mode
+        })
     } catch {
         res.redirect('/')
     }
@@ -243,7 +264,7 @@ router.get('/:id/edit', async (req, res) => {
 
     try {
         const product = await Product.findById(req.params.id)
-        renderEditPage(res, product)
+        renderEditPage(req, res, product)
     } catch {
         res.redirect('/admin')
     }
@@ -280,7 +301,7 @@ router.put('/:id', async (req, res) => {
         if (product == null) {
             res.redirect('/')
         } else {
-            renderEditPage(res, product, true)
+            renderEditPage(req, res, product, true)
         }
     }
 })
@@ -295,6 +316,11 @@ router.delete('/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let mode = 'light'
+    if (req.query.theme != null && req.query.theme !== '') {
+        mode = req.query.theme
+    }
+
     let product
     try {
         product = await Product.findById(req.params.id)
@@ -306,7 +332,8 @@ router.delete('/:id', async (req, res) => {
         } else {
             res.render('admin/show', {
                 product: product,
-                errorMessage: "Грешка при изтриването на продукт!"
+                errorMessage: "Грешка при изтриването на продукт!",
+                mode: mode
             })
         }
     }

@@ -10,7 +10,16 @@ router.get('/', async (req, res) => {
     } catch {
         products = []
     }
-    res.render('index', { products: products })
+
+    let mode = 'light'
+    if (req.query.theme != null && req.query.theme !== '') {
+        mode = req.query.theme
+    }
+
+    res.render('index', { 
+        products: products,
+        mode: mode
+    })
 })
 
 module.exports = router

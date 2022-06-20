@@ -9,15 +9,17 @@
         <h5 class="text-center mt-5">Резултати за: "<%= searchOptions.sbar %>"</h5>
     <% } %>
     <%- include('../partials/sortForm.ejs') %>
-    <% products.forEach(product => { %>
-        <a href="/products/<%= product.id %>" 
-            data-bs-custom-class="custom-popover"
-            data-bs-toggle="popover" data-bs-trigger="hover"
-            title="<%= product.title %> <%= product.weightPerPiece%> гр." 
-            data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
-            <img class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
-        </a>
-    <% }) %>
+    <div id="imgBg2" class="img-bg py-4">
+        <% products.forEach(product => { %>
+            <a name="imgLink" href="/products/<%= product.id %>" 
+                data-bs-custom-class="custom-popover"
+                data-bs-toggle="popover" data-bs-trigger="hover"
+                title="<%= product.title %> <%= product.weightPerPiece%> гр." 
+                data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
+                <img class="img-fluid prod-img mb-3" src="<%= product.productImagePath %>" alt="Изображение">
+            </a>
+        <% }) %>
+    </div>
     <%- include('../partials/pagination.ejs') %>
 <% } else if (products != null) { %>
     <div style="text-align: center;">

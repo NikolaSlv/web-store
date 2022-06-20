@@ -1,0 +1,22 @@
+body {
+    background-color: #212121;
+    color: white;
+}
+.img-bg {
+    background-color: #181818;
+    border-radius: 2rem;
+}
+.offcanvas {
+    background-color: #212121;
+    color: white;
+}
+.offcanvas > .offcanvas-body > .list-group > a > li {
+    background-color: #181818;
+    color: white;
+}
+.form-control {
+    background-color: #e7e7e7;
+}
+.modal-content {
+    background-color: rgb(51, 51, 51);
+}

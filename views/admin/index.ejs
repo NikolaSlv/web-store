@@ -6,14 +6,14 @@
 </form>
 <% if (products != null && maxPage != 0) { %>
     <%- include('../partials/sortForm.ejs') %>
-    <div style="display: flex; flex-wrap: wrap;">
+    <div id="imgBg3" class="d-flex img-bg py-4" style="flex-wrap: wrap;">
         <% products.forEach(product => { %>
-            <a href="/admin/<%= product.id %>"
+            <a name="imgLink" href="/admin/<%= product.id %>"
                 data-bs-custom-class="custom-popover"
                 data-bs-toggle="popover" data-bs-trigger="hover"
                 title="<%= product.title %> <%= product.weightPerPiece%> гр." 
                 data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
-                <img class="img-fluid prod-img" src="<%= product.productImagePath %>" alt="Изображение">
+                <img class="img-fluid prod-img mb-3" src="<%= product.productImagePath %>" alt="Изображение">
             </a>
             <div style="display: block;">
                 <a class="btn btn-primary mb-1" href="/admin/<%= product.id %>/edit">Редактирай</a>
