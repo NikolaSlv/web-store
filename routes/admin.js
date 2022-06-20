@@ -196,6 +196,11 @@ router.post('/', async (req, res) => {
         res.redirect('/')
     }
 
+    let mode = 'light'
+    if (req.body.theme != null && req.body.theme !== '') {
+        mode = req.body.theme
+    }
+
     const product = new Product({
         title: req.body.title,
         category: req.body.category,
@@ -209,7 +214,7 @@ router.post('/', async (req, res) => {
     try {
         saveProduct(product, req.body.productImage)
         const newProduct = await product.save()
-        res.redirect(`/admin/${product.id}`)
+        res.redirect(`/admin/${product.id}?theme=` + mode)
     } catch {
         renderNewPage(req, res, product, true)
     }
@@ -280,6 +285,11 @@ router.put('/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let mode = 'light'
+    if (req.body.theme != null && req.body.theme !== '') {
+        mode = req.body.theme
+    }
+
     let product
     try {
         product = await Product.findById(req.params.id)
@@ -296,7 +306,7 @@ router.put('/:id', async (req, res) => {
         }
 
         await product.save()
-        res.redirect(`/admin/${product.id}`)
+        res.redirect(`/admin/${product.id}?theme=` + mode)
     } catch {
         if (product == null) {
             res.redirect('/')
@@ -317,15 +327,15 @@ router.delete('/:id', async (req, res) => {
     }
 
     let mode = 'light'
-    if (req.query.theme != null && req.query.theme !== '') {
-        mode = req.query.theme
+    if (req.body.theme != null && req.body.theme !== '') {
+        mode = req.body.theme
     }
 
     let product
     try {
         product = await Product.findById(req.params.id)
         await product.remove()
-        res.redirect('/admin')
+        res.redirect('/admin?theme=' + mode)
     } catch {
         if (product == null) {
             res.redirect('/')

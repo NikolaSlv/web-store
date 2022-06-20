@@ -6,7 +6,7 @@ function applyTheme(mode) {
         link.id   = mode
         link.rel  = 'stylesheet'
         link.type = 'text/css'
-        link.href = '../stylesheets/' + mode + '.css'
+        link.href = '../../stylesheets/' + mode + '.css'
         link.media = 'all'
         
         head.appendChild(link)
@@ -52,7 +52,7 @@ function updateModeVariable() {
         var qPos = data.indexOf(',')
         if (qPos > -1)
             data = data.slice(0, qPos)
-        var target = data + ", `" + mode + "`)"
+        var target = data + ", '" + mode + "')"
         elArray[i].setAttribute("onclick", target)
     }
 
@@ -62,9 +62,58 @@ function updateModeVariable() {
 
     if (document.getElementById('reqInputTheme') != null)
         document.getElementById('reqInputTheme').value = mode
+        
+    if (document.getElementById('createInputTheme') != null) {
+        document.getElementById('createInputTheme').setAttribute("value", mode)
+    }
+
+    if (document.getElementById('editInputTheme') != null) {
+        document.getElementById('editInputTheme').setAttribute("value", mode)
+    }
+
+    if (document.getElementById('deleteInputTheme') != null) {
+        document.getElementById('deleteInputTheme').setAttribute("value", mode)
+    }
 
     if (document.getElementById('cancelReq') != null) {
         document.getElementById('cancelReq').setAttribute("href", "/?theme=" + mode)
+    }
+
+    if (document.getElementById('addProd') != null) {
+        document.getElementById('addProd').setAttribute("href", "/admin/new?theme=" + mode)
+    }
+
+    if (document.getElementById('cancelNewProd') != null) {
+        document.getElementById('cancelNewProd').setAttribute("href", "/admin?theme=" + mode)
+    }
+
+    elArray = document.getElementsByName('editProd')
+    for (i = 0; i < elArray.length; i++) {
+        var hrefData = elArray[i].getAttribute('href')
+        var qPos = hrefData.indexOf('?')
+        if (qPos > -1)
+            hrefData = hrefData.slice(0, qPos)
+        elArray[i].setAttribute("href", hrefData + "?theme=" + mode)
+    }
+
+    if (document.getElementById('adminEditSingleProd') != null) {
+        var editHrefData = document.getElementById('adminEditSingleProd').getAttribute('href')
+        var endI = editHrefData.indexOf('?')
+        if (endI > -1)
+            editHrefData = editHrefData.slice(0, endI)
+        document.getElementById('adminEditSingleProd').setAttribute("href", editHrefData + "?theme=" + mode)
+    }
+
+    if (document.getElementById('cancelEditProd') != null) {
+        var editHrefData = document.getElementById('cancelEditProd').getAttribute('href')
+        var endI = editHrefData.indexOf('?')
+        if (endI > -1)
+            editHrefData = editHrefData.slice(0, endI)
+        document.getElementById('cancelEditProd').setAttribute("href", editHrefData + "?theme=" + mode)
+    }
+
+    if (document.getElementById('adminGoBackBtn') != null) {
+        document.getElementById('adminGoBackBtn').setAttribute("href", "/admin?theme=" + mode)
     }
 }
 

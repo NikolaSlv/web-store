@@ -29,8 +29,11 @@ function setCategory(val, mode) {
     if (window.location.href.indexOf("page") > -1) {
         searchParams.set('page', '')
     }
+    
     if (window.location.href.indexOf("theme") > -1) {
         searchParams.set('theme', mode)
+    } else {
+        searchParams.append('theme', mode)
     }
 
     if (searchParams.has(cat)) {
