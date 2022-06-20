@@ -217,7 +217,10 @@ function submitSBar(mode) {
         window.history.pushState(null, null, urlFirst + '&sbar=' + val)
     }
 
-    location.reload()
+    var urlStr = window.location.href
+    urlStr = urlStr.replace(/products\/products/g, 'products')
+
+    location.replace(urlStr)
 }
 
 function goBack(mode) {
