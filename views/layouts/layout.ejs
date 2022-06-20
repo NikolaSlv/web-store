@@ -79,7 +79,7 @@
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         --bs-popover-max-width: 250px;
         --bs-popover-border-color: #6c757d;
-        --bs-popover-header-bg: #dce9f3;
+        --bs-popover-header-bg: rgb(244, 244, 244);
         --bs-popover-header-color: var(--bs-black);
         --bs-popover-body-padding-x: 1rem;
         --bs-popover-body-padding-y: .5rem;
@@ -104,6 +104,11 @@
         .dropdown-menu-search {
           width: 90vw;
           transform: translate(0, 50px) !important;
+        }
+      }
+      @media (hover: none) {
+        .custom-popover {
+          display: none;
         }
       }
     </style>
