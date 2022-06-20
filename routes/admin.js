@@ -39,6 +39,8 @@ function renderFormPage(req, res, product, form, hasError = false) {
         let mode = 'light'
         if (req.query.theme != null && req.query.theme !== '') {
             mode = req.query.theme
+        } else if (req.body.theme != null && req.body.theme !== '') {
+            mode = req.body.theme
         }
 
         const params = { 
