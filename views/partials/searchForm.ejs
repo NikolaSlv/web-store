@@ -8,8 +8,7 @@
         else
             document.getElementById('search-header').textContent = "Категория '" + cat + "'"
     } else {
-        if (searchParams.toString() === 'theme=light&allProducts=yes'||
-            searchParams.toString() === 'theme=dark&allProducts=yes')
+        if (searchParams.toString() === 'allProducts=yes')
             document.getElementById('search-header').textContent = 'Всички'
         else
             document.getElementById('search-header').textContent = 'Търсене на продукти'
@@ -22,7 +21,7 @@
     </div>
     <div class="offcanvas-body">
         <ul class="list-group">
-            <a name="offListItem" href="#" onclick="setCategory('Всички', `<%= mode %>`)">
+            <a href="#" onclick="setCategory('Всички')">
                 <li name="catOption" class="list-group-item d-flex justify-content-between align-items-center add-hover">
                     Всички
                     <span>
@@ -32,12 +31,12 @@
                     </span>
                 </li>
             </a>
-            <a name="offListItem" href="#" onclick="setCategory('Солети', `<%= mode %>`)">
+            <a href="#" onclick="setCategory('Солети')">
                 <li name="catOption" class="list-group-item add-hover">
                     Солети
                 </li>
             </a>
-            <a name="offListItem" href="#" onclick="setCategory('Кроасани', `<%= mode %>`)">
+            <a href="#" onclick="setCategory('Кроасани')">
                 <li name="catOption" class="list-group-item add-hover">
                     Кроасани
                 </li>
@@ -74,7 +73,6 @@
                 </div>
                 <input style="display: none;" type="text" name="category" value="<%= searchOptions.category %>">
                 <input style="display: none;" type="text" name="allProducts" value="<%= searchOptions.allProducts %>">
-                <input style="display: none;" type="text" id="themeInput" name="theme" value="">
                 <button class="btn btn-warning mt-2" type="submit">Търси</button>
             </form>
         </div>

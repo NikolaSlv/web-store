@@ -1,119 +1,27 @@
-function applyTheme(mode) {
+var mode
+
+function applyTheme() {
+    mode = localStorage.getItem("mode");
+
     if (mode === 'dark') {
         var head  = document.getElementsByTagName('head')[0]
         var link  = document.createElement('link')
 
-        link.id   = mode
-        link.rel  = 'stylesheet'
-        link.type = 'text/css'
-        link.href = '../../stylesheets/' + mode + '.css'
+        link.id    = mode
+        link.rel   = 'stylesheet'
+        link.type  = 'text/css'
+        link.href  = '../../stylesheets/' + mode + '.css'
         link.media = 'all'
         
         head.appendChild(link)
     }
 }
 
-function runThemeUpdates(mode) {
+function runThemeUpdates() {
     if (mode === 'dark') {
         document.getElementById("modeSwitch").checked = true
         document.getElementById('fPara').classList.remove("text-muted")
         document.getElementById('fLink').classList.remove("text-muted")
-    }
-}
-
-var mode
-
-function setMode(val) {
-    mode = val
-}
-
-function updateModeVariable() {
-    document.getElementById("home").setAttribute("href", "/?theme=" + mode)
-    document.getElementById("browseProd").setAttribute("href", "/products?theme=" + mode)
-    document.getElementById("request").setAttribute("href", "/request?theme=" + mode)
-    document.getElementById("contact").setAttribute("href", "/contact?theme=" + mode)
-    document.getElementById("sbarButton").setAttribute("onclick", "submitSBar(`" + mode + "`)")
-
-    var elArray = document.getElementsByName('imgLink')
-    for (i = 0; i < elArray.length; i++) {
-        var hrefData = elArray[i].getAttribute('href')
-        var qPos = hrefData.indexOf('?')
-        if (qPos > -1)
-            hrefData = hrefData.slice(0, qPos)
-        elArray[i].setAttribute("href", hrefData + "?theme=" + mode)
-    }
-
-    if (document.getElementById('btnBack') != null)
-        document.getElementById('btnBack').setAttribute("onclick", "goBack(`" + mode + "`)")
-
-    elArray = document.getElementsByName('offListItem')
-    for (i = 0; i < elArray.length; i++) {
-        var data = elArray[i].getAttribute('onclick')
-        var qPos = data.indexOf(',')
-        if (qPos > -1)
-            data = data.slice(0, qPos)
-        var target = data + ", '" + mode + "')"
-        elArray[i].setAttribute("onclick", target)
-    }
-
-    // Theme input is on search form
-    if (document.getElementById('themeInput') != null)
-        document.getElementById('themeInput').value = mode
-
-    if (document.getElementById('reqInputTheme') != null)
-        document.getElementById('reqInputTheme').value = mode
-        
-    if (document.getElementById('createInputTheme') != null) {
-        document.getElementById('createInputTheme').setAttribute("value", mode)
-    }
-
-    if (document.getElementById('editInputTheme') != null) {
-        document.getElementById('editInputTheme').setAttribute("value", mode)
-    }
-
-    if (document.getElementById('deleteInputTheme') != null) {
-        document.getElementById('deleteInputTheme').setAttribute("value", mode)
-    }
-
-    if (document.getElementById('cancelReq') != null) {
-        document.getElementById('cancelReq').setAttribute("href", "/?theme=" + mode)
-    }
-
-    if (document.getElementById('addProd') != null) {
-        document.getElementById('addProd').setAttribute("href", "/admin/new?theme=" + mode)
-    }
-
-    if (document.getElementById('cancelNewProd') != null) {
-        document.getElementById('cancelNewProd').setAttribute("href", "/admin?theme=" + mode)
-    }
-
-    elArray = document.getElementsByName('editProd')
-    for (i = 0; i < elArray.length; i++) {
-        var hrefData = elArray[i].getAttribute('href')
-        var qPos = hrefData.indexOf('?')
-        if (qPos > -1)
-            hrefData = hrefData.slice(0, qPos)
-        elArray[i].setAttribute("href", hrefData + "?theme=" + mode)
-    }
-
-    if (document.getElementById('adminEditSingleProd') != null) {
-        var editHrefData = document.getElementById('adminEditSingleProd').getAttribute('href')
-        var endI = editHrefData.indexOf('?')
-        if (endI > -1)
-            editHrefData = editHrefData.slice(0, endI)
-        document.getElementById('adminEditSingleProd').setAttribute("href", editHrefData + "?theme=" + mode)
-    }
-
-    if (document.getElementById('cancelEditProd') != null) {
-        var editHrefData = document.getElementById('cancelEditProd').getAttribute('href')
-        var endI = editHrefData.indexOf('?')
-        if (endI > -1)
-            editHrefData = editHrefData.slice(0, endI)
-        document.getElementById('cancelEditProd').setAttribute("href", editHrefData + "?theme=" + mode)
-    }
-
-    if (document.getElementById('adminGoBackBtn') != null) {
-        document.getElementById('adminGoBackBtn').setAttribute("href", "/admin?theme=" + mode)
     }
 }
 
@@ -127,6 +35,8 @@ function switchMode() {
     } else {
         mode = 'dark'
     }
+
+    localStorage.setItem("mode", mode);
 
     if (mode === 'dark') {
         document.body.style.background = "#212121"
@@ -208,6 +118,4 @@ function switchMode() {
             document.getElementById('modalContent').style.backgroundColor = "white"
         }
     }
-
-    updateModeVariable()
 }

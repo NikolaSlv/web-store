@@ -1,5 +1,5 @@
 <div class="text-center">
-    <a id="addProd" class="btn btn-success mb-3" href="/admin/new">Добави</a>
+    <a class="btn btn-success mb-3" href="/admin/new">Добави</a>
 </div>
 <form action="/admin" method="GET">
     <%- include('../partials/searchForm.ejs') %>
@@ -8,7 +8,7 @@
     <%- include('../partials/sortForm.ejs') %>
     <div id="imgBg3" class="d-flex img-bg py-4" style="flex-wrap: wrap;">
         <% products.forEach(product => { %>
-            <a name="imgLink" href="/admin/<%= product.id %>"
+            <a href="/admin/<%= product.id %>"
                 data-bs-custom-class="custom-popover"
                 data-bs-toggle="popover" data-bs-trigger="hover"
                 title="<%= product.title %> <%= product.weightPerPiece%> гр." 
@@ -16,7 +16,7 @@
                 <img class="img-fluid prod-img mb-3" src="<%= product.productImagePath %>" alt="Изображение">
             </a>
             <div style="display: block;">
-                <a name="editProd" class="btn btn-primary mb-1" href="/admin/<%= product.id %>/edit">Редактирай</a>
+                <a class="btn btn-primary mb-1" href="/admin/<%= product.id %>/edit">Редактирай</a>
                 <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
             </div>
         <% }) %>

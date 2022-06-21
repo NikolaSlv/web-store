@@ -11,7 +11,7 @@
     <%- include('../partials/sortForm.ejs') %>
     <div id="imgBg2" class="img-bg py-4">
         <% products.forEach(product => { %>
-            <a name="imgLink" href="/products/<%= product.id %>" 
+            <a href="/products/<%= product.id %>" 
                 data-bs-custom-class="custom-popover"
                 data-bs-toggle="popover" data-bs-trigger="hover"
                 title="<%= product.title %> <%= product.weightPerPiece%> гр." 

@@ -26,26 +26,18 @@ async function authorize(req, res) {
     return true
 }
 
-function renderNewPage(req, res, product, hasError = false) {
-    renderFormPage(req, res, product, 'newProduct', hasError)
+function renderNewPage(res, product, hasError = false) {
+    renderFormPage(res, product, 'newProduct', hasError)
 }
 
-function renderEditPage(req, res, product, hasError = false) {
-    renderFormPage(req, res, product, 'editProduct', hasError)
+function renderEditPage(res, product, hasError = false) {
+    renderFormPage(res, product, 'editProduct', hasError)
 }
 
-function renderFormPage(req, res, product, form, hasError = false) {
+function renderFormPage(res, product, form, hasError = false) {
     try {
-        let mode = 'light'
-        if (req.query.theme != null && req.query.theme !== '') {
-            mode = req.query.theme
-        } else if (req.body.theme != null && req.body.theme !== '') {
-            mode = req.body.theme
-        }
-
         const params = { 
-            product: product,
-            mode: mode
+            product: product 
         }
         if (hasError) {
             if (form === 'editProduct') {
@@ -144,11 +136,6 @@ router.get('/', async (req, res) => {
         }
     }
 
-    let mode = 'light'
-    if (req.query.theme != null && req.query.theme !== '') {
-        mode = req.query.theme
-    }
-
     try {
         let count = (await query.clone().exec()).length
         let maxPage = Math.ceil(count / limit)
@@ -157,8 +144,7 @@ router.get('/', async (req, res) => {
             req.query.allProducts = 'yes'
             res.render('admin/index', { 
                 products: null, 
-                searchOptions: req.query,
-                mode: mode
+                searchOptions: req.query 
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
@@ -166,8 +152,7 @@ router.get('/', async (req, res) => {
                 products: products, 
                 searchOptions: req.query,
                 maxPage: maxPage,
-                page: page,
-                mode: mode
+                page: page
             })
         }
     } catch {
@@ -185,7 +170,7 @@ router.get('/new', async (req, res) => {
         res.redirect('/')
     }
 
-    renderNewPage(req, res, new Product())
+    renderNewPage(res, new Product())
 })
 
 // Create Product Route
@@ -196,11 +181,6 @@ router.post('/', async (req, res) => {
         }
     } catch {
         res.redirect('/')
-    }
-
-    let mode = 'light'
-    if (req.body.theme != null && req.body.theme !== '') {
-        mode = req.body.theme
     }
 
     const product = new Product({
@@ -216,9 +196,9 @@ router.post('/', async (req, res) => {
     try {
         saveProduct(product, req.body.productImage)
         const newProduct = await product.save()
-        res.redirect(`/admin/${product.id}?theme=` + mode)
+        res.redirect(`/admin/${product.id}`)
     } catch {
-        renderNewPage(req, res, product, true)
+        renderNewPage(res, product, true)
     }
 })
 
@@ -243,17 +223,9 @@ router.get('/:id', async (req, res) => {
         res.redirect('/')
     }
 
-    let mode = 'light'
-    if (req.query.theme != null && req.query.theme !== '') {
-        mode = req.query.theme
-    }
-
     try {
         const product = await Product.findById(req.params.id)
-        res.render('admin/show', {
-            product: product,
-            mode: mode
-        })
+        res.render('admin/show', {product: product})
     } catch {
         res.redirect('/')
     }
@@ -271,7 +243,7 @@ router.get('/:id/edit', async (req, res) => {
 
     try {
         const product = await Product.findById(req.params.id)
-        renderEditPage(req, res, product)
+        renderEditPage(res, product)
     } catch {
         res.redirect('/admin')
     }
@@ -285,11 +257,6 @@ router.put('/:id', async (req, res) => {
         }
     } catch {
         res.redirect('/')
-    }
-
-    let mode = 'light'
-    if (req.body.theme != null && req.body.theme !== '') {
-        mode = req.body.theme
     }
 
     let product
@@ -308,12 +275,12 @@ router.put('/:id', async (req, res) => {
         }
 
         await product.save()
-        res.redirect(`/admin/${product.id}?theme=` + mode)
+        res.redirect(`/admin/${product.id}`)
     } catch {
         if (product == null) {
             res.redirect('/')
         } else {
-            renderEditPage(req, res, product, true)
+            renderEditPage(res, product, true)
         }
     }
 })
@@ -328,24 +295,18 @@ router.delete('/:id', async (req, res) => {
         res.redirect('/')
     }
 
-    let mode = 'light'
-    if (req.body.theme != null && req.body.theme !== '') {
-        mode = req.body.theme
-    }
-
     let product
     try {
         product = await Product.findById(req.params.id)
         await product.remove()
-        res.redirect('/admin?theme=' + mode)
+        res.redirect('/admin')
     } catch {
         if (product == null) {
             res.redirect('/')
         } else {
             res.render('admin/show', {
                 product: product,
-                errorMessage: "Грешка при изтриването на продукт!",
-                mode: mode
+                errorMessage: "Грешка при изтриването на продукт!"
             })
         }
     }

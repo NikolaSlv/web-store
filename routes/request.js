@@ -32,16 +32,9 @@ let emptyReq = {
 router.get('/', async (req, res) => {
     try {
         const products = await Product.find().sort({ title: 1 }).exec()
-
-        let mode = 'light'
-        if (req.query.theme != null && req.query.theme !== '') {
-            mode = req.query.theme
-        }
-
         const params = {
             requestData: emptyReq,
-            products: products,
-            mode: mode
+            products: products
         }
         res.render(`request/index`, params)
     } catch {
@@ -83,7 +76,7 @@ router.get('/send', async (req, res) => {
     }
 
     if (requestData.info == null) {
-        renderResultPage(req, res, requestData, products, true)
+        renderResultPage(res, requestData, products, true)
     } else {
         let mailOptions = {
             from: process.env.EMAIL_NAME,
@@ -93,26 +86,20 @@ router.get('/send', async (req, res) => {
         }
         transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
-                renderResultPage(req, res, requestData, products, true)
+                renderResultPage(res, requestData, products, true)
             } else {
                 console.log('Email sent: ' + info.response)
-                renderResultPage(req, res, emptyReq, products)
+                renderResultPage(res, emptyReq, products)
             }
         })
     }
 })
 
-function renderResultPage(req, res, requestData, products, hasError = false) {
+function renderResultPage(res, requestData, products, hasError = false) {
     try {
-        let mode = 'light'
-        if (req.query.theme != null && req.query.theme !== '') {
-            mode = req.query.theme
-        }
-
         const params = {
             requestData: requestData,
-            products: products,
-            mode: mode
+            products: products
         }
         if (hasError) {
             params.errorMessage = "Грешка при създаването на заявка!"

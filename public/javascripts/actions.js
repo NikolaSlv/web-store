@@ -3,7 +3,7 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
 
-function setCategory(val, mode) {
+function setCategory(val) {
     var searchParams = new URLSearchParams(window.location.search)
     var cat = 'category'
 
@@ -28,12 +28,6 @@ function setCategory(val, mode) {
     }
     if (window.location.href.indexOf("page") > -1) {
         searchParams.set('page', '')
-    }
-    
-    if (window.location.href.indexOf("theme") > -1) {
-        searchParams.set('theme', mode)
-    } else {
-        searchParams.append('theme', mode)
     }
 
     if (searchParams.has(cat)) {
@@ -207,39 +201,18 @@ function append() {
     document.getElementById("info").value += text
 }
 
-function submitSBar(mode) {
+function submitSBar() {
     const val = document.getElementById('sbar').value
-    const urlFirst = 'products?theme=' + mode
+    var urlStr
 
     if (val == null || val === '') {
-        window.history.pushState(null, null, urlFirst + '&allProducts=yes')
+        window.history.pushState(null, null, 'products?allProducts=yes')
     } else {
-        window.history.pushState(null, null, urlFirst + '&sbar=' + val)
+        window.history.pushState(null, null, 'products?sbar=' + val)
     }
 
-    var urlStr = window.location.href
+    urlStr = window.location.href
     urlStr = urlStr.replace(/products\/products/g, 'products')
 
     location.replace(urlStr)
-}
-
-function goBack(mode) {
-    var backStr = document.referrer
-
-    if (backStr.includes('theme')) {
-        backStr = backStr.replace(/&?theme=light/g, '');
-        backStr = backStr.replace(/&?theme=dark/g, '');
-    }
-
-    if (!backStr.includes('products') && !backStr.includes('admin'))
-        backStr += '?theme=' + mode
-    else 
-        backStr += '&theme=' + mode
-
-    if (backStr.includes('??')) {
-        backStr = backStr.replace(/\?\?/, '?');
-    }
-
-    window.history.pushState(null, null, backStr)
-    location.reload()
 }

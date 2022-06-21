@@ -104,11 +104,6 @@ router.get('/', async (req, res) => {
         }
     }
 
-    let mode = 'light'
-    if (req.query.theme != null && req.query.theme !== '') {
-        mode = req.query.theme
-    }
-
     try {
         let count = (await query.clone().exec()).length
         let maxPage = Math.ceil(count / limit)
@@ -117,8 +112,7 @@ router.get('/', async (req, res) => {
             req.query.allProducts = 'yes'
             res.render('products/index', { 
                 products: null,
-                searchOptions: req.query,
-                mode: mode
+                searchOptions: req.query
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
@@ -126,8 +120,7 @@ router.get('/', async (req, res) => {
                 products: products, 
                 searchOptions: req.query,
                 maxPage: maxPage,
-                page: page,
-                mode: mode
+                page: page
             })
         }
     } catch {
@@ -139,16 +132,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
-
-        let mode = 'light'
-        if (req.query.theme != null && req.query.theme !== '') {
-            mode = req.query.theme
-        }
-
-        res.render('products/show', {
-            product: product,
-            mode: mode
-        })
+        res.render('products/show', {product: product})
     } catch {
         res.redirect('/')
     }
