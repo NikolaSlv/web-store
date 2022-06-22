@@ -2,10 +2,20 @@ body {
     background-color: #212121;
     color: white;
 }
+
 .img-bg {
     background-color: #181818;
     border-radius: 2rem;
 }
+
+.list-group > li {
+    background-color: #181818;
+    color: rgb(226, 226, 226) !important;
+}
+.list-group > li > a {
+    color: rgb(226, 226, 226) !important;
+}
+
 .offcanvas {
     background-color: #212121;
     color: white;
@@ -14,9 +24,23 @@ body {
     background-color: #181818;
     color: white;
 }
+
 .form-control {
     background-color: #e7e7e7;
 }
+
 .modal-content {
     background-color: rgb(51, 51, 51);
+}
+
+.dropdown-menu {
+    background-color: rgb(51, 51, 51);
+}
+.dropdown-item {
+    background-color: rgb(51, 51, 51);
+    color: white;
+}
+
+.box-item {
+    background: rgb(240, 235, 235) !important;
 }

@@ -16,10 +16,6 @@
       body {
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
       }
-      .img-bg-dynamical {
-        background-color: #181818;
-        border-radius: 2rem;
-      }
       .btn-close {
         background-color: white;
       }
@@ -39,6 +35,10 @@
         visibility: hidden;
       }
       .add-hover:hover:not(.active) {
+        background-color: #d9dfe4 !important;
+        color: black !important;
+      }
+      .add-hover:hover:not(.active), .add-hover:hover:not(.active) > a {
         background-color: #d9dfe4 !important;
         color: black !important;
       }
@@ -95,13 +95,15 @@
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         --bs-popover-max-width: 250px;
         --bs-popover-border-color: #6c757d;
-        --bs-popover-header-bg: rgb(244, 244, 244);
+        --bs-popover-header-bg: rgb(242, 242, 242);
         --bs-popover-header-color: var(--bs-black);
         --bs-popover-body-padding-x: 1rem;
         --bs-popover-body-padding-y: .5rem;
       }
-      .modal-content-dynamical {
-        background-color: rgb(51, 51, 51) !important;
+      @media (hover: none) {
+        .custom-popover {
+          display: none;
+        }
       }
       @media screen and (max-width: 900px) {
         .dropdown-menu-search {
@@ -123,11 +125,6 @@
         .dropdown-menu-search {
           width: 90vw;
           transform: translate(0, 50px) !important;
-        }
-      }
-      @media (hover: none) {
-        .custom-popover {
-          display: none;
         }
       }
     </style>

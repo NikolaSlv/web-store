@@ -6,7 +6,7 @@
 </form>
 <% if (products != null && maxPage != 0) { %>
     <%- include('../partials/sortForm.ejs') %>
-    <div id="imgBg3" class="d-flex img-bg py-4" style="flex-wrap: wrap;">
+    <div class="d-flex img-bg py-4 text-center" style="flex-wrap: wrap;">
         <% products.forEach(product => { %>
             <a href="/admin/<%= product.id %>"
                 data-bs-custom-class="custom-popover"
