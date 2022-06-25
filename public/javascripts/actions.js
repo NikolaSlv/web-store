@@ -216,3 +216,16 @@ function submitSBar() {
 
     location.replace(urlStr)
 }
+
+var mListState = 1
+const mList = document.getElementById('userList')
+function showUserList() {
+    if (mList != null) {
+        if (mListState == 1) {
+            mList.style.display = 'block'
+        } else {
+            mList.style.display = 'none'
+        }
+        mListState *= -1
+    }
+}

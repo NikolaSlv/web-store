@@ -10,7 +10,7 @@ function applyTheme() {
             link.id    = 'dark'
             link.rel   = 'stylesheet'
             link.type  = 'text/css'
-            link.href  = '../../stylesheets/dark.css'
+            link.href  = '../../../stylesheets/dark.css'
             link.media = 'all'
             head.appendChild(link)
         }

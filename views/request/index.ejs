@@ -1,132 +1,147 @@
 <script>
     document.getElementById("request").classList.add("active");
 </script>
-<script src="https://www.google.com/recaptcha/api.js?render=6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY"></script>
-<div class="container">
-    <h5 class="mb-3">Създаване на заявка</h5>
-    <form id="reqForm" action="/request/send" method="GET">
-        <div class="row">
-            <div class="col-md mb-2">
-                <label for="name" class="form-label">Име</label>
-                <input type="text" class="form-control" id="name" name="name" value="<%= requestData.name %>">
+<% if (!approved) { %>
+    <div class="container">
+        <form action="/request" method="GET">
+            <label for="key" class="form-label">Клиентски ключ</label>
+            <div class="d-flex">
+                <input style="max-width: 20rem; height: fit-content;" 
+                    type="text" class="form-control" name="key" id="key"
+                    value="<%= inputKey %>">
+                <button class="btn btn-primary ms-2">Влизане</button>
             </div>
-            <div class="col-md mb-2">
-                <label for="storeName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
-                <input required type="text" class="form-control" id="storeName" name="storeName" value="<%= requestData.storeName %>">
+        </form>
+    </div>
+<% } else { %>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY"></script>
+    <div class="container">
+        <h5 class="mb-3">Създаване на заявка</h5>
+        <form id="reqForm" action="/request/send" method="GET">
+            <div class="row">
+                <div class="col-md mb-2">
+                    <label for="name" class="form-label">Име</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>">
+                </div>
+                <div class="col-md mb-2">
+                    <label for="storeName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
+                    <input required type="text" class="form-control" id="storeName" name="businessName" value="<%= user.businessName %>">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md mb-2">
-                <label for="address" class="form-label">Адрес за доставка<span style="color: red"> *</span></label>
-                <input required type="text" class="form-control" id="address" name="address" value="<%= requestData.address %>">
+            <div class="row">
+                <div class="col-md mb-2">
+                    <label for="address" class="form-label">Адрес за доставка<span style="color: red"> *</span></label>
+                    <input required type="text" class="form-control" id="address" name="address" value="<%= user.address %>">
+                </div>
+                <div class="col-md mb-2">
+                    <label for="phone" class="form-label">Телефон<span style="color: red"> *</span></label>
+                    <input required type="tel" class="form-control" id="phone" name="phone"
+                    pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
+                    title="Моля, въведете валиден телефонен номер."
+                    value="<%= user.phone %>">
+                </div>
             </div>
-            <div class="col-md mb-2">
-                <label for="phone" class="form-label">Телефон<span style="color: red"> *</span></label>
-                <input required type="tel" class="form-control" id="phone" name="phone"
-                pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
-                title="Моля, въведете валиден телефонен номер."
-                value="<%= requestData.phone %>">
+            <div class="mb-2">
+                <label for="info" class="form-label">Описание на заявката<span style="color: red"> *</span>
+                    <button onclick="resetSelection()" type="button" class="btn btn-secondary ms-1" data-bs-toggle="modal" data-bs-target="#addModal">
+                        Добави продукт
+                    </button>
+                </label>
+                <textarea type="text" class="form-control" id="info" name="info" rows="8"><%= user.info %></textarea>
             </div>
-        </div>
-        <div class="mb-2">
-            <label for="info" class="form-label">Описание на заявката<span style="color: red"> *</span>
-                <button onclick="resetSelection()" type="button" class="btn btn-secondary ms-1" data-bs-toggle="modal" data-bs-target="#addModal">
-                    Добави продукт
-                </button>
-            </label>
-            <textarea required type="text" class="form-control" id="info" name="info" rows="8"><%= requestData.info %></textarea>
-        </div>
-        <a class="btn btn-danger" href="/">Откажи</a>
-        <button type="submit" class="btn btn-primary">Изпрати</button>
-    </form>
-</div>
-<div class="modal fade" id="addModal" 
-    data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addModalLabel">Изберете продукт</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="selected" name="selected">
-                <input type="hidden" id="piecesPerUnit" name="piecesPerUnit">
-                <input class="form-control mb-3" type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
-                <ul id="prodUL" class="list-group">
-                    <% let pos = 1 %>
-                    <% products.forEach(product => { %>
-                        <li id="sItem-<%= pos %>" class="list-group-item add-hover" onclick="saveSelection(`<%= pos %>`)">
-                            <a href="#" style="display: flex; 
-                                justify-content: space-between;
-                                color: black;" 
-                                data-name='<%= product.title %>' 
-                                data-count='<%= product.piecesPerUnit %>'
-                                tabindex="<%= pos %>">
-                                <%= pos %>. <%= product.title %> <%= product.weightPerPiece %> гр.
-                                <span><%= product.piecesPerUnit %> бр./к.</span>
-                            </a>
-                        </li>
-                        <% pos++ %>
-                    <% }) %>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button id="append" onclick="append()" type="button" class="btn btn-primary">Добави</button>
+            <a class="btn btn-danger" href="/">Откажи</a>
+            <button type="submit" class="btn btn-primary">Изпрати</button>
+        </form>
+    </div>
+    <div class="modal fade" id="addModal" 
+        data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Изберете продукт</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="selected" name="selected">
+                    <input type="hidden" id="piecesPerUnit" name="piecesPerUnit">
+                    <input class="form-control mb-3" type="text" id="userQuery" onkeyup="searchFilter()" placeholder="Търсене по име..">
+                    <ul id="prodUL" class="list-group">
+                        <% let pos = 1 %>
+                        <% products.forEach(product => { %>
+                            <li id="sItem-<%= pos %>" class="list-group-item add-hover" onclick="saveSelection(`<%= pos %>`)">
+                                <a href="#" style="display: flex; 
+                                    justify-content: space-between;
+                                    color: black;" 
+                                    data-name='<%= product.title %>' 
+                                    data-count='<%= product.piecesPerUnit %>'
+                                    tabindex="<%= pos %>">
+                                    <%= pos %>. <%= product.title %> <%= product.weightPerPiece %> гр.
+                                    <span><%= product.piecesPerUnit %> бр./к.</span>
+                                </a>
+                            </li>
+                            <% pos++ %>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button id="append" onclick="append()" type="button" class="btn btn-primary">Добави</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    // Hide the modal on button click
-    $("#append").click(function() {
-        $("#addModal").modal("hide");
-    });
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Hide the modal on button click
+        $("#append").click(function() {
+            $("#addModal").modal("hide");
+        });
 
-    var reqStatus = '-1'
-    document.getElementById('reqForm').addEventListener('submit', runVerify)
+        var reqStatus = '-1'
+        document.getElementById('reqForm').addEventListener('submit', runVerify)
 
-    function runVerify(e) {
-        e.preventDefault()
-        runCaptcha()
-    }
-
-    function runCaptcha() {
-        grecaptcha.execute('6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY', {action: 'submit'})
-        .then(function(token) {
-            sendData(token)
-        })
-    }
-
-    async function sendData(captcha) {
-        const bodyData = JSON.stringify({ captcha: captcha })
-
-        await fetch('/request/verify', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-type': 'application/json'
-            },
-            body: bodyData
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            reqStatus = data.status
-        })
-
-        if (reqStatus == '1') {
-            document.getElementById('reqForm').submit()
-        } else {
-            alert('Моля, изкачайте!')
+        function runVerify(e) {
+            e.preventDefault()
+            runCaptcha()
         }
-    }
 
-    var searchParams = new URLSearchParams(window.location.search)
-    searchParams.delete('name')
-    searchParams.delete('storeName')
-    searchParams.delete('address')
-    searchParams.delete('phone')
-    searchParams.delete('info')
-    history.replaceState(null, null, "?" + searchParams.toString())
-</script>
+        function runCaptcha() {
+            grecaptcha.execute('6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY', {action: 'submit'})
+            .then(function(token) {
+                sendData(token)
+            })
+        }
+
+        async function sendData(captcha) {
+            const bodyData = JSON.stringify({ captcha: captcha })
+
+            await fetch('/request/verify', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-type': 'application/json'
+                },
+                body: bodyData
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                reqStatus = data.status
+            })
+
+            if (reqStatus == '1') {
+                document.getElementById('reqForm').submit()
+            } else {
+                alert('Моля, изкачайте!')
+            }
+        }
+
+        var searchParams = new URLSearchParams(window.location.search)
+        searchParams.delete('key')
+        searchParams.delete('name')
+        searchParams.delete('storeName')
+        searchParams.delete('address')
+        searchParams.delete('phone')
+        searchParams.delete('info')
+        history.replaceState(null, null, "?" + searchParams.toString())
+    </script>
+<% } %>

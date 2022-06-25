@@ -1,5 +1,37 @@
 <div class="text-center">
-    <a class="btn btn-success mb-3" href="/admin/new">Добави</a>
+    <a class="btn btn-success mb-3" href="/admin/new-product">Добави продукт</a>
+    <a class="btn btn-success mb-3 ms-2" href="/admin/new-user">Добави клиент</a>
+</div>
+<div class="text-center">
+    <a class="btn btn-secondary mb-3 ms-2" onclick="showUserList()">Покажи клиентите</a>
+</div>
+<div id="userList" style="display: none;">
+<% if (users.length > 0) { %>
+    <div class="d-md-flex img-bg py-4 justify-content-center text-center mb-3">
+        <% users.forEach(user => { %>
+            <a style="color: inherit; transform: translateY(8%);" class="me-3"
+                href="/admin/user/<%= user.id %>"
+                data-bs-custom-class="custom-popover"
+                data-bs-toggle="popover" data-bs-trigger="hover"
+                title="<%= user.address %>" 
+                data-bs-content="Телефон: <%= user.phone %>">
+                <%= user.businessName%>
+            </a>
+            <a class="btn btn-primary btn-sm mb-1 me-1" href="/admin/user/<%= user.id %>/edit">Редактирай</a>
+            <form method="POST" action="/admin/user/<%= user.id %>?_method=DELETE">
+                <button class="btn btn-danger btn-sm" type="submit" 
+                onclick="return confirm('Потвърждавате ли изтриването?')">Изтрий</button>
+            </form>
+        <% }) %>
+    </div>
+<% } else { %>
+    <div class="mb-3" style="display: flex; justify-content: center; text-align: center;">
+        <br>
+        <div class="error-message">
+            Не са намерени клиенти!
+        </div>
+    </div>
+<% } %>
 </div>
 <form action="/admin" method="GET">
     <%- include('../partials/searchForm.ejs') %>

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Product = require('../models/product')
+const User = require('../models/user')
 const nodemailer = require('nodemailer')
 const request = require('request')
 
@@ -20,20 +21,26 @@ const transporter = nodemailer.createTransport({
     }
 })
 
-let emptyReq = {
-    name: '',
-    storeName: '',
-    address: '',
-    phone: '',
-    info: ''
-}
-
 // View Form
 router.get('/', async (req, res) => {
     try {
+        let validate = false
+        let inputKey = ''
+        let user = null
+
+        if (req.query.key != null && req.query.key !== '') {
+            inputKey = req.query.key
+            user = await User.findOne({ key: inputKey })
+            if (user) {
+                validate = true
+            }
+        }
+
         const products = await Product.find().sort({ title: 1 }).exec()
         const params = {
-            requestData: emptyReq,
+            approved: validate,
+            inputKey: inputKey,
+            user: user,
             products: products
         }
         res.render(`request/index`, params)
@@ -63,43 +70,52 @@ router.post('/verify', (req, res) => {
     })
 })
 
+const emptyUser = {
+    name: '',
+    businessName: '',
+    address: '',
+    phone: '',
+    info: ''
+}
+
 // Send Email
 router.get('/send', async (req, res) => {
     const products = await Product.find().sort({ title: 1 }).exec()
 
-    let requestData = {
+    let user = {
         name: req.query.name,
-        storeName: req.query.storeName,
+        businessName: req.query.businessName,
         address: req.query.address,
         phone: req.query.phone,
         info: req.query.info
     }
 
-    if (requestData.info == null) {
-        renderResultPage(res, requestData, products, true)
+    if (user.info == null || user.info === '') {
+        renderResultPage(res, user, products, true)
     } else {
         let mailOptions = {
             from: process.env.EMAIL_NAME,
             to: process.env.EMAIL_NAME,
-            subject: `Заявка от ${requestData.name}, ${requestData.storeName}`,
-            text: `Адрес: ${requestData.address}\nТелефон: ${requestData.phone}\n\nПоръчка:\n\n${requestData.info}`
+            subject: `Заявка от ${user.name}, ${user.businessName}`,
+            text: `Адрес: ${user.address}\nТелефон: ${user.phone}\n\nПоръчка:\n\n${user.info}`
         }
         transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
-                renderResultPage(res, requestData, products, true)
+                renderResultPage(res, user, products, true)
             } else {
                 console.log('Email sent: ' + info.response)
-                renderResultPage(res, emptyReq, products)
+                renderResultPage(res, emptyUser, products)
             }
         })
     }
 })
 
-function renderResultPage(res, requestData, products, hasError = false) {
+function renderResultPage(res, user, products, hasError = false) {
     try {
         const params = {
-            requestData: requestData,
-            products: products
+            user: user,
+            products: products,
+            approved: true
         }
         if (hasError) {
             params.errorMessage = "Грешка при създаването на заявка!"

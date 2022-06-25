@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md mb-2">
+            <label for="name" class="form-label">Име:</label>
+            <input type="text" class="form-control" id="inName" name="inName" value="<%= user.name %>">
+        </div>
+        <div class="col-md mb-2">
+            <label for="storeName" class="form-label">Наименование на магазина/фирмата:<span style="color: red"> *</span></label>
+            <input required type="text" class="form-control" id="inBusinessName" name="inBusinessName" value="<%= user.businessName %>">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md mb-2">
+            <label for="address" class="form-label">Адрес за доставка:<span style="color: red"> *</span></label>
+            <input required type="text" class="form-control" id="inAddress" name="inAddress" value="<%= user.address %>">
+        </div>
+        <div class="col-md mb-2">
+            <label for="phone" class="form-label">Телефон:<span style="color: red"> *</span></label>
+            <input required type="tel" class="form-control" id="inPhone" name="inPhone"
+            pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
+            title="Моля, въведете валиден телефонен номер."
+            value="<%= user.phone %>">
+        </div>
+    </div>
+</div>
