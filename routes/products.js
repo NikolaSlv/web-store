@@ -5,6 +5,9 @@ const algs = require("../public/javascripts/algorithms")
 
 // View Products Route
 router.get('/', async (req, res) => {
+    let userId = null
+    if (req.user) { userId = req.user._id }
+
     let query = Product.find()
     let emptyQuery = true
     if (req.query.sbar != null && req.query.sbar !== '') {
@@ -111,12 +114,14 @@ router.get('/', async (req, res) => {
         if (emptyQuery) {
             req.query.allProducts = 'yes'
             res.render('products/index', { 
+                userId: userId,
                 products: null,
                 searchOptions: req.query
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
             res.render('products/index', { 
+                userId: userId,
                 products: products, 
                 searchOptions: req.query,
                 maxPage: maxPage,
@@ -130,9 +135,15 @@ router.get('/', async (req, res) => {
 
 // View Single Product Route
 router.get('/:id', async (req, res) => {
+    let userId = null
+    if (req.user) { userId = req.user._id }
+
     try {
         const product = await Product.findById(req.params.id)
-        res.render('products/show', {product: product})
+        res.render('products/show', {
+            userId: userId,
+            product: product
+        })
     } catch {
         res.redirect('/')
     }

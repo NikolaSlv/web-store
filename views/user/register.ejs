@@ -1,0 +1,40 @@
+<div class="container" style="max-width: 800px;">
+    <form action="/register" method="POST">
+        <div class="mb-1" style="visibility: hidden;">null</div>
+        <div class="row mb-2">
+            <div class="col-md">
+                <label class="form-label" for="email">Имейл<span style="color: red"> *</span></label>
+                <input class="form-control" type="email" id="email" name="email"
+                required>
+            </div>
+            <div class="col-md">
+                <label class="form-label" for="password">Парола<span style="color: red"> *</span></label>
+                <input class="form-control" type="password" id="password" name="password"
+                required>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md">
+                <label class="form-label" for="name">Име</label>
+                <input class="form-control" type="text" id="name" name="name">
+            </div>
+            <div class="col-md">
+                <label class="form-label" for="businessName">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
+                <input class="form-control" type="text" id="businessName" name="businessName">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md">
+                <label class="form-label" for="address">Адрес за доставка<span style="color: red"> *</span></label>
+                <input class="form-control" type="text" id="address" name="address">
+            </div>
+            <div class="col-md">
+                <label class="form-label" for="phone">Телефон<span style="color: red"> *</span></label>
+                <input class="form-control" type="text" id="phone" name="phone">
+            </div>
+        </div>
+        <div style="text-align: end;">
+            <button class="btn btn-primary" type="submit">Регистрация</button>
+        </div>
+    </form>
+</div>

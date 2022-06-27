@@ -24,6 +24,9 @@ const transporter = nodemailer.createTransport({
 // View Form
 router.get('/', async (req, res) => {
     try {
+        let userId = null
+        if (req.user) { userId = req.user._id }
+
         let validate = false
         let inputKey = ''
         let user = null
@@ -38,6 +41,7 @@ router.get('/', async (req, res) => {
 
         const products = await Product.find().sort({ title: 1 }).exec()
         const params = {
+            userId: userId,
             approved: validate,
             inputKey: inputKey,
             user: user,
@@ -112,7 +116,11 @@ router.get('/send', async (req, res) => {
 
 function renderResultPage(res, user, products, hasError = false) {
     try {
+        let userId = null
+        if (req.user) { userId = req.user._id }
+
         const params = {
+            userId: userId,
             user: user,
             products: products,
             approved: true

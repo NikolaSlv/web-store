@@ -12,4 +12,20 @@ function setSearchStr(str) {
     return searchStr
 }
 
+function verifyUser(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect('/login')
+}
+
+function verifyLoggedInUser(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/')
+    }
+    next()
+}
+
 module.exports.setSearchStr = setSearchStr
+module.exports.verifyUser = verifyUser
+module.exports.verifyLoggedInUser = verifyLoggedInUser

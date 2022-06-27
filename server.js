@@ -10,14 +10,21 @@ const app = express()
 app.use(compression({
     level: 6
 }))
+app.use(express.static('public', { 
+    maxAge: '7d' 
+}))
 
-const favicon = require('serve-favicon');
+const favicon = require('serve-favicon')
 const expressLayouts = require('express-ejs-layouts')
-const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
 const filter = require('content-filter')
+const flash = require('express-flash')
+const session = require('express-session')
+const passport = require('passport')
 
 const indexRouter = require('./routes/index')
+const userRouter = require('./routes/user')
 const adminRouter = require('./routes/admin')
 const productsRouter = require('./routes/products')
 const requestRouter = require('./routes/request')
@@ -27,10 +34,9 @@ app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
+app.use(favicon(__dirname + '/public/images/favicon.ico'))
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
-app.use(express.static('public', { maxAge: '7d' }))
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 app.use(bodyParser.json())
 
@@ -42,7 +48,16 @@ const options = {
     urlMessage: 'A forbidden expression has been found in the URL',
     bodyMessage: 'A forbidden expression has been found in the form data'
 }
-app.use(filter(options));
+app.use(filter(options))
+
+app.use(flash())
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
@@ -51,6 +66,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRouter)
+app.use('/', userRouter)
 app.use('/admin', adminRouter)
 app.use('/products', productsRouter)
 app.use('/request', requestRouter)

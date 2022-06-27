@@ -27,12 +27,16 @@ async function authorize(req, res) {
     return true
 }
 
-function renderFormPage(res, data, form, hasError = false) {
+function renderFormPage(req, res, data, form, hasError = false) {
     try {
+        let userId = null
+        if (req.user) { userId = req.user._id }
+
         let params
         if (form === 'newUser' || form === 'editUser') {
             params = { 
-                user: data 
+                userId: userId,
+                user: data
             }
             if (hasError) {
                 if (form === 'editUser') {
@@ -43,7 +47,8 @@ function renderFormPage(res, data, form, hasError = false) {
             }
         } else {
             params = { 
-                product: data 
+                userId: userId,
+                product: data
             }
             if (hasError) {
                 if (form === 'editProduct') {
@@ -68,6 +73,9 @@ router.get('/', async (req, res) => {
     } catch {
         res.redirect('/')
     }
+
+    let userId = null
+    if (req.user) { userId = req.user._id }
 
     let users
     try {
@@ -157,13 +165,15 @@ router.get('/', async (req, res) => {
         if (emptyQuery) {
             req.query.allProducts = 'yes'
             res.render('admin/index', { 
+                userId: userId,
                 users: users,
                 products: null, 
-                searchOptions: req.query 
+                searchOptions: req.query
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
             res.render('admin/index', { 
+                userId: userId,
                 users: users,
                 products: products, 
                 searchOptions: req.query,
@@ -186,7 +196,7 @@ router.get('/new-product', async (req, res) => {
         res.redirect('/')
     }
 
-    renderFormPage(res, new Product(), 'newProduct')
+    renderFormPage(req, res, new Product(), 'newProduct')
 })
 
 // New User Route
@@ -199,7 +209,7 @@ router.get('/new-user', async (req, res) => {
         res.redirect('/')
     }
 
-    renderFormPage(res, new User(), 'newUser')
+    renderFormPage(req, res, new User(), 'newUser')
 })
 
 function saveProduct(product, productImageEncoded) {
@@ -238,7 +248,7 @@ router.post('/create-product', async (req, res) => {
         const newProduct = await product.save()
         res.redirect(`/admin/${product.id}`)
     } catch {
-        renderFormPage(res, product, 'newProduct', true)
+        renderFormPage(req, res, product, 'newProduct', true)
     }
 })
 
@@ -264,7 +274,7 @@ router.post('/create-user', async (req, res) => {
         const newUser = await user.save()
         res.redirect(`/admin/user/${user.id}`)
     } catch {
-        renderFormPage(res, user, 'newUser', true)
+        renderFormPage(req, res, user, 'newUser', true)
     }
 })
 
@@ -278,9 +288,15 @@ router.get('/user/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let userId = null
+    if (req.user) { userId = req.user._id }
+
     try {
         const user = await User.findById(req.params.id)
-        res.render('admin/showUser', {user: user})
+        res.render('admin/showUser', { 
+            userId: userId,
+            user: user 
+        })
     } catch {
         res.redirect('/')
     }
@@ -298,7 +314,7 @@ router.get('/user/:id/edit', async (req, res) => {
 
     try {
         const user = await User.findById(req.params.id)
-        renderFormPage(res, user, 'editUser')
+        renderFormPage(req, res, user, 'editUser')
     } catch {
         res.redirect('/admin')
     }
@@ -329,7 +345,7 @@ router.put('/user/:id', async (req, res) => {
         if (user == null) {
             res.redirect('/')
         } else {
-            renderFormPage(res, user, 'editUser', true)
+            renderFormPage(req, res, user, 'editUser', true)
         }
     }
 })
@@ -344,6 +360,9 @@ router.delete('/user/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let userId = null
+    if (req.user) { userId = req.user._id }
+
     let user
     try {
         user = await User.findById(req.params.id)
@@ -354,6 +373,7 @@ router.delete('/user/:id', async (req, res) => {
             res.redirect('/')
         } else {
             res.render('admin/showUser', {
+                userId: userId,
                 user: user,
                 errorMessage: "Грешка при изтриването на клиент!"
             })
@@ -371,9 +391,15 @@ router.get('/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let userId = null
+    if (req.user) { userId = req.user._id }
+
     try {
         const product = await Product.findById(req.params.id)
-        res.render('admin/showProduct', {product: product})
+        res.render('admin/showProduct', {
+            userId: userId,
+            product: product
+        })
     } catch {
         res.redirect('/')
     }
@@ -391,7 +417,7 @@ router.get('/:id/edit', async (req, res) => {
 
     try {
         const product = await Product.findById(req.params.id)
-        renderFormPage(res, product, 'editProduct')
+        renderFormPage(req, res, product, 'editProduct')
     } catch {
         res.redirect('/admin')
     }
@@ -428,7 +454,7 @@ router.put('/:id', async (req, res) => {
         if (product == null) {
             res.redirect('/')
         } else {
-            renderFormPage(res, product, 'editProduct', true)
+            renderFormPage(req, res, product, 'editProduct', true)
         }
     }
 })
@@ -443,6 +469,9 @@ router.delete('/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let userId = null
+    if (req.user) { userId = req.user._id }
+
     let product
     try {
         product = await Product.findById(req.params.id)
@@ -453,6 +482,7 @@ router.delete('/:id', async (req, res) => {
             res.redirect('/')
         } else {
             res.render('admin/showProduct', {
+                userId: userId,
                 product: product,
                 errorMessage: "Грешка при изтриването на продукт!"
             })
