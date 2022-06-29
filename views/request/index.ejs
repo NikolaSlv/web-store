@@ -1,17 +1,9 @@
 <script>
     document.getElementById("request").classList.add("active");
 </script>
-<% if (!approved) { %>
+<% if (userEmail == null) { %>
     <div class="container">
-        <form action="/request" method="GET">
-            <label for="key" class="form-label">Клиентски ключ</label>
-            <div class="d-flex">
-                <input style="max-width: 20rem; height: fit-content;" 
-                    type="text" class="form-control" name="key" id="key"
-                    value="<%= inputKey %>">
-                <button class="btn btn-primary ms-2">Влизане</button>
-            </div>
-        </form>
+        Моля, влезте в профила си, за да създадете заявка.
     </div>
 <% } else { %>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY"></script>
@@ -24,7 +16,7 @@
                     <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>">
                 </div>
                 <div class="col-md mb-2">
-                    <label for="storeName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
+                    <label for="businessName" class="form-label">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
                     <input required type="text" class="form-control" id="storeName" name="businessName" value="<%= user.businessName %>">
                 </div>
             </div>
@@ -136,9 +128,8 @@
         }
 
         var searchParams = new URLSearchParams(window.location.search)
-        searchParams.delete('key')
         searchParams.delete('name')
-        searchParams.delete('storeName')
+        searchParams.delete('businessName')
         searchParams.delete('address')
         searchParams.delete('phone')
         searchParams.delete('info')

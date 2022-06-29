@@ -34,6 +34,9 @@
       br {
         visibility: hidden;
       }
+      .black {
+        color: rgba(0, 0, 0, 0.55) !important;
+      }
       .add-hover:hover:not(.active) {
         background-color: #d9dfe4 !important;
         color: black !important;
@@ -47,8 +50,8 @@
         width: 200px;
       }
       .dropdown-menu-search {
-        color: white !important;
-        background-color: rgb(109, 77, 77) !important;
+        color: black;
+        border-width: 2px;
         width: 35vw;
         transform: translate(-10vw, 50px) !important;
       }
@@ -83,7 +86,7 @@
       }
       .box-item {
         padding: 1rem;
-        background: rgb(255, 250, 250);
+        background: rgba(255, 161, 161, 0.548);
         box-shadow:
           0 5px 10px rgba(0, 0, 0, 0.1),
           0 20px 20px rgba(0, 0, 0, 0.05);
@@ -95,6 +98,7 @@
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         --bs-popover-max-width: 250px;
         --bs-popover-border-color: #6c757d;
+        --bs-popover-border-radius: none;
         --bs-popover-header-bg: rgb(242, 242, 242);
         --bs-popover-header-color: var(--bs-black);
         --bs-popover-body-padding-x: 1rem;

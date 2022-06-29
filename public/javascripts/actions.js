@@ -229,3 +229,110 @@ function showUserList() {
         mListState *= -1
     }
 }
+
+function enableUserEditing() {
+    document.getElementById('emailEdit').disabled = false
+    document.getElementById('nameEdit').disabled = false
+    document.getElementById('businessNameEdit').disabled = false
+    document.getElementById('addressEdit').disabled = false
+    document.getElementById('phoneEdit').disabled = false
+
+    document.getElementById('enableEdit').style.display = 'none'
+    document.getElementById('changePassword').style.display = 'none'
+
+    document.getElementById('backToProfile').style.display = ''
+    document.getElementById('saveEdit').style.display = ''
+}
+
+function changePass() {
+    document.getElementById('updatePass').value = 'yes'
+
+    document.getElementById('gr1').style.display = 'none'
+    document.getElementById('gr2').style.display = 'none'
+    document.getElementById('gr3').style.display = 'none'
+    document.getElementById('gr4').style.display = 'none'
+    document.getElementById('gr5').style.display = 'none'
+
+    document.getElementById('enableEdit').style.display = 'none'
+    document.getElementById('changePassword').style.display = 'none'
+
+    document.getElementById('backToProfile').style.display = ''
+    document.getElementById('saveEdit').style.display = ''
+
+    document.getElementById('passwordID').setAttribute('required', '')
+    document.getElementById('passwordEditGroup').style.display = ''
+    document.getElementById('passwordIDRep').setAttribute('required', '')
+    document.getElementById('passwordEditGroupRepeat').style.display = ''
+}
+
+function goBackToProfile() {
+    const updatingPass = document.getElementById('updatePass').value
+
+    if (updatingPass === 'yes') {
+        document.getElementById('updatePass').value = 'no'
+
+        document.getElementById('gr1').style.display = ''
+        document.getElementById('gr2').style.display = ''
+        document.getElementById('gr3').style.display = ''
+        document.getElementById('gr4').style.display = ''
+        document.getElementById('gr5').style.display = ''
+
+        document.getElementById('enableEdit').style.display = ''
+        document.getElementById('changePassword').style.display = ''
+
+        document.getElementById('backToProfile').style.display = 'none'
+        document.getElementById('saveEdit').style.display = 'none'
+
+        document.getElementById('passwordID').removeAttribute('required')
+        document.getElementById('passwordEditGroup').style.display = 'none'
+        document.getElementById('passwordIDRep').removeAttribute('required')
+        document.getElementById('passwordEditGroupRepeat').style.display = 'none'
+    } else {
+        document.getElementById('emailEdit').disabled = true
+        document.getElementById('nameEdit').disabled = true
+        document.getElementById('businessNameEdit').disabled = true
+        document.getElementById('addressEdit').disabled = true
+        document.getElementById('phoneEdit').disabled = true
+    
+        document.getElementById('enableEdit').style.display = ''
+        document.getElementById('changePassword').style.display = ''
+    
+        document.getElementById('backToProfile').style.display = 'none'
+        document.getElementById('saveEdit').style.display = 'none'
+    } 
+}
+
+function showPass() {
+    const password = document.getElementById('passwordID')
+    updatePassVisibility(password)
+}
+
+function showRepeatPass() {
+    const password = document.getElementById('passwordIDRep')
+    updatePassVisibility(password, true)
+}
+
+function updatePassVisibility(pass, repeat = false) {
+    if (pass != null) {
+        var eyeNoView
+        var eyeView
+
+        if (!repeat) {
+            eyeNoView = document.getElementById('eyeNoView')
+            eyeView = document.getElementById('eyeView')
+        } else {
+            eyeNoView = document.getElementById('eyeNoViewRep')
+            eyeView = document.getElementById('eyeViewRep')
+        }
+
+        if (pass.type === 'password') {
+            pass.type = 'text'
+            eyeNoView.style.display = 'none'
+            eyeView.style.display = ''
+        } else {
+            pass.type = 'password'
+            eyeNoView.style.display = ''
+            eyeView.style.display = 'none'
+        }
+    }
+}

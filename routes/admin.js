@@ -4,6 +4,7 @@ const Product = require('../models/product')
 const User = require('../models/user')
 const imageMimeTypes = ['image/webp', 'image/jpeg', 'image/png']
 const algs = require("../public/javascripts/algorithms")
+const bcrypt = require('bcrypt')
 
 async function authorize(req, res) {
     const reject = () => {
@@ -29,13 +30,13 @@ async function authorize(req, res) {
 
 function renderFormPage(req, res, data, form, hasError = false) {
     try {
-        let userId = null
-        if (req.user) { userId = req.user._id }
+        let userEmail = null
+        if (req.user) { userEmail = req.user.email }
 
         let params
         if (form === 'newUser' || form === 'editUser') {
             params = { 
-                userId: userId,
+                userEmail: userEmail,
                 user: data
             }
             if (hasError) {
@@ -47,7 +48,7 @@ function renderFormPage(req, res, data, form, hasError = false) {
             }
         } else {
             params = { 
-                userId: userId,
+                userEmail: userEmail,
                 product: data
             }
             if (hasError) {
@@ -74,8 +75,8 @@ router.get('/', async (req, res) => {
         res.redirect('/')
     }
 
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
     let users
     try {
@@ -165,7 +166,7 @@ router.get('/', async (req, res) => {
         if (emptyQuery) {
             req.query.allProducts = 'yes'
             res.render('admin/index', { 
-                userId: userId,
+                userEmail: userEmail,
                 users: users,
                 products: null, 
                 searchOptions: req.query
@@ -173,7 +174,7 @@ router.get('/', async (req, res) => {
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
             res.render('admin/index', { 
-                userId: userId,
+                userEmail: userEmail,
                 users: users,
                 products: products, 
                 searchOptions: req.query,
@@ -261,14 +262,39 @@ router.post('/create-user', async (req, res) => {
     } catch {
         res.redirect('/')
     }
+    
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
+
+    const hashedPassword = await bcrypt.hash(req.body.inPassword, 10)
 
     const user = new User({
-        key: 'test',
+        email: req.body.inEmail,
+        password: hashedPassword,
         name: req.body.inName,
         businessName: req.body.inBusinessName,
         address: req.body.inAddress,
         phone: req.body.inPhone
     })
+
+    if (req.body.inPassword !== req.body.inPasswordRepeat) {
+        res.render('admin/newUser', { 
+            userEmail: userEmail, 
+            user: user,
+            errorMessage: 'Паролата не съвпада' 
+        })
+        return
+    }
+
+    if (await User.findOne({ email: user.email })) {
+        user.email = ''
+        res.render('admin/newUser', {
+            userEmail: userEmail,
+            user: user,
+            errorMessage: 'Имейл адресът е зает'
+        })
+        return
+    }
 
     try {
         const newUser = await user.save()
@@ -288,13 +314,13 @@ router.get('/user/:id', async (req, res) => {
         res.redirect('/')
     }
 
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
     try {
         const user = await User.findById(req.params.id)
         res.render('admin/showUser', { 
-            userId: userId,
+            userEmail: userEmail,
             user: user 
         })
     } catch {
@@ -330,10 +356,41 @@ router.put('/user/:id', async (req, res) => {
         res.redirect('/')
     }
 
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
+
     let user
     try {
         user = await User.findById(req.params.id)
 
+        if (req.body.inPassword !== req.body.inPasswordRepeat) {
+            res.render('admin/editUser', { 
+                userEmail: userEmail, 
+                user: user,
+                errorMessage: 'Паролата не съвпада' 
+            })
+            return
+        }
+
+        if (req.body.inEmail !== user.email && await User.findOne({ email: req.body.inEmail })) {
+            res.render('admin/editUser', {
+                userEmail: userEmail,
+                user: user,
+                errorMessage: 'Имейл адресът е зает'
+            })
+            return
+        }
+
+        let password = user.password
+
+        if (req.body.inPassword !== '' && req.body.inPassword != null) {
+            password = await bcrypt.hash(req.body.inPassword, 10)
+        }
+
+        user.email = req.body.inEmail
+        if (req.body.inPassword !== '' && req.body.inPassword != null) {
+            user.password = password
+        }
         user.name = req.body.inName
         user.businessName = req.body.inBusinessName
         user.address = req.body.inAddress
@@ -360,8 +417,8 @@ router.delete('/user/:id', async (req, res) => {
         res.redirect('/')
     }
 
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
     let user
     try {
@@ -373,7 +430,7 @@ router.delete('/user/:id', async (req, res) => {
             res.redirect('/')
         } else {
             res.render('admin/showUser', {
-                userId: userId,
+                userEmail: userEmail,
                 user: user,
                 errorMessage: "Грешка при изтриването на клиент!"
             })
@@ -391,13 +448,13 @@ router.get('/:id', async (req, res) => {
         res.redirect('/')
     }
 
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
     try {
         const product = await Product.findById(req.params.id)
         res.render('admin/showProduct', {
-            userId: userId,
+            userEmail: userEmail,
             product: product
         })
     } catch {
@@ -469,8 +526,8 @@ router.delete('/:id', async (req, res) => {
         res.redirect('/')
     }
 
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
     let product
     try {
@@ -482,7 +539,7 @@ router.delete('/:id', async (req, res) => {
             res.redirect('/')
         } else {
             res.render('admin/showProduct', {
-                userId: userId,
+                userEmail: userEmail,
                 product: product,
                 errorMessage: "Грешка при изтриването на продукт!"
             })

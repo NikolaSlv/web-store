@@ -3,10 +3,10 @@ const router = express.Router()
 
 // View Contact Information Route
 router.get('/', (req, res) => {
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
-    res.render('contact/index', { userId: userId })
+    res.render('contact/index', { userEmail: userEmail })
 })
 
 module.exports = router

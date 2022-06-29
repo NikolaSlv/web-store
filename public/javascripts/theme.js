@@ -23,10 +23,16 @@ function applyTheme() {
 
 function runThemeUpdates() {
     if (mode === 'dark') {
+        document.getElementById('nav-bar').classList.remove("navbar-dark")
+        document.getElementById('nav-bar').classList.add("navbar-light")
+        document.getElementById('sun').classList.add("black")
         document.getElementById("modeSwitch").checked = true
         document.getElementById('fPara').classList.remove("text-muted")
         document.getElementById('fLink').classList.remove("text-muted")
     } else {
+        document.getElementById('nav-bar').classList.remove("navbar-light")
+        document.getElementById('nav-bar').classList.add("navbar-dark")
+        document.getElementById('sun').classList.remove("black")
         document.getElementById("modeSwitch").checked = false
         document.getElementById('fPara').classList.add("text-muted")
         document.getElementById('fLink').classList.add("text-muted")

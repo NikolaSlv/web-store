@@ -1,11 +1,15 @@
 body {
-    background-color: #212121;
+    background-color: #282a35;
     color: white;
 }
 
-.img-bg {
-    background-color: #181818;
-    border-radius: 2rem;
+.navbar {
+    background-color: rgb(194, 194, 194) !important;
+}
+
+.dropdown-menu-search {
+    background-color: #212121 !important;
+    color: white !important;
 }
 
 .list-group > li {
@@ -42,5 +46,8 @@ body {
 }
 
 .box-item {
-    background: rgb(240, 235, 235) !important;
+    box-shadow:
+      0 5px 10px rgba(255, 255, 255, 0.1),
+      0 20px 20px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }

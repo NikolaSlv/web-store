@@ -24,26 +24,18 @@ const transporter = nodemailer.createTransport({
 // View Form
 router.get('/', async (req, res) => {
     try {
-        let userId = null
-        if (req.user) { userId = req.user._id }
+        let userEmail = null
+        if (req.user) { userEmail = req.user.email }
 
-        let validate = false
-        let inputKey = ''
         let user = null
 
-        if (req.query.key != null && req.query.key !== '') {
-            inputKey = req.query.key
-            user = await User.findOne({ key: inputKey })
-            if (user) {
-                validate = true
-            }
+        if (userEmail != null) {
+            user = await User.findOne({ email: userEmail })
         }
 
         const products = await Product.find().sort({ title: 1 }).exec()
         const params = {
-            userId: userId,
-            approved: validate,
-            inputKey: inputKey,
+            userEmail: userEmail,
             user: user,
             products: products
         }
@@ -95,7 +87,7 @@ router.get('/send', async (req, res) => {
     }
 
     if (user.info == null || user.info === '') {
-        renderResultPage(res, user, products, true)
+        renderResultPage(req, res, user, products, true)
     } else {
         let mailOptions = {
             from: process.env.EMAIL_NAME,
@@ -105,25 +97,24 @@ router.get('/send', async (req, res) => {
         }
         transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
-                renderResultPage(res, user, products, true)
+                renderResultPage(req, res, user, products, true)
             } else {
                 console.log('Email sent: ' + info.response)
-                renderResultPage(res, emptyUser, products)
+                renderResultPage(req, res, emptyUser, products)
             }
         })
     }
 })
 
-function renderResultPage(res, user, products, hasError = false) {
+function renderResultPage(req, res, user, products, hasError = false) {
     try {
-        let userId = null
-        if (req.user) { userId = req.user._id }
+        let userEmail = null
+        if (req.user) { userEmail = req.user.email }
 
         const params = {
-            userId: userId,
+            userEmail: userEmail,
             user: user,
-            products: products,
-            approved: true
+            products: products
         }
         if (hasError) {
             params.errorMessage = "Грешка при създаването на заявка!"

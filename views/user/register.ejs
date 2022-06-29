@@ -1,36 +1,88 @@
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY"></script>
 <div class="container" style="max-width: 800px;">
-    <form action="/register" method="POST">
+    <form id="registerForm" action="/register" method="POST">
         <div class="mb-1" style="visibility: hidden;">null</div>
-        <div class="row mb-2">
-            <div class="col-md">
-                <label class="form-label" for="email">Имейл<span style="color: red"> *</span></label>
-                <input class="form-control" type="email" id="email" name="email"
-                required>
-            </div>
-            <div class="col-md">
-                <label class="form-label" for="password">Парола<span style="color: red"> *</span></label>
-                <input class="form-control" type="password" id="password" name="password"
-                required>
+        <div class="row mb-2 text-center">
+            <label class="form-label" for="email">Имейл<span style="color: red"> *</span></label>
+            <div class="d-flex justify-content-center">
+                <input style="max-width: 400px;" class="form-control" type="email" id="email" name="email"
+                required value="<%= user.email %>">
+                <div class="ms-2" style="transform: translateY(13%); visibility: hidden;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                    </svg>
+                </div>
             </div>
         </div>
+        <div class="row mb-2 text-center">
+            <label class="form-label" for="passwordID">Парола<span style="color: red"> *</span></label>
+            <div class="d-flex justify-content-center">
+                <input id="passwordID" style="max-width: 400px;" class="form-control" type="password" name="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Трябва да съдържа поне едно число, една главна буква, една малка буква и да е дълга поне 8 символа."
+                required>
+                <a class="ms-2" style="transform: translateY(13%); color: inherit" onclick="showPass()">
+                    <div id="eyeNoView">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                            <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                            <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                        </svg>
+                    </div>
+                    <div id="eyeView" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row mb-5 text-center">
+            <label class="form-label" for="passwordIDRep">Повторете паролата<span style="color: red"> *</span></label>
+            <div class="d-flex justify-content-center">
+                <input id="passwordIDRep" style="max-width: 400px;" class="form-control" type="password" name="passwordRepeat"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Трябва да съдържа поне едно число, една главна буква, една малка буква и да е дълга поне 8 символа."
+                required>
+                <a class="ms-2" style="transform: translateY(13%); color: inherit" onclick="showRepeatPass()">
+                    <div id="eyeNoViewRep">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                            <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                            <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                        </svg>
+                    </div>
+                    <div id="eyeViewRep" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <hr>
         <div class="row mb-2">
             <div class="col-md">
                 <label class="form-label" for="name">Име</label>
-                <input class="form-control" type="text" id="name" name="name">
+                <input class="form-control" type="text" id="name" name="name" value="<%= user.name %>">
             </div>
             <div class="col-md">
                 <label class="form-label" for="businessName">Наименование на магазина/фирмата<span style="color: red"> *</span></label>
-                <input class="form-control" type="text" id="businessName" name="businessName">
+                <input required class="form-control" type="text" id="businessName" name="businessName" value="<%= user.businessName %>">
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row mb-4">
             <div class="col-md">
                 <label class="form-label" for="address">Адрес за доставка<span style="color: red"> *</span></label>
-                <input class="form-control" type="text" id="address" name="address">
+                <input required class="form-control" type="text" id="address" name="address" value="<%= user.address %>">
             </div>
             <div class="col-md">
                 <label class="form-label" for="phone">Телефон<span style="color: red"> *</span></label>
-                <input class="form-control" type="text" id="phone" name="phone">
+                <input required class="form-control" type="tel" id="phone" name="phone"
+                    pattern="^\(?\+?[3]?[5]?[9]?\)?[-. ]?([0-9]{1})?[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?([0-9]{1})[-. ]?$"
+                    title="Моля, въведете валиден телефонен номер."
+                    value="<%= user.phone %>">
             </div>
         </div>
         <div style="text-align: end;">
@@ -38,3 +90,42 @@
         </div>
     </form>
 </div>
+<script>
+    var reqStatus = '-1'
+    document.getElementById('registerForm').addEventListener('submit', runVerify)
+
+    function runVerify(e) {
+        e.preventDefault()
+        runCaptcha()
+    }
+
+    function runCaptcha() {
+        grecaptcha.execute('6Lf6_FogAAAAALD737ruBtcBGAt5nLz3AVtWCTSY', {action: 'submit'})
+        .then(function(token) {
+            sendData(token)
+        })
+    }
+
+    async function sendData(captcha) {
+        const bodyData = JSON.stringify({ captcha: captcha })
+
+        await fetch('/verify', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-type': 'application/json'
+            },
+            body: bodyData
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            reqStatus = data.status
+        })
+
+        if (reqStatus == '1') {
+            document.getElementById('registerForm').submit()
+        } else {
+            alert('Моля, изкачайте!')
+        }
+    }
+</script>

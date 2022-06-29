@@ -2,7 +2,7 @@
     document.getElementById("home").classList.add("active");
 </script>
 <h5 class="text-center mb-3">Най-нови продукти</h5>
-<div class="img-bg py-4 text-center">
+<div class="py-4 text-center">
     <% products.forEach(product => { %>
         <a href="/products/<%= product.id %>"
             data-bs-custom-class="custom-popover"

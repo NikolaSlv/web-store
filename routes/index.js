@@ -4,8 +4,8 @@ const Product = require('../models/product')
 
 // View Last 10 Products Route
 router.get('/', async (req, res) => {
-    let userId = null
-    if (req.user) { userId = req.user._id }
+    let userEmail = null
+    if (req.user) { userEmail = req.user.email }
 
     let products
     try {
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 
     res.render('index', { 
-        userId: userId,
+        userEmail: userEmail,
         products: products
     })
 })
