@@ -1,5 +1,26 @@
 <div class="container" style="max-width: 800px;">
     <div class="row mb-2 text-center">
+        <label class="form-label" for="inVerified">Потвърден потребител:<span style="color: red"> *</span></label>
+        <div class="d-flex justify-content-center">
+            <select id="verifySelection" class="form-control" style="max-width: 400px;" name="inVerified" id="inVerified" value="<%= user.verified %>">
+                <option value="false">Не</option>
+                <option value="true">Да</option>
+            </select>
+            <div class="ms-2" style="transform: translateY(13%); visibility: hidden;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                    <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script>
+        const selectList = document.getElementById('verifySelection')
+        if (selectList.value) {
+            selectList.getElementsByTagName('option')[1].selected = true
+        }
+    </script>
+    <div class="row mb-2 text-center">
         <label class="form-label" for="inEmail">Имейл:<span style="color: red"> *</span></label>
         <div class="d-flex justify-content-center">
             <input style="max-width: 400px;" class="form-control" type="email" id="inEmail" name="inEmail"
@@ -17,8 +38,7 @@
         <div class="d-flex justify-content-center">
             <input id="passwordID" style="max-width: 400px;" class="form-control" type="password" name="inPassword"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-            title="Трябва да съдържа поне едно число, една главна буква, една малка буква и да е дълга поне 8 символа."
-            required>
+            title="Трябва да съдържа поне едно число, една главна буква, една малка буква и да е дълга поне 8 символа.">
             <a class="ms-2" style="transform: translateY(13%); color: inherit" onclick="showPass()">
                 <div id="eyeNoView">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
@@ -40,8 +60,7 @@
         <div class="d-flex justify-content-center">
             <input id="passwordIDRep" style="max-width: 400px;" class="form-control" type="password" name="inPasswordRepeat"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-            title="Трябва да съдържа поне едно число, една главна буква, една малка буква и да е дълга поне 8 символа."
-            required>
+            title="Трябва да съдържа поне едно число, една главна буква, една малка буква и да е дълга поне 8 символа.">
             <a class="ms-2" style="transform: translateY(13%); color: inherit" onclick="showRepeatPass()">
                 <div id="eyeNoViewRep">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">

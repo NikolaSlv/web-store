@@ -1,12 +1,17 @@
 const express = require('express')
 const router = express.Router()
+const Category = require('../models/category')
 const Product = require('../models/product')
 const algs = require("../public/javascripts/algorithms")
 
 // View Products Route
 router.get('/', async (req, res) => {
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     let query = Product.find()
     let emptyQuery = true
@@ -107,6 +112,8 @@ router.get('/', async (req, res) => {
         }
     }
 
+    let categoryList = await Category.find().sort({name: 1}).exec()
+
     try {
         let count = (await query.clone().exec()).length
         let maxPage = Math.ceil(count / limit)
@@ -115,17 +122,23 @@ router.get('/', async (req, res) => {
             req.query.allProducts = 'yes'
             res.render('products/index', { 
                 userEmail: userEmail,
+                verified: userVerified,
+                categoryList: categoryList,
                 products: null,
-                searchOptions: req.query
+                searchOptions: req.query,
+                updateBtn: false
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
             res.render('products/index', { 
                 userEmail: userEmail,
+                verified: userVerified,
+                categoryList: categoryList,
                 products: products, 
                 searchOptions: req.query,
                 maxPage: maxPage,
-                page: page
+                page: page,
+                updateBtn: false
             })
         }
     } catch {
@@ -136,12 +149,17 @@ router.get('/', async (req, res) => {
 // View Single Product Route
 router.get('/:id', async (req, res) => {
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     try {
         const product = await Product.findById(req.params.id)
         res.render('products/show', {
             userEmail: userEmail,
+            verified: userVerified,
             product: product
         })
     } catch {

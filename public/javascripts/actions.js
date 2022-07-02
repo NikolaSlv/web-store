@@ -3,6 +3,9 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 function setCategory(val) {
     var searchParams = new URLSearchParams(window.location.search)
     var cat = 'category'
@@ -124,8 +127,8 @@ function saveSelection(pos) {
     document.getElementById(id).classList.add("active")
     lastPos = pos
 
-    document.getElementById("selected").value = document.activeElement.getAttribute('data-name')
-    document.getElementById("piecesPerUnit").value = document.activeElement.getAttribute('data-count')
+    document.getElementById("selected").value = document.getElementById(id).getAttribute('data-name')
+    document.getElementById("piecesPerUnit").value = document.getElementById(id).getAttribute('data-count')
 }
 
 function searchFilter() {
@@ -145,6 +148,8 @@ function searchFilter() {
             li[i].style.display = "none"
         }
     }
+    
+    hideExcessiveData()
 }
 
 function append() {
@@ -334,5 +339,48 @@ function updatePassVisibility(pass, repeat = false) {
             eyeNoView.style.display = ''
             eyeView.style.display = 'none'
         }
+    }
+}
+
+async function updateCategories() {
+    await fetch("/admin/cat-update", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.status) {
+            alert("Категориите бяха успешно обновени!")
+        } else {
+            alert("Възникна грешка при обновяването на категориите!")
+        }
+    })
+    location.reload()
+}
+
+async function verifyUser(userId) {
+    confirm('Сигурни ли сте, че искате да потвърдите този потребител?')
+    var status = false
+
+    const url = "/admin/user-verify/" + userId
+    await fetch(url, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.status) {
+            alert("Потребителят бе успешно потвърден!")
+            status = true
+        } else {
+            alert("Възникна грешка при потвърждението на потребителя!")
+        }
+    })
+
+    if (status) {
+        const btnAddress = 'verifyBtn' + userId
+        const iconAddress = 'onVerifyIcon' + userId
+        document.getElementById(btnAddress).style.display = 'none'
+        document.getElementById(iconAddress).style.display = ''
     }
 }

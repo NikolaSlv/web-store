@@ -1,25 +1,46 @@
-<h5 class="mt-5 mb-3">Сортиране</h5>
-<div class="d-md-flex">
-    <div class="form-check">
-        <input onclick="sort('pricePerPiece')" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label me-2 mb-1" for="flexRadioDefault1">
-            Цена на бройка
-        </label>
+<div class="d-flex justify-content-center">
+    <div class="d-md-flex mt-5">
+        <div class="form-check">
+            <input onclick="sort('pricePerPiece')" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label style="font-size: .9rem;" class="form-check-label me-3 mb-1" for="flexRadioDefault1">
+                Цена на бройка
+            </label>
+        </div>
+        <div class="d-flex">
+            <svg id="PPP-option1-icon" style="transform: translateY(15%);"
+                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-sort-down-alt me-1" viewBox="0 0 16 16">
+                <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+            </svg>
+            <svg id="PPP-option2-icon" style="transform: translateY(15%); display: none;"
+                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-sort-down me-1" viewBox="0 0 16 16">
+                <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+            </svg>
+            <select onclick="updateSortIcons()" id="selectPPP" class="form-select me-3" style="max-width: 12rem; font-size: .9rem; transform: translateY(-15%);" aria-label="Default select">
+                <option value="1" selected>В нарастващ ред</option>
+                <option value="-1">В намаляващ ред</option>
+            </select>
+        </div>
+        <div class="form-check">
+            <input onclick="sort('pricePerUnit')" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+            <label style="font-size: .9rem;" class="form-check-label me-3 mb-1" for="flexRadioDefault2">
+                Цена на кашон/опаковка
+            </label>
+        </div>
+        <div class="d-flex">
+            <svg id="PPU-option1-icon" style="transform: translateY(15%);"
+                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-sort-down-alt me-1" viewBox="0 0 16 16">
+                <path d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293V3.5zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1h-1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1h-3zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1h-5zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5z"/>
+            </svg>
+            <svg id="PPU-option2-icon" style="transform: translateY(15%); display: none;"
+                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-sort-down me-1" viewBox="0 0 16 16">
+                <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+            </svg>
+            <select onclick="updateSortIcons()" id="selectPPU" class="form-select" style="max-width: 12rem; font-size: .9rem; transform: translateY(-15%);" aria-label="Default select">
+                <option value="1" selected>В нарастващ ред</option>
+                <option value="-1">В намаляващ ред</option>
+            </select>
+        </div>
     </div>
-    <select id="selectPPP" class="form-select me-3" style="max-width: 12rem; transform: translateY(-15%);" aria-label="Default select">
-        <option value="1" selected>В нарастващ ред</option>
-        <option value="-1">В намаляващ ред</option>
-    </select>
-    <div class="form-check">
-        <input onclick="sort('pricePerUnit')" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-        <label class="form-check-label me-2 mb-1" for="flexRadioDefault2">
-            Цена на кашон/опаковка
-        </label>
-    </div>
-    <select id="selectPPU" class="form-select" style="max-width: 12rem; transform: translateY(-15%);" aria-label="Default select">
-        <option value="1" selected>В нарастващ ред</option>
-        <option value="-1">В намаляващ ред</option>
-    </select>
 </div>
 <hr class="pb-4">
 <script>
@@ -43,4 +64,5 @@
             }
         }
     }
+    updateSortIcons()
 </script>

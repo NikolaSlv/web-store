@@ -11,7 +11,10 @@ initializePassport(passport)
 
 // View LogIn Form
 router.get('/login', algs.verifyLoggedInUser, (req, res) => {
-    res.render('user/login', { userEmail: null })
+    res.render('user/login', { 
+        userEmail: null,
+        verified: false,
+    })
 })
 
 // LogIn Request
@@ -33,6 +36,7 @@ router.get('/register', algs.verifyLoggedInUser, (req, res) => {
 
     res.render('user/register', { 
         userEmail: null,
+        verified: false,
         user: newUser
     })
 })
@@ -50,6 +54,7 @@ router.post('/register', algs.verifyLoggedInUser, async (req, res) => {
             })
             res.render('user/register', { 
                 userEmail: null, 
+                verified: false,
                 errorMessage: 'Паролата не съвпада',
                 user: returnData
             })
@@ -66,6 +71,7 @@ router.post('/register', algs.verifyLoggedInUser, async (req, res) => {
             })
             res.render('user/register', { 
                 userEmail: null, 
+                verified: false,
                 errorMessage: 'Имейл адресът е зает',
                 user: returnData
             })
@@ -92,6 +98,7 @@ router.post('/register', algs.verifyLoggedInUser, async (req, res) => {
         }
 
         let user = new User({
+            verified: false,
             email: req.body.email,
             password: hashedPassword,
             name: name,
@@ -143,6 +150,7 @@ router.get('/profile', algs.verifyUser, async (req, res) => {
     const user = await User.findOne({ email: req.user.email })
     res.render('user/profile', {
         userEmail: user.email,
+        verified: user.verified,
         user: user
     })
 })
@@ -155,6 +163,7 @@ router.put('/profile/update', algs.verifyUser, async (req, res) => {
         if (req.body.password !== req.body.passwordRepeat) {
             res.render('user/profile', { 
                 userEmail: user.email, 
+                verified: user.verified,
                 user: user,
                 errorMessage: 'Паролата не съвпада' 
             })
@@ -166,6 +175,7 @@ router.put('/profile/update', algs.verifyUser, async (req, res) => {
         if (req.body.email !== user.email && await User.findOne({ email: req.body.email })) {
             res.render('user/profile', {
                 userEmail: req.user.email,
+                verified: req.user.verified,
                 user: user,
                 errorMessage: 'Имейл адресът е зает'
             })
@@ -183,6 +193,7 @@ router.put('/profile/update', algs.verifyUser, async (req, res) => {
 
     res.render('user/profile', {
         userEmail: user.email,
+        verified: user.verified,
         user: user
     })
 })

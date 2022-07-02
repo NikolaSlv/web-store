@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
+const Category = require('../models/category')
 const Product = require('../models/product')
 const User = require('../models/user')
 const imageMimeTypes = ['image/webp', 'image/jpeg', 'image/png']
@@ -31,12 +33,17 @@ async function authorize(req, res) {
 function renderFormPage(req, res, data, form, hasError = false) {
     try {
         let userEmail = null
-        if (req.user) { userEmail = req.user.email }
+        let userVerified = null
+        if (req.user) { 
+            userEmail = req.user.email
+            userVerified = req.user.verified
+        }
 
         let params
         if (form === 'newUser' || form === 'editUser') {
             params = { 
                 userEmail: userEmail,
+                verified: userVerified,
                 user: data
             }
             if (hasError) {
@@ -49,6 +56,7 @@ function renderFormPage(req, res, data, form, hasError = false) {
         } else {
             params = { 
                 userEmail: userEmail,
+                verified: userVerified,
                 product: data
             }
             if (hasError) {
@@ -65,6 +73,46 @@ function renderFormPage(req, res, data, form, hasError = false) {
     }
 }
 
+// Update Categories Route
+router.post('/cat-update', async (req, res) => {
+    try {
+        mongoose.connection.db.listCollections({name: 'categories'})
+        .next(async function(err, collinfo) {
+            if (collinfo) {
+                await Category.collection.drop()
+            }
+        })
+
+        const dataArr = await Product.find({}, {category: 1, _id: 0})
+
+        let category
+        for (i = 0; i < dataArr.length; i++) {
+            category = new Category({
+                name: dataArr[i].category
+            })
+            if (!(await Category.findOne({ name: category.name }))) {
+                await category.save()
+            }
+        }
+        
+        return res.json({'status': '1'})
+    } catch {
+        return res.json({'status': '0'})
+    }
+})
+
+// Verify User Route
+router.post('/user-verify/:id', async (req, res) => {
+    try {
+        var user = await User.findOne({ _id: req.params.id })
+        user.verified = true
+        await user.save()
+        return res.json({'status': '1'})
+    } catch {
+        return res.json({'status': '0'})
+    }
+})
+
 // All Products Route
 router.get('/', async (req, res) => {
     try {
@@ -76,7 +124,11 @@ router.get('/', async (req, res) => {
     }
 
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     let users
     try {
@@ -158,6 +210,8 @@ router.get('/', async (req, res) => {
             title: 1
         }
     }
+    
+    let categoryList = await Category.find().sort({name: 1}).exec()
 
     try {
         let count = (await query.clone().exec()).length
@@ -167,19 +221,25 @@ router.get('/', async (req, res) => {
             req.query.allProducts = 'yes'
             res.render('admin/index', { 
                 userEmail: userEmail,
+                verified: userVerified,
+                categoryList: categoryList,
                 users: users,
                 products: null, 
-                searchOptions: req.query
+                searchOptions: req.query,
+                updateBtn: true
             })
         } else {
             const products = await query.sort(sortConfig).limit(limit).skip(startIndex).exec()
             res.render('admin/index', { 
                 userEmail: userEmail,
+                verified: userVerified,
+                categoryList: categoryList,
                 users: users,
                 products: products, 
                 searchOptions: req.query,
                 maxPage: maxPage,
-                page: page
+                page: page,
+                updateBtn: true
             })
         }
     } catch {
@@ -264,11 +324,16 @@ router.post('/create-user', async (req, res) => {
     }
     
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     const hashedPassword = await bcrypt.hash(req.body.inPassword, 10)
 
     const user = new User({
+        verified: req.body.inVerified,
         email: req.body.inEmail,
         password: hashedPassword,
         name: req.body.inName,
@@ -280,6 +345,7 @@ router.post('/create-user', async (req, res) => {
     if (req.body.inPassword !== req.body.inPasswordRepeat) {
         res.render('admin/newUser', { 
             userEmail: userEmail, 
+            verified: userVerified,
             user: user,
             errorMessage: 'Паролата не съвпада' 
         })
@@ -290,6 +356,7 @@ router.post('/create-user', async (req, res) => {
         user.email = ''
         res.render('admin/newUser', {
             userEmail: userEmail,
+            verified: userVerified,
             user: user,
             errorMessage: 'Имейл адресът е зает'
         })
@@ -315,12 +382,17 @@ router.get('/user/:id', async (req, res) => {
     }
 
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     try {
         const user = await User.findById(req.params.id)
         res.render('admin/showUser', { 
             userEmail: userEmail,
+            verified: userVerified,
             user: user 
         })
     } catch {
@@ -357,7 +429,11 @@ router.put('/user/:id', async (req, res) => {
     }
 
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     let user
     try {
@@ -366,6 +442,7 @@ router.put('/user/:id', async (req, res) => {
         if (req.body.inPassword !== req.body.inPasswordRepeat) {
             res.render('admin/editUser', { 
                 userEmail: userEmail, 
+                verified: userVerified,
                 user: user,
                 errorMessage: 'Паролата не съвпада' 
             })
@@ -375,6 +452,7 @@ router.put('/user/:id', async (req, res) => {
         if (req.body.inEmail !== user.email && await User.findOne({ email: req.body.inEmail })) {
             res.render('admin/editUser', {
                 userEmail: userEmail,
+                verified: userVerified,
                 user: user,
                 errorMessage: 'Имейл адресът е зает'
             })
@@ -387,6 +465,7 @@ router.put('/user/:id', async (req, res) => {
             password = await bcrypt.hash(req.body.inPassword, 10)
         }
 
+        user.verified = req.body.inVerified
         user.email = req.body.inEmail
         if (req.body.inPassword !== '' && req.body.inPassword != null) {
             user.password = password
@@ -418,7 +497,11 @@ router.delete('/user/:id', async (req, res) => {
     }
 
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     let user
     try {
@@ -431,6 +514,7 @@ router.delete('/user/:id', async (req, res) => {
         } else {
             res.render('admin/showUser', {
                 userEmail: userEmail,
+                verified: userVerified,
                 user: user,
                 errorMessage: "Грешка при изтриването на клиент!"
             })
@@ -449,12 +533,17 @@ router.get('/:id', async (req, res) => {
     }
 
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     try {
         const product = await Product.findById(req.params.id)
         res.render('admin/showProduct', {
             userEmail: userEmail,
+            verified: userVerified,
             product: product
         })
     } catch {
@@ -527,7 +616,11 @@ router.delete('/:id', async (req, res) => {
     }
 
     let userEmail = null
-    if (req.user) { userEmail = req.user.email }
+    let userVerified = null
+    if (req.user) { 
+        userEmail = req.user.email
+        userVerified = req.user.verified
+    }
 
     let product
     try {
@@ -540,6 +633,7 @@ router.delete('/:id', async (req, res) => {
         } else {
             res.render('admin/showProduct', {
                 userEmail: userEmail,
+                verified: userVerified,
                 product: product,
                 errorMessage: "Грешка при изтриването на продукт!"
             })

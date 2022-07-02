@@ -31,17 +31,19 @@
                     </span>
                 </li>
             </a>
-            <a href="#" onclick="setCategory('Солети')">
-                <li class="list-group-item add-hover">
-                    Солети
-                </li>
-            </a>
-            <a href="#" onclick="setCategory('Кроасани')">
-                <li class="list-group-item add-hover">
-                    Кроасани
-                </li>
-            </a>
+            <% categoryList.forEach(category => { %>
+                <a href="#" onclick="setCategory(`<%= category.name %>`)">
+                    <li class="list-group-item add-hover">
+                        <%= category.name %>
+                    </li>
+                </a>
+            <% }) %>
         </ul>
+        <% if (updateBtn) { %>
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary" type="button" onclick="updateCategories()">Обнови</button>
+            </div>
+        <% } %>
     </div>
 </div>
 <div style="display: flex; justify-content: center; flex-wrap: wrap;">
@@ -77,7 +79,13 @@
             </form>
         </div>
     </div>
-    <a class="btn btn-secondary ms-3 mb-3" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas">
-        Избери категория
-    </a>
 </div>
+<button class="btn" type="button" style="visibility: hidden;">
+    null
+</button>
+<a class="btn btn-secondary choose-category-trigger" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
+    </svg>
+    <span class="ms-1">Категории</span> 
+</a>

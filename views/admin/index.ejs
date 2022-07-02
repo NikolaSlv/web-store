@@ -9,6 +9,16 @@
 <% if (users.length > 0) { %>
     <% users.forEach(user => { %>
         <div class="d-md-flex py-4 justify-content-center text-center mb-1">
+            <% if (user.verified) { %>
+                <svg style="transform: translateY(45%);"
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill me-2" viewBox="0 0 16 16">
+                    <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+                </svg>
+            <% } %>
+            <svg id="onVerifyIcon<%= user.id %>" style="transform: translateY(45%); display: none;"
+                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill me-2" viewBox="0 0 16 16">
+                <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+            </svg>
             <a style="color: inherit; transform: translateY(8%);" class="me-3"
                 href="/admin/user/<%= user.id %>"
                 data-bs-custom-class="custom-popover"
@@ -19,9 +29,12 @@
             </a>
             <a class="btn btn-primary btn-sm mb-1 me-1" href="/admin/user/<%= user.id %>/edit">Редактирай</a>
             <form method="POST" action="/admin/user/<%= user.id %>?_method=DELETE">
-                <button class="btn btn-danger btn-sm" type="submit" 
+                <button class="btn btn-danger btn-sm me-1" type="submit" 
                 onclick="return confirm('Потвърждавате ли изтриването?')">Изтрий</button>
             </form>
+            <% if (!user.verified) { %>
+                <a id="verifyBtn<%= user.id %>" class="btn btn-success btn-sm mb-1" onclick="verifyUser(`<%= user.id %>`)">Потвърди</a>
+            <% } %>
         </div>
     <% }) %>
     <div style="visibility: hidden;">null</div>

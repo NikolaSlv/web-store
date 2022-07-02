@@ -11,6 +11,16 @@
         <ul class="list-group">
             <li style="max-width: 30rem;" class="list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-2 me-auto">
+                <div class="fw-bold">Потвърден потребител</div>
+                <% if (user.verified) { %>
+                    Да
+                <% } else { %>
+                    Не
+                <% } %>
+            </div>
+            </li>
+            <li style="max-width: 30rem;" class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
                 <div class="fw-bold">Имейл</div>
                 <%= user.email %>
             </div>

@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="../../../javascripts/theme.js"></script>
     <script> applyTheme() </script>
+    <script src="../../../javascripts/nonDActions.js"></script>
     <script defer src="../../../javascripts/actions.js"></script>
     <title>Пакетирани стоки - Елит-Груп</title>
     <style>
@@ -44,16 +45,24 @@
       .add-hover:hover:not(.active), .add-hover:hover:not(.active) > a {
         background-color: #d9dfe4 !important;
         color: black !important;
+        cursor: pointer;
       }
       .prod-img {
         height: 200px;
         width: 200px;
       }
+      .choose-category-trigger {
+        position: absolute; 
+        left: -0.2rem;
+        border-radius: .7rem;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
       .dropdown-menu-search {
         color: black;
         border-width: 2px;
         width: 35vw;
-        transform: translate(-10vw, 50px) !important;
+        transform: translate(-13.8vw, 50px) !important;
       }
       .dropdown-menu-search > .form-group > .form-control {
         max-width: 90%;
@@ -86,7 +95,7 @@
       }
       .box-item {
         padding: 1rem;
-        background: rgba(255, 161, 161, 0.548);
+        background: rgba(255, 241, 241, 0.548);
         box-shadow:
           0 5px 10px rgba(0, 0, 0, 0.1),
           0 20px 20px rgba(0, 0, 0, 0.05);
@@ -97,10 +106,10 @@
       .custom-popover {
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         --bs-popover-max-width: 250px;
-        --bs-popover-border-color: #6c757d;
-        --bs-popover-border-radius: none;
-        --bs-popover-header-bg: rgb(242, 242, 242);
+        --bs-popover-border-radius: 1rem;
+        --bs-popover-header-bg: rgb(233, 201, 186);
         --bs-popover-header-color: var(--bs-black);
+        --bs-popover-body-color: var(--bs-black);
         --bs-popover-body-padding-x: 1rem;
         --bs-popover-body-padding-y: .5rem;
       }
@@ -111,24 +120,30 @@
       }
       @media screen and (max-width: 900px) {
         .dropdown-menu-search {
-          width: 55vw;
+          width: 50vw;
+          transform: translate(-20vw, 50px) !important;
         }
       }
       @media screen and (max-width: 576px) {
         .dropdown-menu-search {
-          width: 75vw;
+          width: 60vw;
         }
       }
       @media screen and (max-width: 420px) {
         .dropdown-menu-search {
-          width: 80vw;
-          transform: translate(-5vw, 50px) !important;
+          width: 70vw;
+          transform: translate(-23vw, 50px) !important;
         }
       }
       @media screen and (max-width: 350px) {
         .dropdown-menu-search {
+          width: 80vw;
+        }
+      }
+      @media screen and (max-width: 230px) {
+        .dropdown-menu-search {
           width: 90vw;
-          transform: translate(0, 50px) !important;
+          transform: translate(-21vw, 50px) !important;
         }
       }
     </style>

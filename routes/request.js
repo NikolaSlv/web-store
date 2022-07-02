@@ -25,7 +25,11 @@ const transporter = nodemailer.createTransport({
 router.get('/', async (req, res) => {
     try {
         let userEmail = null
-        if (req.user) { userEmail = req.user.email }
+        let userVerified = null
+        if (req.user) { 
+            userEmail = req.user.email
+            userVerified = req.user.verified
+        }
 
         let user = null
 
@@ -36,6 +40,7 @@ router.get('/', async (req, res) => {
         const products = await Product.find().sort({ title: 1 }).exec()
         const params = {
             userEmail: userEmail,
+            verified: userVerified,
             user: user,
             products: products
         }
@@ -109,10 +114,15 @@ router.get('/send', async (req, res) => {
 function renderResultPage(req, res, user, products, hasError = false) {
     try {
         let userEmail = null
-        if (req.user) { userEmail = req.user.email }
+        let userVerified = null
+        if (req.user) { 
+            userEmail = req.user.email
+            userVerified = req.user.verified
+        }
 
         const params = {
             userEmail: userEmail,
+            verified: userVerified,
             user: user,
             products: products
         }
