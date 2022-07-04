@@ -81,9 +81,18 @@ const emptyUser = {
 
 // Send Email
 router.get('/send', async (req, res) => {
+    let getEmail
+    if (!req.user || !req.user.verified) {
+        res.redirect('/login')
+        return
+    } else {
+        getEmail = req.user.email
+    }
+
     const products = await Product.find().sort({ title: 1 }).exec()
 
     let user = {
+        email: getEmail,
         name: req.query.name,
         businessName: req.query.businessName,
         address: req.query.address,
@@ -97,8 +106,8 @@ router.get('/send', async (req, res) => {
         let mailOptions = {
             from: process.env.EMAIL_NAME,
             to: process.env.EMAIL_NAME,
-            subject: `Заявка от ${user.name}, ${user.businessName}`,
-            text: `Адрес: ${user.address}\nТелефон: ${user.phone}\n\nПоръчка:\n\n${user.info}`
+            subject: `Заявка от ${user.email}, ${user.businessName}`,
+            text: `Име: ${user.name}\nАдрес: ${user.address}\nТелефон: ${user.phone}\nПоръчка:\n\n${user.info}`
         }
         transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
