@@ -87,7 +87,7 @@ router.post('/cat-update', async (req, res) => {
         mongoose.connection.db.listCollections({name: 'categories'})
         .next(async function(err, collinfo) {
             if (collinfo) {
-                await Category.collection.drop()
+                await Category.deleteMany({})
             }
         })
 
