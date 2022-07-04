@@ -76,6 +76,14 @@ function renderFormPage(req, res, data, form, hasError = false) {
 // Update Categories Route
 router.post('/cat-update', async (req, res) => {
     try {
+        if (!(await authorize(req, res))) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
+    try {
         mongoose.connection.db.listCollections({name: 'categories'})
         .next(async function(err, collinfo) {
             if (collinfo) {
@@ -103,6 +111,14 @@ router.post('/cat-update', async (req, res) => {
 
 // Verify User Route
 router.post('/user-verify/:id', async (req, res) => {
+    try {
+        if (!(await authorize(req, res))) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
     try {
         var user = await User.findOne({ _id: req.params.id })
         user.verified = true
