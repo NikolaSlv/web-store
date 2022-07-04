@@ -1,0 +1,22 @@
+<div class="container">
+    <h5>Кодове на продуктите</h5>
+    <input class="form-control mb-3" type="text" id="userQuery" 
+           onkeyup="searchFilter()" placeholder="Търсене по име..">
+    <ul id="prodUL" class="list-group">
+        <% let pos = 1 %>
+        <% products.forEach(product => { %>
+            <li class="list-group-item add-hover">
+                <a href="#" onclick="return false;" 
+                   style="color: black;" 
+                   tabindex="<%= pos %>">
+                    <%= pos %>. 
+                    <%= product.title %> 
+                    <%= product.weightPerPiece %> гр. 
+                    | <span style="font-weight: bold;"><%= product.description %></span>
+                </a>
+            </li>
+            <% pos++ %>
+        <% }) %>
+        <script> hideExcessiveData() </script>
+    </ul>
+</div>
