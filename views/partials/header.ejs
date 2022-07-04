@@ -1,41 +1,39 @@
 <div class="d-flex container-fluid" style="justify-content: right; padding-top: 2px; padding-bottom: 2px;">
-    <div>
-        <% if (userEmail == null) { %>
-            <a style="color: inherit;" href="/login" class="me-2" style="color: white">
-                <svg style="transform: translateY(-11%);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
-                    <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                </svg>
-                Вход
-            </a>
-        <a style="color: inherit;" href="/register" style="color: white">Регистрация</a>
-        <% } else { %>
-            <form action="/logout?_method=DELETE" method="POST">
-                <% if (verified) { %>
-                    <button type="button" style="background: none; border: none; color: inherit;"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                        data-bs-custom-class="custom-tooltip"
-                        title="Вие сте потвърден потребител">
-                        <svg style="transform: translateY(-11%);"
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
-                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
-                        </svg>
-                    </button>
-                <% } %>
-                <a style="color: inherit;" href="/profile" style="color: white;">
+    <% if (userEmail == null) { %>
+        <a style="color: inherit;" href="/login" class="me-2" style="color: white">
+            <svg style="transform: translateY(-11%);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+            </svg>
+            Вход
+        </a>
+    <a style="color: inherit;" href="/register" style="color: white">Регистрация</a>
+    <% } else { %>
+        <form action="/logout?_method=DELETE" method="POST">
+            <% if (verified) { %>
+                <button type="button" style="all: unset; margin-right: .1rem;"
+                    data-bs-toggle="tooltip" data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    title="Вие сте потвърден потребител">
                     <svg style="transform: translateY(-11%);"
-                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-check-fill" viewBox="0 0 16 16">
+                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z"/>
                     </svg>
-                    <span class="me-2"><%= userEmail %></span>
-                </a>
-                <button type="submit" style="all: unset; color: inherit; cursor: pointer;">
-                    Изход
                 </button>
-            </form>
-        <% } %>
-    </div>
+            <% } %>
+            <a style="color: inherit;" href="/profile" style="color: white;">
+                <svg style="transform: translateY(-11%);"
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <span class="me-2"><%= userEmail %></span>
+            </a>
+            <button type="submit" style="all: unset; color: inherit; cursor: pointer;">
+                Изход
+            </button>
+        </form>
+    <% } %>
 </div>
 <nav id="nav-bar" class="navbar navbar-expand-md navbar-dark sticky-top mb-4" style="background-color: #282a35;">
     <div class="container-fluid">
@@ -66,9 +64,10 @@
                         Продукти
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item add-hover" href="/">Захарни изделия</a></li>
-                        <li><a class="dropdown-item add-hover" href="/">Безалкохолни</a></li>
-                        <li><a class="dropdown-item add-hover" href="/">Бири</a></li>
+                        <li><a class="dropdown-item add-hover" href="/products?allProducts=yes&description=Солени+изделия">Солени изделия</a></li>
+                        <li><a class="dropdown-item add-hover" href="/products?allProducts=yes&description=Сладки+изделия">Сладки изделия</a></li>
+                        <li><a class="dropdown-item add-hover" href="/products?allProducts=yes&description=Безалкохолни">Безалкохолни</a></li>
+                        <li><a class="dropdown-item add-hover" href="/products?allProducts=yes&description=Бири">Бири</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item add-hover" href="/products">Търсачка</a></li>
                     </ul>
