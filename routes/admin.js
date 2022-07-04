@@ -73,8 +73,8 @@ function renderFormPage(req, res, data, form, hasError = false) {
     }
 }
 
-// Update Categories Route
-router.post('/cat-update', async (req, res) => {
+// Delete Categories Route
+router.delete('/cat-delete', async (req, res) => {
     try {
         if (!(await authorize(req, res))) {
             return
@@ -90,7 +90,24 @@ router.post('/cat-update', async (req, res) => {
                 await Category.deleteMany({})
             }
         })
+        
+        return res.json({'status': '1'})
+    } catch {
+        return res.json({'status': '0'})
+    }
+})
 
+// Renew Categories Route
+router.post('/cat-renew', async (req, res) => {
+    try {
+        if (!(await authorize(req, res))) {
+            return
+        }
+    } catch {
+        res.redirect('/')
+    }
+
+    try {
         const dataArr = await Product.find({}, {category: 1, _id: 0})
 
         let category

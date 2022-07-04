@@ -343,7 +343,25 @@ function updatePassVisibility(pass, repeat = false) {
 }
 
 async function updateCategories() {
-    await fetch("/admin/cat-update", {
+    var error = false
+
+    await fetch("/admin/cat-delete", {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'}
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if (!data.status) {
+            alert("Възникна грешка при обновяването на категориите!")
+            error = true
+        }
+    })
+    if (error) {
+        location.reload()
+        return
+    }
+
+    await fetch("/admin/cat-renew", {
         method: "POST",
         headers: {'Content-Type': 'application/json'}
     })
@@ -355,6 +373,7 @@ async function updateCategories() {
             alert("Възникна грешка при обновяването на категориите!")
         }
     })
+
     location.reload()
 }
 
