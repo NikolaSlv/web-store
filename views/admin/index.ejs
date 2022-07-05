@@ -52,7 +52,8 @@
 </form>
 <% if (products != null && maxPage != 0) { %>
     <%- include('../partials/sortForm.ejs') %>
-    <div class="d-md-flex py-4 justify-content-center text-center">
+    <!-- <div class="d-md-flex py-4 justify-content-center text-center"> -->
+    <div class="py-4 text-center">
         <% products.forEach(product => { %>
             <a href="/admin/<%= product.id %>"
                 data-bs-custom-class="custom-popover"
@@ -61,10 +62,12 @@
                 data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
                 <img class="img-fluid prod-img mb-3" src="<%= product.productImagePath %>" alt="Изображение">
             </a>
+            <!-- Does not work with img-fluid
             <div class="mb-3" style="display: block;">
-                <a class="btn btn-primary mb-1" href="/admin/<%= product.id %>/edit">Редактирай</a>
-                <%- include('_deleteForm', { url: `/admin/${product.id}` }) %>
+                <a class="btn btn-primary mb-1" href="/admin/<%= // product.id %>/edit">Редактирай</a>
+                <%- // include('_deleteForm', { url: `/admin/${product.id}` }) %>
             </div>
+            -->
         <% }) %>
     </div>
     <%- include('../partials/pagination.ejs') %>
