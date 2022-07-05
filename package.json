@@ -27,6 +27,7 @@
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
     "express-flash": "0.0.2",
+    "express-mongo-sanitize": "^2.2.0",
     "express-session": "^1.17.3",
     "method-override": "^3.0.0",
     "mongoose": "^6.3.1",

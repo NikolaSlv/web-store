@@ -19,6 +19,7 @@ const expressLayouts = require('express-ejs-layouts')
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
 const filter = require('content-filter')
+const mongoSanitize = require('express-mongo-sanitize')
 const flash = require('express-flash')
 const session = require('express-session')
 const passport = require('passport')
@@ -50,6 +51,8 @@ const options = {
     bodyMessage: 'A forbidden expression has been found in the form data'
 }
 app.use(filter(options))
+
+app.use(mongoSanitize())
 
 app.use(flash())
 app.use(session({
