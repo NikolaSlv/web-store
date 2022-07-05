@@ -18,8 +18,6 @@
                 data-bs-content="Цена на бройка: <%= product.pricePerPiece %> лв.">
                 <img class="img-fluid prod-img mb-3" src="<%= product.productImagePath %>" alt="Изображение">
             </a>
-            <div><%= product.title %></div> <!-- Temporary -->
-            <div><%= product.description %></div> <!-- Temporary - description to show the product code -->
         <% }) %>
     </div>
     <%- include('../partials/pagination.ejs') %>
