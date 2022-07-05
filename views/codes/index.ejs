@@ -7,11 +7,12 @@
         <% products.forEach(product => { %>
             <li class="list-group-item add-hover">
                 <a href="#" onclick="return false;" 
-                   style="color: black;" 
+                   style="display: flex; justify-content: space-between; color: black;" 
                    tabindex="<%= pos %>">
-                    <%= pos %>. 
-                    <%= product.title %> 
-                    | <span style="font-weight: bold;"><%= product.description %></span>
+                    <span>
+                        <%= pos %>. <%= product.title %> | <strong><%= product.description %></strong> | 
+                    </span>
+                    <span><%= product.category %></span>
                 </a>
             </li>
             <% pos++ %>
