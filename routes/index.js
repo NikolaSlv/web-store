@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Product = require('../models/product')
 
-// View Last 10 Products Route
+// View Index Page Route
 router.get('/', async (req, res) => {
     let userEmail = null
     let userVerified = null
