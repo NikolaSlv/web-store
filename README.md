@@ -1,6 +1,6 @@
 # web-store
 
-This is a prototype of a catalog website for a company that sells packaged foods. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js for back-end. For front-end, it uses CSS, Bootstrap and JavaScript. The website implements REST API.
+This is a prototype of a catalog website for a company that sells packaged foods. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
 
 # How does it work?
 
@@ -19,13 +19,13 @@ What is REST?
 
 [GET]
 http://example.com/users<br>
-gets a list of the resource<br>
-acts on the entire resource<br>
+gets a list of the resources<br>
+acts on all resources<br>
 
 [POST]
 http://example.com/users<br>
 creates a new resource<br>
-should always act on the entire resource<br>
+should always act on all resources<br>
 
 [GET]
 http://example.com/users/1<br>
@@ -47,9 +47,9 @@ acts on a single resource<br>
 MVC (Model View Controller)
 The goal of this pattern is to split a large application into specific sections that have their own purpose. 
 
-- Controllers - handles the request flow and acts as a middleman between the other two sections. It never handles data logic. It is important to handle all possible errors. Important! Routes are controllers.
-- Models - handles data logic - interacts with the database.
-- Views - handles data presentation. Renders dynamically.
+- Controllers - handle the request flow and act as a middleman between the other two sections. They never handle data logic. It is important to handle all possible errors. Routes are controllers.
+- Models - handle data logic - interact with the database.
+- Views - handle data presentation - render dynamically.
 
 How it works:<br>
 1. A request is sent to a controller that handles it.<br>
@@ -63,7 +63,7 @@ How it works:<br>
 
 The main purpose of this website is to serve as a catalog where clients can browse for products. Also, it implements a user management system with secure encryption of the passwords.
 
-The implementation is based on a full-stack technology: 
+The implementation is based on full-stack technology: 
 - Node.js - JavaScript runtime environment
 - Express.js - Web application framework
 - MondoDB - NoSQL Database
