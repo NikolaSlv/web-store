@@ -7,10 +7,10 @@ This is a prototype of a catalog website for a company that sells packaged foods
 Front-end: the presentation of the website
 Back-end: http://example.com/path?query=value
 
-Protocol - tell the server if the request is encrypted: http - non-encrypted, https - encrypted
-Host - tells the internet which server to send the response to
-Path - tells the server what the client wants and defines which section of the code should be run
-Query String - used to alter the response with keys and their values
+- Protocol - tell the server if the request is encrypted: http - non-encrypted, https - encrypted
+- Host - tells the internet which server to send the response to
+- Path - tells the server what the client wants and defines which section of the code should be run
+- Query String - used to alter the response with keys and their values
 
 Essentially, the server is broken down into different sections that correspond to a specific path. The server is only accessible to the outside world through the sections it defines.
 
