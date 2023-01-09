@@ -1,6 +1,6 @@
 # web-store
 
-This is a prototype of a catalog website for a company that sells packaged foods. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
+This is a prototype of a website that is designed to serve as a catalog for the customers of a company that sells packaged foods. Additionally, this website could be used for selling any kind of products. This is an initial version of the website but has a lot of the functionality done. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js and MongoDB Database for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
 
 # How does it work?
 
@@ -61,7 +61,7 @@ How it works:<br>
 
 # Development
 
-The main purpose of this website is to serve as a catalog where clients can browse for products. Also, it implements a user management system with secure encryption of the passwords.
+The main purpose of this website is to serve as a catalog where clients can browse for products. Also, it implements a user management system with a secure encryption of the passwords.
 
 The implementation is based on full-stack technology: 
 - Node.js - JavaScript runtime environment
@@ -75,7 +75,4 @@ Done through loading from a CDN + the following plugins:
 - Image preview (Using a CDN)
 - Image resize (Using a CDN)
 
-Visual Studio Code is used to write the code.
-VS Code extensions used:
-- EJS language support
-- Live Server
+Visual Studio Code was used to write the code.
