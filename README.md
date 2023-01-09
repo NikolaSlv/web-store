@@ -44,7 +44,7 @@ acts on a single resource<br>
 
 # Architecture
 
-MVC (Model View Controller)
+MVC (Model View Controller)<br>
 The goal of this pattern is to split a large application into specific sections that have their own purpose. 
 
 - Controllers - handle the request flow and act as a middleman between the other two sections. They never handle data logic. It is important to handle all possible errors. Routes are controllers.
