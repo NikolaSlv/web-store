@@ -64,7 +64,18 @@ The controller sends the presentation back to the user (response)
 The main purpose of this website is to serve as a catalog where clients can browse for products. Also, it implements a user management system with secure encryption of the passwords.
 
 The implementation is based on a full-stack technology: 
-Node.js - JavaScript runtime environment
-Express.js - Web application framework
-MondoDB - NoSQL Database
-Bootstrap - Front-end development framework
+- Node.js - JavaScript runtime environment
+- Express.js - Web application framework
+- MondoDB - NoSQL Database
+- Bootstrap - Front-end development framework
+
+JavaScript library used for file upload - FilePond.
+Done through loading from a CDN + the following plugins:
+- File encode (Using a CDN)
+- Image preview (Using a CDN)
+- Image resize (Using a CDN)
+
+Visual Studio Code is used to write the code.
+VS Code extensions used:
+- EJS language support
+- Live Server
