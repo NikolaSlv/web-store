@@ -1,6 +1,6 @@
 # web-store
 
-This is a prototype of a website that is designed to serve as a catalog for the customers of a company that sells packaged foods. Additionally, this website could be used for selling any kind of products. This is an initial version of the website but has a lot of the functionality done. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js and MongoDB Database for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
+Prototype of a website that is designed to serve as a catalog. This is an initial version of the website but has a lot of the functionality done. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js and MongoDB Database for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
 
 # How does it work?
 
