@@ -1,6 +1,6 @@
 # web-store
 
-Prototype of a website that is designed to serve as a catalog. This is an initial version of the website but has a lot of the functionality done. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js and MongoDB Database for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
+E-commerce website prototype. Besides local testing, it was deployed using Heroku CLI. Currently, it is offline. The website uses the Express.js framework based on Node.js and MongoDB Database for the back-end. For the front-end, it uses CSS, Bootstrap, and JavaScript. The website implements REST API.
 
 # How does it work?
 
@@ -74,5 +74,3 @@ Done through loading from a CDN + the following plugins:
 - File encode (Using a CDN)
 - Image preview (Using a CDN)
 - Image resize (Using a CDN)
-
-Visual Studio Code was used to write the code.
